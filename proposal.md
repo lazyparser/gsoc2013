@@ -1,4 +1,4 @@
-# Implement Profile Guided Optimization in IonMonkey
+# Implement Branch Prediction in IonMonkey
 
 This is a draft version. Your comments are welcome!
 

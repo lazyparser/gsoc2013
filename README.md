@@ -1,4 +1,4 @@
-[GSoC] Implement Profile Guided Optimization in IonMonkey
+[GSoC] Implement Branch Prediction in IonMonkey
 ========
 
 See proposal.md to get more details.
