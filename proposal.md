@@ -69,42 +69,42 @@ the baseline compiler; the second part provides the implement details of
 the branch pruning pass; the last part describes the interface of branch
 prediction with a few code examples.
 
-#### Branch Profiling Module
-Branch Profiling Module (BPM) collects the targets of conditional jumps by
+#### Branch Profiler
+Branch Profiler collects the targets of conditional jumps by
 instrumenting SpiderMonkey engine.
 There are three potential instrumentation points in SpiderMonkey: the bytecode
 interpreter, IonMonkey and the baseline compiler.
 Instrumenting interpreter is the easiest way to get things work but the the data
 it collects is fragmented and less important, since "hot" JavaScript methods
 are not executed by interpreter.
-IonMonkey is another place that can insert profiling code but the overhead
-caused by profiling makes it unpractical.
-BPM leverages the Baseline Compiler to generate instrumented machine codes.
-BPM replaces the output of baseline compiler when it generates code for
+More importantly, Instrumenting interpreter will slow down scripts which are running
+only once.
+IonMonkey is another place that can insert profiling code and in fact it do has
+the PCCount interface for profiling, but this mechanism is activated in debug
+build only, since the overhead caused by profiling makes it unpractical.
+
+Branch Profiler leverages the Baseline Compiler to generate instrumented machine codes.
+It replaces the output of baseline compiler when it generates code for
 JSOP_IFEQ, JSOP_IFNE, and JSOP_TABLESWITCH bytecodes.
 
+Basic block counter and circular address buffer are two possible ways to store branch
+profiling data.
+The basic block counter solution keeps two counters for each branch,
+as well as the number of the targets the branch might jump.
+When a block jumps to another the correlate counter will be increased by 1.
+Then these frequencies will be transformed into probabilities and consumed by
+some transform passes.
+On the other hand, circular address buffer maintains a sequence of branch targets.
+Every time Branch Profiler is triggered it pushes the target address of the branch into buffer.
+The main benefit of this design is that not only frequencies of each branch can be
+calculated but also the relationships between jumps are able to be inferred,
+which may generate new prossibilities for more sophisticated optimizations.
 
-BPM uses a circular buffer to store data and allocates one buffer for each
-IonScript object.
-Every time BPM is triggered it pushes both the address of the conditional jump
-instruction and the target address it jumps to.
-Main benefits of this design are that not only frequencies of each branch can be
-calculated but also the relationships between jumps are able to be inferred
-by advanced algorithms.
-
-BPM can be switched on/off through command line options or browser's
-configuration panel.
-Also it can be turned on/off via JSAPIs.
-The design of the interface would be like this:
-
-> JS_SetOptions(cx, JSOPTION_BRANCHPROFILING);
-
-> JS_ToggleOptions(cx, JSOPTION_BRANCHPROFILING);
-
-Although BPM can only be switched on/off at JSContext granularity outside
-SpiderMonkey, it stores a profiling status flag in IonScript so that
-SpiderMonkey has the ability to profile a JSScript (IonScript) individually.
-
+In this project we choose the circular buffer as our preliminary implementation and
+allocates one circular buffer for each IonScript. 
+We will switch to basic block counter later if the overhead caused by the circular buffer
+is high, or if we fail to find any benchmark which can take advantage of
+a more-clever way of inferring branches ordering.
 
 #### MIR Branch Pruning Pass
 The Branch Pruning Pass (BPP) is invoked right after the MIR is generated
@@ -114,18 +114,34 @@ BPP speculatively removes unused or infrequently used basic blocks.
 After the removal of "cold branches", BPP is able to reduce the type sets
 and simplify the work of alias analysis.
 
-
 The main drawback of pruning branches is that when the pruned branch is taken
 a bailout will occur.
 The more basic blocks are removed the more bailouts may occur.
 One goal of this project is to find out the balance point between the
 aggressiveness of pruning and the costs of bailout.
 
+#### Interface
+Branch Profiler can be switched on/off through either command line or the
+configuration panel existing in the browser.
+It stores the config information as a JSOPTION by decalaring a new macro,
+thus it can be turned on/off via JS_Options APIs.
+The design of the interface would be like this:
+
+> #define JSOPTION_BRANCHPROFILING         JS_BIT(23)      /* Branch profiling in the baseline compiler */
+
+> JS_SetOptions(cx, JSOPTION_BRANCHPROFILING);
+
+> JS_ToggleOptions(cx, JSOPTION_BRANCHPROFILING);
+
+Although Branch Profiler can only be switched on/off at JSContext granularity outside
+SpiderMonkey, it stores a profiling status flag in IonScript so that
+SpiderMonkey has the ability to profile a JSScript (IonScript) individually.
+
 ### Schedule of Deliverables
 #### Deliverables
 The final deliverables would consist of: 
 - A patch that implements Circular Buffer utility and related test cases.
-- A patch that implements Branch Profiling Module and related test cases.
+- A patch that implements Branch Profiler and related test cases.
 - A patch that implements MIR Branch Pruning Pass and related test cases.
 - A technical report illustrating the relationships among the aggressiveness
 of pruning, type inference, alias analysis and the costs of bailout.
@@ -140,8 +156,7 @@ machine codes generated by baseline compiler.
 - Week 7 - Week 8: Add the convert function to Branch Profiling class.
 Modify related MIR nodes to store the probability data.
 - Week 9 - Week 11: Implement the prototype of Branch Pruning Pass.
-
-- Week 12 - Week 14: Benchmark the performance impact of BPM and BPP with
+- Week 12 - Week 14: Benchmark the performance impact of Branch Profiler and BPP with
 different pruning policies. Test and fix the bugs in BPP.
 - Week 15 - Week 16: Prepare the technical report. Submit patches.
 
