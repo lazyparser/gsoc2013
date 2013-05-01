@@ -127,7 +127,7 @@ It stores the config information as a JSOPTION by decalaring a new macro,
 thus it can be turned on/off via JS_Options APIs.
 The design of the interface would be like this:
 
-> #define JSOPTION_BRANCHPROFILING         JS_BIT(23)      /* Branch profiling in the baseline compiler */
+> \#define JSOPTION_BRANCHPROFILING         JS_BIT(23)      /* Branch profiling in the baseline compiler */
 
 > JS_SetOptions(cx, JSOPTION_BRANCHPROFILING);
 
