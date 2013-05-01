@@ -28,7 +28,7 @@ Currently SpiderMonkey lacks the mechanism to obtain branch profiling
 information and has no heuristic to guess the probability of each conditional jump.
 Basic blocks could not be removed unless IonMonkey can prove that
 they are not reachable.
-By introducing the branch profiling data IonMonkey has the ability to aggressively
+By introducing the branch profiling data IonMonkey will have the ability to aggressively
 remove the infrequently used basic blocks and therefore simplify subsequent
 analyses like type inference and alias analysis.
 Nicolas Pierron, an IonMonkey developer, suggested that other optimizations
@@ -37,8 +37,13 @@ branches were not removed.
 
 The main difference between the Unreachable Code Elimination (UCE) and
 our method is that UCE guarantees the remove of branches are safe,
-while the branches removed in our method might be accessed under particular
+while the branches filtered out in our method might be accessed under particular
 circumstances.
+In this case our method generates a bailout and return the control back to the interpreter.
+The cost of bailout is not free. In fact the switch between the interpreter and
+machine codes should be reduced as possible as we can.
+A basic block is worth to be filtered out only when the benefits we get are
+bigger than the cost of the bailout we introduced.
 
 ### Project scope
 Ideally, all analyses and optimizations existing in IonMonkey might benefit
