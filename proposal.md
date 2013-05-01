@@ -3,7 +3,7 @@
 This is a draft version. Your comments are welcome!
 
 ## Abstract:
-Profiled guided branch prediction is a known optimization in compiler.
+Profile guided branch prediction is a known optimization in compiler.
 As of today, nobody tried to take advantage of this optimization on JavaScript.
 The goal of this GSoC project is to analyze the benefit of such approach on
 JavaScript by implementing one in SpiderMonkey (Firefox's JavaScript Engine).
@@ -12,23 +12,33 @@ to profile branches which are executed.
 Then use this information to reduce and improve IonMonkey's compilation by
 filtering out branches which are infrequently used.
 
+## Project Proposal
 ### Introduction
 Profile Guided Optimizations have been adopted by modern compilers, such as
 LLVM and many JIT compilers in Java Virtual Machines.
 Lots of optimizations can benefit from the profiling data to generate
-faster codes.
-Currently IonMonkey lacks the mechanism to gather branch profiling information
-and has to use heuristics to guess the probability of each conditional jump.
-These heuristics are usually conservative and may block further (aggressive)
-optimization opportunities.
+faster and smaller codes.
+SpiderMonkey is able to collect some sorts of profiling
+information during the execution of JavaScript programs.
+For example, the interpreter and the baseline compiler gather each variable's
+type information, which is used in multiple optimizations in IonMonkey,
+SpiderMoneky's newest method-based Just-In-Time compiler.
 
-By introducing the branch profiling data IonMonkey can aggressively remove
-the infrequently used basic blocks and therefore simplify subsequent analyses
-like type inference and alias analysis.
+Currently SpiderMonkey lacks the mechanism to obtain branch profiling
+information and has no heuristic to guess the probability of each conditional jump.
+Basic blocks could not be removed unless IonMonkey can prove that
+they are not reachable.
+By introducing the branch profiling data IonMonkey has the ability to aggressively
+remove the infrequently used basic blocks and therefore simplify subsequent
+analyses like type inference and alias analysis.
 Nicolas Pierron, an IonMonkey developer, suggested that other optimizations
 such as GVN & LICM might benefit from the profiling information even if
 branches were not removed.
 
+The main difference between the Unreachable Code Elimination (UCE) and
+our method is that UCE guarantees the remove of branches are safe,
+while the branches removed in our method might be accessed under particular
+circumstances.
 
 ### Project scope
 Ideally, all analyses and optimizations existing in IonMonkey might benefit
@@ -74,11 +84,11 @@ configuration panel.
 Also it can be turned on/off via JSAPIs.
 The design of the interface would be like this:
 
-> JS_IsBranchProfilingEnabled(JSContext* cx);
+> 
 
-> JS_EnableBranchProfiling(JSContext* cx);
+> JS_SetOptions(cx, JSOPTION_BRANCHPROFILING);
 
-> JS_DisableBranchProfiling(JSContext* cx);
+> JS_ToggleOptions(cx, JSOPTION_BRANCHPROFILING);
 
 Although BPM can only be switched on/off at JSContext granularity outside
 SpiderMonkey, it stores a profiling status flag in IonScript so that
