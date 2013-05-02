@@ -140,10 +140,13 @@ thus it can be turned on/off via JS_Option APIs.
 The design of the interface would be like this:
 
 > \#define JSOPTION_BRANCHPROFILING         JS_BIT(23)      /* Branch profiling in the baseline compiler */
+>
 > JS_SetOptions(cx, JSOPTION_BRANCHPROFILING);
+>
 > JS_ToggleOptions(cx, JSOPTION_BRANCHPROFILING);
 >
 > ./jsshell/js --enable-branch-profiling
+>
 > ./jsshell/js --disable-branch-profiling
 
 Although the branch profiler can only be switched on/off at JSContext granularity outside
@@ -156,9 +159,10 @@ which is the singleton instance of IonOptions.
 The design of the interface would be like this:
 
 > ./jsshell/js --enable-branch-pruning
+>
 > ./jsshell/js --disable-branch-pruning
+>
 > ./jsshell/js --branch-pruning-threshold="{none,conserative,optimial,eager}"
-
 
 ### Schedule of Deliverables
 #### Deliverables
