@@ -179,12 +179,12 @@ from branch prediction. (1 week)
 Profile Kraken and Octane benchmarks and assess the overhead caused by profiling;
 Implement a basic block counter version if the overhead keeps high. (3 weeks)
 - Week 5 - 7: Implement the Branch Pruning Pass. I allocate 3 weeks for it due to
-the dependencies and complexities in the IonMonkey.
+the dependencies and complexities in the IonMonkey. (3 weeks)
 - Week 8 - 9: Benchmark the performance impact of the branch profiler and pruning
 pass. Test different pruning policies. Find a balance point between the
-aggressiveness of pruning and the costs of bailout.
+aggressiveness of pruning and the costs of bailout. (2 weeks)
 - Week 10 - 13: Analyze the impact on other IonMonkey optimizations. I will focus on
-Constant Propagation, Range Analysis, Type Inference and Register Allocation.
+Constant Propagation, Range Analysis, Type Inference and Register Allocation. (3 weeks)
 
 ### Open Source Development Experience
 Hidden.
