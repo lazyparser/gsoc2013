@@ -186,7 +186,7 @@ the dependencies and complexities in the IonMonkey. (3 weeks)
 pass. Test different pruning policies. Find a balance point between the
 aggressiveness of pruning and the costs of bailout. (2 weeks)
 - Week 10 - 13: Analyze the impact on other IonMonkey optimizations. I will focus on
-Constant Propagation, Range Analysis, Type Inference and Register Allocation. (3 weeks)
+Constant Propagation, Range Analysis, Type Inference and Register Allocation. (4 weeks)
 
 ### Open Source Development Experience
 Hidden.
