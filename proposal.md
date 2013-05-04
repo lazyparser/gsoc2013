@@ -42,8 +42,6 @@ circumstances.
 In this case our method generates a bailout and return the control back to the interpreter.
 The cost of bailout is not free. What is more expensive is the time spent
 in the slower mode of execution (baseline, interpreter).
-So the switch between the interpreter and compiled code should be reduced
-as possible as we can.
 A basic block is worth to be filtered out only when the benefits we get are
 bigger than the cost we introduced.
 Thus, it is necessary to assess the impact on the analyses and optimizations
