@@ -1,6 +1,6 @@
 # Implement Branch Prediction in IonMonkey
 
-This is a draft version. Your comments are welcome!
+Your comments are welcome!
 
 ## Abstract:
 Profile guided branch prediction is a known optimization in compiler.
@@ -186,17 +186,4 @@ aggressiveness of pruning and the costs of bailout. (2 weeks)
 - Week 10 - 13: Analyze the impact on other IonMonkey optimizations. I will focus on
 Constant Propagation, Range Analysis, Type Inference and Register Allocation. (4 weeks)
 
-### Open Source Development Experience
-Hidden.
 
-### Work/Internship Experience
-Hidden.
-
-### Academic Experience
-Hidden.
-
-### Why Me
-Hidden.
-
-### Why Mozilla
-Hidden.
