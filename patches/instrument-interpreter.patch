@@ -1,0 +1,227 @@
+diff --git a/js/src/jsinterp.cpp b/js/src/jsinterp.cpp
+index f38b148..a49dcdb 100644
+--- a/js/src/jsinterp.cpp
++++ b/js/src/jsinterp.cpp
+@@ -39,16 +39,22 @@
+ #include "vm/Shape.h"
+ 
+ #include "ion/Ion.h"
+ #include "ion/BaselineJIT.h"
+ 
+ #ifdef JS_ION
+ #include "ion/IonFrames-inl.h"
+ #include "ion/IonSpewer.h"
++#define SPEWBRANCH(stmt,address)                                              \
++        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,                      \
++                "%p [%s] %u [%s] %d", address, stmt,                          \
++                JS_PCToLineNumber(cx, cx->fp()->script(), address),           \
++                cx->fp()->script()->filename(),                               \
++                cx->fp()->script()->lineno);
+ #endif
+ 
+ #include "jsatominlines.h"
+ #include "jsboolinlines.h"
+ #include "jsinferinlines.h"
+ #include "jsinterpinlines.h"
+ #include "jsobjinlines.h"
+ #include "jsopcodeinlines.h"
+@@ -1052,17 +1058,17 @@ js::Interpret(JSContext *cx, StackFrame *entryFrame, InterpMode interpMode, bool
+     JS_BEGIN_MACRO                                                            \
+         if (cx->runtime->interrupt && !js_HandleExecutionInterrupt(cx))       \
+             goto error;                                                       \
+     JS_END_MACRO
+ 
+ #define BRANCH(n)                                                             \
+     JS_BEGIN_MACRO                                                            \
+         regs.pc += (n);                                                       \
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"BRANCH %p",regs.pc);                          \
++        SPEWBRANCH("BRANCH", regs.pc);                                        \
+         op = (JSOp) *regs.pc;                                                 \
+         if ((n) <= 0)                                                         \
+             goto check_backedge;                                              \
+         DO_OP();                                                              \
+     JS_END_MACRO
+ 
+ #define SET_SCRIPT(s)                                                         \
+     JS_BEGIN_MACRO                                                            \
+@@ -1465,72 +1471,72 @@ BEGIN_CASE(JSOP_STOP)
+     goto exit;
+ }
+ 
+ BEGIN_CASE(JSOP_DEFAULT)
+     regs.sp--;
+     /* FALL THROUGH */
+ BEGIN_CASE(JSOP_GOTO)
+ {
+-    js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_GOTO JUMP %p", regs.pc);
++    SPEWBRANCH("GOTO", regs.pc + GET_JUMP_OFFSET(regs.pc));
+     len = GET_JUMP_OFFSET(regs.pc);
+     BRANCH(len);
+ }
+ END_CASE(JSOP_GOTO)
+ 
+ BEGIN_CASE(JSOP_IFEQ)
+ {
+     bool cond = ToBooleanOp(cx);
+     regs.sp--;
+     if (cond == false) {
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFEQ JUMP %p", regs.pc);
++        SPEWBRANCH("IFEQ_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
+         len = GET_JUMP_OFFSET(regs.pc);
+         BRANCH(len);
+     }else{
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFEQ NOJUMP %p", regs.pc);
++        SPEWBRANCH("IFEQ_NOJUMP", regs.pc);
+     }
+ }
+ END_CASE(JSOP_IFEQ)
+ 
+ BEGIN_CASE(JSOP_IFNE)
+ {
+     bool cond = ToBooleanOp(cx);
+     regs.sp--;
+     if (cond != false) {
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFNE JUMP %p", regs.pc);
++        SPEWBRANCH("IFNE_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
+         len = GET_JUMP_OFFSET(regs.pc);
+         BRANCH(len);
+     }else{
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFNE NOJUMP %p", regs.pc);
++        SPEWBRANCH("IFNE_NOJUMP", regs.pc);
+     }
+ }
+ END_CASE(JSOP_IFNE)
+ 
+ BEGIN_CASE(JSOP_OR)
+ {
+     bool cond = ToBooleanOp(cx);
+     if (cond == true) {
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_OR JUMP %p", regs.pc);
++        SPEWBRANCH("OR_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
+         len = GET_JUMP_OFFSET(regs.pc);
+         DO_NEXT_OP(len);
+     }else{
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_OR NOJUMP %p", regs.pc);
++        SPEWBRANCH("OR_NOJUMP", regs.pc);
+     }
+ }
+ END_CASE(JSOP_OR)
+ 
+ BEGIN_CASE(JSOP_AND)
+ {
+     bool cond = ToBooleanOp(cx);
+     if (cond == false) {
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_AND JUMP %p", regs.pc);
++        SPEWBRANCH("AND_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
+         len = GET_JUMP_OFFSET(regs.pc);
+         DO_NEXT_OP(len);
+     }else{
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_AND NOJUMP %p", regs.pc);
++        SPEWBRANCH("AND_NOJUMP", regs.pc);
+     }
+ }
+ END_CASE(JSOP_AND)
+ 
+ #define FETCH_ELEMENT_ID(n, id)                                               \
+     JS_BEGIN_MACRO                                                            \
+         const Value &idval_ = regs.sp[n];                                     \
+         if (!ValueToId<CanGC>(cx, idval_, &id))                               \
+@@ -1565,16 +1571,17 @@ BEGIN_CASE(JSOP_IN)
+     RootedId &id = rootId0;
+     FETCH_ELEMENT_ID(-2, id);
+     RootedObject &obj2 = rootObject1;
+     RootedShape &prop = rootShape0;
+     if (!JSObject::lookupGeneric(cx, obj, id, &obj2, &prop))
+         goto error;
+     bool cond = prop != NULL;
+     prop = NULL;
++    SPEWBRANCH("IN", regs.pc);
+     TRY_BRANCH_AFTER_COND(cond, 2);
+     regs.sp--;
+     regs.sp[-1].setBoolean(cond);
+ }
+ END_CASE(JSOP_IN)
+ 
+ BEGIN_CASE(JSOP_ITER)
+ {
+@@ -1785,74 +1792,78 @@ BEGIN_CASE(JSOP_STRICTNE)
+ }
+ END_CASE(JSOP_STRICTNE)
+ 
+ BEGIN_CASE(JSOP_CASE)
+ {
+     bool cond;
+     STRICT_EQUALITY_OP(==, cond);
+     if (cond) {
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_CASE JUMP %p", regs.pc);
++        SPEWBRANCH("CASE_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
+         regs.sp--;
+         len = GET_JUMP_OFFSET(regs.pc);
+         BRANCH(len);
+     }else{
+-        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_CASE JUMP %p", regs.pc);
++        SPEWBRANCH("CASE_NOJUMP", regs.pc);
+     }
+ }
+ END_CASE(JSOP_CASE)
+ 
+ #undef STRICT_EQUALITY_OP
+ 
+ BEGIN_CASE(JSOP_LT)
+ {
+     bool cond;
+     MutableHandleValue lval = MutableHandleValue::fromMarkedLocation(&regs.sp[-2]);
+     MutableHandleValue rval = MutableHandleValue::fromMarkedLocation(&regs.sp[-1]);
+     if (!LessThanOperation(cx, lval, rval, &cond))
+         goto error;
++    SPEWBRANCH("LT", regs.pc);
+     TRY_BRANCH_AFTER_COND(cond, 2);
+     regs.sp[-2].setBoolean(cond);
+     regs.sp--;
+ }
+ END_CASE(JSOP_LT)
+ 
+ BEGIN_CASE(JSOP_LE)
+ {
+     bool cond;
+     MutableHandleValue lval = MutableHandleValue::fromMarkedLocation(&regs.sp[-2]);
+     MutableHandleValue rval = MutableHandleValue::fromMarkedLocation(&regs.sp[-1]);
+     if (!LessThanOrEqualOperation(cx, lval, rval, &cond))
+         goto error;
++    SPEWBRANCH("LE", regs.pc);
+     TRY_BRANCH_AFTER_COND(cond, 2);
+     regs.sp[-2].setBoolean(cond);
+     regs.sp--;
+ }
+ END_CASE(JSOP_LE)
+ 
+ BEGIN_CASE(JSOP_GT)
+ {
+     bool cond;
+     MutableHandleValue lval = MutableHandleValue::fromMarkedLocation(&regs.sp[-2]);
+     MutableHandleValue rval = MutableHandleValue::fromMarkedLocation(&regs.sp[-1]);
+     if (!GreaterThanOperation(cx, lval, rval, &cond))
+         goto error;
++    SPEWBRANCH("GT", regs.pc);
+     TRY_BRANCH_AFTER_COND(cond, 2);
+     regs.sp[-2].setBoolean(cond);
+     regs.sp--;
+ }
+ END_CASE(JSOP_GT)
+ 
+ BEGIN_CASE(JSOP_GE)
+ {
+     bool cond;
+     MutableHandleValue lval = MutableHandleValue::fromMarkedLocation(&regs.sp[-2]);
+     MutableHandleValue rval = MutableHandleValue::fromMarkedLocation(&regs.sp[-1]);
+     if (!GreaterThanOrEqualOperation(cx, lval, rval, &cond))
+         goto error;
++    SPEWBRANCH("GE", regs.pc);
+     TRY_BRANCH_AFTER_COND(cond, 2);
+     regs.sp[-2].setBoolean(cond);
+     regs.sp--;
+ }
+ END_CASE(JSOP_GE)
+ 
+ #define SIGNED_SHIFT_OP(OP)                                                   \
+     JS_BEGIN_MACRO                                                            \
