@@ -1,8 +1,67 @@
+diff --git a/js/src/ion/IonSpewer.cpp b/js/src/ion/IonSpewer.cpp
+index 5c4ac32..3c66559 100644
+--- a/js/src/ion/IonSpewer.cpp
++++ b/js/src/ion/IonSpewer.cpp
+@@ -323,20 +323,23 @@ ion::CheckLogging()
+     if (ContainsFlag(env, "bl-all")) {
+         EnableChannel(IonSpew_BaselineAbort);
+         EnableChannel(IonSpew_BaselineScripts);
+         EnableChannel(IonSpew_BaselineOp);
+         EnableChannel(IonSpew_BaselineIC);
+         EnableChannel(IonSpew_BaselineICFallback);
+         EnableChannel(IonSpew_BaselineOSR);
+         EnableChannel(IonSpew_BaselineBailouts);
+     }
+ 
++    if (ContainsFlag(env, "BranchProfile"))
++        EnableChannel(IonSpew_BranchProfile);
++
+     if (LoggingBits != 0)
+         EnableIonDebugLogging();
+ 
+     IonSpewFile = stderr;
+ }
+ 
+ void
+ ion::IonSpewStartVA(IonSpewChannel channel, const char *fmt, va_list ap)
+ {
+     if (!IonSpewEnabled(channel))
+diff --git a/js/src/ion/IonSpewer.h b/js/src/ion/IonSpewer.h
+index 4f6ad0e..5e04152 100644
+--- a/js/src/ion/IonSpewer.h
++++ b/js/src/ion/IonSpewer.h
+@@ -64,21 +64,22 @@ namespace ion {
+     _(BaselineScripts)                      \
+     /* Detailed op-specific spew. */        \
+     _(BaselineOp)                           \
+     /* Inline caches. */                    \
+     _(BaselineIC)                           \
+     /* Inline cache fallbacks. */           \
+     _(BaselineICFallback)                   \
+     /* OSR from Baseline => Ion. */         \
+     _(BaselineOSR)                          \
+     /* Bailouts. */                         \
+-    _(BaselineBailouts)
++    _(BaselineBailouts)                     \
++    _(BranchProfile)
+ 
+ 
+ enum IonSpewChannel {
+ #define IONSPEW_CHANNEL(name) IonSpew_##name,
+     IONSPEW_CHANNEL_LIST(IONSPEW_CHANNEL)
+ #undef IONSPEW_CHANNEL
+     IonSpew_Terminator
+ };
+ 
+ 
 diff --git a/js/src/jsinterp.cpp b/js/src/jsinterp.cpp
-index f38b148..a49dcdb 100644
+index 5b70a09..c92a723 100644
 --- a/js/src/jsinterp.cpp
 +++ b/js/src/jsinterp.cpp
-@@ -39,16 +39,22 @@
+@@ -36,20 +36,27 @@
+ 
+ #include "builtin/Eval.h"
+ #include "vm/Debugger.h"
  #include "vm/Shape.h"
  
  #include "ion/Ion.h"
@@ -10,7 +69,7 @@ index f38b148..a49dcdb 100644
  
  #ifdef JS_ION
  #include "ion/IonFrames-inl.h"
- #include "ion/IonSpewer.h"
++#include "ion/IonSpewer.h"
 +#define SPEWBRANCH(stmt,address)                                              \
 +        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,                      \
 +                "%p [%s] %u [%s] %d", address, stmt,                          \
@@ -25,7 +84,11 @@ index f38b148..a49dcdb 100644
  #include "jsinterpinlines.h"
  #include "jsobjinlines.h"
  #include "jsopcodeinlines.h"
-@@ -1052,17 +1058,17 @@ js::Interpret(JSContext *cx, StackFrame *entryFrame, InterpMode interpMode, bool
+ #include "jsprobes.h"
+ #include "jsscriptinlines.h"
+@@ -1049,20 +1056,21 @@ js::Interpret(JSContext *cx, StackFrame *entryFrame, InterpMode interpMode, bool
+      */
+ #define CHECK_BRANCH()                                                        \
      JS_BEGIN_MACRO                                                            \
          if (cx->runtime->interrupt && !js_HandleExecutionInterrupt(cx))       \
              goto error;                                                       \
@@ -34,7 +97,6 @@ index f38b148..a49dcdb 100644
  #define BRANCH(n)                                                             \
      JS_BEGIN_MACRO                                                            \
          regs.pc += (n);                                                       \
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"BRANCH %p",regs.pc);                          \
 +        SPEWBRANCH("BRANCH", regs.pc);                                        \
          op = (JSOp) *regs.pc;                                                 \
          if ((n) <= 0)                                                         \
@@ -44,7 +106,11 @@ index f38b148..a49dcdb 100644
  
  #define SET_SCRIPT(s)                                                         \
      JS_BEGIN_MACRO                                                            \
-@@ -1465,72 +1471,72 @@ BEGIN_CASE(JSOP_STOP)
+         script = (s);                                                         \
+         if (script->hasAnyBreakpointsOrStepMode() || script->hasScriptCounts) \
+@@ -1461,63 +1469,76 @@ BEGIN_CASE(JSOP_STOP)
+     }
+     interpReturnOK = true;
      goto exit;
  }
  
@@ -53,8 +119,7 @@ index f38b148..a49dcdb 100644
      /* FALL THROUGH */
  BEGIN_CASE(JSOP_GOTO)
  {
--    js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_GOTO JUMP %p", regs.pc);
-+    SPEWBRANCH("GOTO", regs.pc + GET_JUMP_OFFSET(regs.pc));
++    SPEWBRANCH("GOTO", regs.pc);
      len = GET_JUMP_OFFSET(regs.pc);
      BRANCH(len);
  }
@@ -65,12 +130,10 @@ index f38b148..a49dcdb 100644
      bool cond = ToBooleanOp(cx);
      regs.sp--;
      if (cond == false) {
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFEQ JUMP %p", regs.pc);
-+        SPEWBRANCH("IFEQ_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
++        SPEWBRANCH("IFEQ_JUMP", regs.pc);
          len = GET_JUMP_OFFSET(regs.pc);
          BRANCH(len);
-     }else{
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFEQ NOJUMP %p", regs.pc);
++    }else{
 +        SPEWBRANCH("IFEQ_NOJUMP", regs.pc);
      }
  }
@@ -81,12 +144,10 @@ index f38b148..a49dcdb 100644
      bool cond = ToBooleanOp(cx);
      regs.sp--;
      if (cond != false) {
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFNE JUMP %p", regs.pc);
-+        SPEWBRANCH("IFNE_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
++        SPEWBRANCH("IFNE_JUMP", regs.pc);
          len = GET_JUMP_OFFSET(regs.pc);
          BRANCH(len);
-     }else{
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_IFNE NOJUMP %p", regs.pc);
++    }else{
 +        SPEWBRANCH("IFNE_NOJUMP", regs.pc);
      }
  }
@@ -96,12 +157,10 @@ index f38b148..a49dcdb 100644
  {
      bool cond = ToBooleanOp(cx);
      if (cond == true) {
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_OR JUMP %p", regs.pc);
-+        SPEWBRANCH("OR_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
++        SPEWBRANCH("OR_JUMP", regs.pc);
          len = GET_JUMP_OFFSET(regs.pc);
          DO_NEXT_OP(len);
-     }else{
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_OR NOJUMP %p", regs.pc);
++    }else{
 +        SPEWBRANCH("OR_NOJUMP", regs.pc);
      }
  }
@@ -111,12 +170,10 @@ index f38b148..a49dcdb 100644
  {
      bool cond = ToBooleanOp(cx);
      if (cond == false) {
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_AND JUMP %p", regs.pc);
-+        SPEWBRANCH("AND_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
++        SPEWBRANCH("AND_JUMP", regs.pc);
          len = GET_JUMP_OFFSET(regs.pc);
          DO_NEXT_OP(len);
-     }else{
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_AND NOJUMP %p", regs.pc);
++    }else{
 +        SPEWBRANCH("AND_NOJUMP", regs.pc);
      }
  }
@@ -126,7 +183,11 @@ index f38b148..a49dcdb 100644
      JS_BEGIN_MACRO                                                            \
          const Value &idval_ = regs.sp[n];                                     \
          if (!ValueToId<CanGC>(cx, idval_, &id))                               \
-@@ -1565,16 +1571,17 @@ BEGIN_CASE(JSOP_IN)
+             goto error;                                                       \
+     JS_END_MACRO
+@@ -1548,20 +1569,21 @@ BEGIN_CASE(JSOP_IN)
+     RootedObject &obj = rootObject0;
+     obj = &rref.toObject();
      RootedId &id = rootId0;
      FETCH_ELEMENT_ID(-2, id);
      RootedObject &obj2 = rootObject1;
@@ -144,7 +205,11 @@ index f38b148..a49dcdb 100644
  
  BEGIN_CASE(JSOP_ITER)
  {
-@@ -1785,74 +1792,78 @@ BEGIN_CASE(JSOP_STRICTNE)
+     JS_ASSERT(regs.stackDepth() >= 1);
+     uint8_t flags = GET_UINT8(regs.pc);
+@@ -1768,75 +1790,82 @@ BEGIN_CASE(JSOP_STRICTNE)
+     STRICT_EQUALITY_OP(!=, cond);
+     regs.sp[-1].setBoolean(cond);
  }
  END_CASE(JSOP_STRICTNE)
  
@@ -153,13 +218,11 @@ index f38b148..a49dcdb 100644
      bool cond;
      STRICT_EQUALITY_OP(==, cond);
      if (cond) {
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_CASE JUMP %p", regs.pc);
-+        SPEWBRANCH("CASE_JUMP", regs.pc + GET_JUMP_OFFSET(regs.pc));
++        SPEWBRANCH("CASE_JUMP", regs.pc);
          regs.sp--;
          len = GET_JUMP_OFFSET(regs.pc);
          BRANCH(len);
-     }else{
--        js::ion::IonSpew(js::ion::IonSpew_BranchProfile,"JSOP_CASE JUMP %p", regs.pc);
++    }else{
 +        SPEWBRANCH("CASE_NOJUMP", regs.pc);
      }
  }
@@ -225,3 +288,5 @@ index f38b148..a49dcdb 100644
  
  #define SIGNED_SHIFT_OP(OP)                                                   \
      JS_BEGIN_MACRO                                                            \
+         int32_t i, j;                                                         \
+         if (!ToInt32(cx, regs.sp[-2], &i))                                    \
