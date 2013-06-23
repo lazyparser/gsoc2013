@@ -14,3 +14,5 @@ All comments are welcome!
 
 ### Weekly Reports
 
+[Weekly Report: 1st week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport01.md)
+
