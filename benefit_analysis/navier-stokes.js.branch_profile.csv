@@ -1,0 +1,14 @@
+918	0.925926	0.0740741	850	68	0x1d625ad	[IFEQ_JUMP]	108	[navier-stokes.js]	106
+850	0.92	0.08	782	68	0x1d626c5	[IFEQ_JUMP]	118	[navier-stokes.js]	106
+51	0.666667	0.333333	34	17	0x1d621b8	[IFEQ_JUMP]	148	[navier-stokes.js]	146
+51	0.666667	0.333333	34	17	0x1d621ad	[AND_JUMP]	148	[navier-stokes.js]	146
+17	0.941176	0.0588235	16	1	0x1d5cde9	[IFEQ_JUMP]	42	[navier-stokes.js]	37
+17	0.823529	0.176471	14	3	0x1d58f3f	[IFEQ_JUMP]	90	[navier-stokes.js]	88
+17	0	1	0	17	0x1d62b08	[IFEQ_NOJUMP]	183	[navier-stokes.js]	181
+17	0	1	0	17	0x1d62afd	[AND_NOJUMP]	183	[navier-stokes.js]	181
+2	1	0	2	0	0x1dc16d9	[OR_JUMP]	400	[navier-stokes.js]	397
+2	0	1	0	2	0x1dc16c6	[AND_NOJUMP]	400	[navier-stokes.js]	397
+2	0	1	0	2	0x1dc16b8	[AND_NOJUMP]	400	[navier-stokes.js]	397
+1	1	0	1	0	0x1d59bba	[IFEQ_JUMP]	53	[navier-stokes.js]	46
+1	0	1	0	1	0x1d6200d	[AND_NOJUMP]	359	[navier-stokes.js]	358
+1	0	1	0	1	0x1d5d0bd	[IFEQ_NOJUMP]	46	[run.js.navier-stokes.js]	45
