@@ -9,6 +9,8 @@ Deliverables:
 -------------
 [Branch profiling data for Octane benchmark.](https://github.com/lazyparser/gsoc2013/tree/master/preexperiments/octane)
 
+[Branch profiling data for SunSpider benchmark.](https://github.com/lazyparser/gsoc2013/tree/master/preexperiments/sunspider)
+
 [A patch for instrumenting the interpreter](https://github.com/lazyparser/gsoc2013/blob/master/patches/instrument-interpreter.patch)
 
 What I am planning to do next week:
