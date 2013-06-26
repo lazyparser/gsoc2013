@@ -17,3 +17,5 @@ All comments are welcome!
 [Weekly Report: 1st week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport01.md)
 
 [Benefit Analysis](https://github.com/lazyparser/gsoc2013/blob/master/benefit_analysis.md)
+
+Weekly Report: 2nd week (TBD.)
