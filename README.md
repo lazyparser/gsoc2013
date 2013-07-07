@@ -21,4 +21,4 @@ All comments are welcome!
 
 [Weekly Report: 2nd week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport02.md)
 
-Weekly Report: 3rd week (TBD.)
+[Weekly Report: 3rd week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport03.md)
