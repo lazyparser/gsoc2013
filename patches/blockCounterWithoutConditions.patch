@@ -1,0 +1,459 @@
+diff -r 8e3a124c9c1a js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp	Thu Jun 27 19:32:23 2013 -0700
++++ b/js/src/ion/BaselineCompiler.cpp	Wed Jul 10 09:39:51 2013 +0800
+@@ -150,17 +150,18 @@
+ 
+     prologueOffset_.fixup(&masm);
+     spsPushToggleOffset_.fixup(&masm);
+ 
+     BaselineScript *baselineScript = BaselineScript::New(cx, prologueOffset_.offset(),
+                                                          spsPushToggleOffset_.offset(),
+                                                          icEntries_.length(),
+                                                          pcMappingIndexEntries.length(),
+-                                                         pcEntries.length());
++                                                         pcEntries.length(),
++                                                         blockCounterEntries_.length());
+     if (!baselineScript)
+         return Method_Error;
+ 
+     baselineScript->setMethod(code);
+ 
+     script->setBaselineScript(baselineScript);
+ 
+     IonSpew(IonSpew_BaselineScripts, "Created BaselineScript %p (raw %p) for %s:%d",
+@@ -186,16 +187,33 @@
+         label.fixup(&masm);
+         size_t icEntry = icLoadLabels_[i].icEntry;
+         ICEntry *entryAddr = &(baselineScript->icEntry(icEntry));
+         Assembler::patchDataWithValueCheck(CodeLocationLabel(code, label),
+                                            ImmWord(uintptr_t(entryAddr)),
+                                            ImmWord(uintptr_t(-1)));
+     }
+ 
++    IonSpew(IonSpew_BaselineScripts, "%d block counters were emitted for script %s:%d (%p)",
++            blockCounterEntries_.length(), script->filename(), script->lineno, script.get());
++
++    if (blockCounterEntries_.length())
++        baselineScript->copyBlockCounterEntries(&blockCounterEntries_[0]);
++
++    // Patch block counters
++    for (size_t i = 0; i < blockCounterLabels_.length(); i++) {
++        CodeOffsetLabel label = blockCounterLabels_[i].label;
++        label.fixup(&masm);
++        size_t bcEntry = blockCounterLabels_[i].bcEntry;
++        BlockCounterEntry *bcEntryAddr = &baselineScript->blockCounterEntry(bcEntry);
++        Assembler::patchDataWithValueCheck(CodeLocationLabel(code, label),
++                                           ImmWord(uintptr_t(bcEntryAddr)),
++                                           ImmWord(uintptr_t(-1)));
++    }
++
+     // All barriers are emitted off-by-default, toggle them on if needed.
+     if (cx->zone()->needsBarrier())
+         baselineScript->toggleBarriers(true);
+ 
+     // All SPS instrumentation is emitted toggled off.  Toggle them on if needed.
+     if (cx->runtime()->spsProfiler.enabled())
+         baselineScript->toggleSPS(true);
+ 
+@@ -318,16 +336,40 @@
+     EmitCallIC(&patchOffset, masm);
+     entry->setReturnOffset(masm.currentOffset());
+     if (!addICLoadLabel(patchOffset))
+         return false;
+ 
+     return true;
+ }
+ 
++bool
++BaselineCompiler::emitBlockCounter(jsbytecode *pc)
++{
++    IonSpew(IonSpew_BaselineOp, "Emitting a block counter for op @ %d: %s",
++            int(pc - script->code), js_CodeName[JSOp(*pc)]);
++
++    BlockCounterEntry *entry = allocateBlockCounterEntry(pc - script->code);
++    if(!entry)
++        return false;
++
++    Register addressReg = R1.scratchReg();
++    Register counterReg = R0.scratchReg();
++    CodeOffsetLabel counterOffset = masm.movWithPatch(ImmWord(-1), addressReg);
++    Address counterAddr(addressReg, BlockCounterEntry::offsetOfCounter());
++    masm.load32(counterAddr, counterReg);
++    masm.add32(Imm32(1), counterReg);
++    masm.store32(counterReg, counterAddr);
++
++    if(!addBlockCounterLabel(counterOffset))
++        return false;
++
++    return true;
++}
++
+ typedef bool (*DebugPrologueFn)(JSContext *, BaselineFrame *, JSBool *);
+ static const VMFunction DebugPrologueInfo = FunctionInfo<DebugPrologueFn>(ion::DebugPrologue);
+ 
+ bool
+ BaselineCompiler::emitDebugPrologue()
+ {
+     if (!debugMode_)
+         return true;
+@@ -612,16 +654,19 @@
+             emittedOps = 0;
+         if (!addPCMappingEntry(addIndexEntry))
+             return Method_Error;
+ 
+         // Emit traps for breakpoints and step mode.
+         if (debugMode_ && !emitDebugTrap())
+             return Method_Error;
+ 
++        if (info->jumpTarget && !emitBlockCounter(pc))
++            return Method_Error;
++
+         switch (op) {
+           default:
+             IonSpew(IonSpew_BaselineAbort, "Unhandled op: %s", js_CodeName[op]);
+             return Method_CantCompile;
+ 
+ #define EMIT_OP(OP)                            \
+           case OP:                             \
+             if (!this->emit_##OP())            \
+diff -r 8e3a124c9c1a js/src/ion/BaselineCompiler.h
+--- a/js/src/ion/BaselineCompiler.h	Thu Jun 27 19:32:23 2013 -0700
++++ b/js/src/ion/BaselineCompiler.h	Wed Jul 10 09:39:51 2013 +0800
+@@ -213,16 +213,18 @@
+     bool emitIC(ICStub *stub, bool isForOp);
+     bool emitOpIC(ICStub *stub) {
+         return emitIC(stub, true);
+     }
+     bool emitNonOpIC(ICStub *stub) {
+         return emitIC(stub, false);
+     }
+ 
++    bool emitBlockCounter(jsbytecode *pc);
++
+     bool emitStackCheck();
+     bool emitInterruptCheck();
+     bool emitUseCountIncrement();
+     bool emitArgumentTypeChecks();
+     bool emitDebugPrologue();
+     bool emitDebugTrap();
+     bool emitSPSPush();
+     void emitSPSPop();
+diff -r 8e3a124c9c1a js/src/ion/BaselineJIT.cpp
+--- a/js/src/ion/BaselineJIT.cpp	Thu Jun 27 19:32:23 2013 -0700
++++ b/js/src/ion/BaselineJIT.cpp	Wed Jul 10 09:39:51 2013 +0800
+@@ -325,31 +325,35 @@
+ };
+ 
+ // Be safe, align IC entry list to 8 in all cases.
+ static const unsigned DataAlignment = sizeof(uintptr_t);
+ 
+ BaselineScript *
+ BaselineScript::New(JSContext *cx, uint32_t prologueOffset,
+                     uint32_t spsPushToggleOffset, size_t icEntries,
+-                    size_t pcMappingIndexEntries, size_t pcMappingSize)
++                    size_t pcMappingIndexEntries, size_t pcMappingSize,
++                    size_t blockCounters)
+ {
+     size_t paddedBaselineScriptSize = AlignBytes(sizeof(BaselineScript), DataAlignment);
+ 
+     size_t icEntriesSize = icEntries * sizeof(ICEntry);
+     size_t pcMappingIndexEntriesSize = pcMappingIndexEntries * sizeof(PCMappingIndexEntry);
++    size_t blockCounterSize = blockCounters * sizeof(BlockCounterEntry);
+ 
+     size_t paddedICEntriesSize = AlignBytes(icEntriesSize, DataAlignment);
+     size_t paddedPCMappingIndexEntriesSize = AlignBytes(pcMappingIndexEntriesSize, DataAlignment);
+     size_t paddedPCMappingSize = AlignBytes(pcMappingSize, DataAlignment);
++    size_t paddedBlockCounterSize = AlignBytes(blockCounterSize, DataAlignment);
+ 
+     size_t allocBytes = paddedBaselineScriptSize +
+         paddedICEntriesSize +
+         paddedPCMappingIndexEntriesSize +
+-        paddedPCMappingSize;
++        paddedPCMappingSize +
++        paddedBlockCounterSize;
+ 
+     uint8_t *buffer = (uint8_t *)cx->malloc_(allocBytes);
+     if (!buffer)
+         return NULL;
+ 
+     BaselineScript *script = reinterpret_cast<BaselineScript *>(buffer);
+     new (script) BaselineScript(prologueOffset, spsPushToggleOffset);
+ 
+@@ -362,16 +366,20 @@
+     script->pcMappingIndexOffset_ = offsetCursor;
+     script->pcMappingIndexEntries_ = pcMappingIndexEntries;
+     offsetCursor += paddedPCMappingIndexEntriesSize;
+ 
+     script->pcMappingOffset_ = offsetCursor;
+     script->pcMappingSize_ = pcMappingSize;
+     offsetCursor += paddedPCMappingSize;
+ 
++    script->blockCounterOffset_ = offsetCursor;
++    script->blockCounters_ = blockCounters;
++    offsetCursor += paddedBlockCounterSize;
++
+     return script;
+ }
+ 
+ void
+ BaselineScript::trace(JSTracer *trc)
+ {
+     MarkIonCode(trc, &method_, "baseline-method");
+ 
+@@ -406,16 +414,23 @@
+ 
+ PCMappingIndexEntry &
+ BaselineScript::pcMappingIndexEntry(size_t index)
+ {
+     JS_ASSERT(index < numPCMappingIndexEntries());
+     return pcMappingIndexEntryList()[index];
+ }
+ 
++BlockCounterEntry &
++BaselineScript::blockCounterEntry(size_t index)
++{
++    JS_ASSERT(index < numBlockCounters());
++    return blockCounterEntryList()[index];
++}
++
+ CompactBufferReader
+ BaselineScript::pcMappingReader(size_t indexEntry)
+ {
+     PCMappingIndexEntry &entry = pcMappingIndexEntry(indexEntry);
+ 
+     uint8_t *dataStart = pcMappingData() + entry.bufferOffset;
+     uint8_t *dataEnd = (indexEntry == numPCMappingIndexEntries() - 1)
+         ? pcMappingData() + pcMappingSize_
+@@ -563,16 +578,25 @@
+         if (realEntry.firstStub()->isTableSwitch()) {
+             ICTableSwitch *stub = realEntry.firstStub()->toTableSwitch();
+             stub->fixupJumpTable(script, this);
+         }
+     }
+ }
+ 
+ void
++BaselineScript::copyBlockCounterEntries(BlockCounterEntry *entries)
++{
++    for (uint32_t i = 0; i < numBlockCounters(); i++) {
++        BlockCounterEntry &entry = blockCounterEntry(i);
++        entry = entries[i];
++    }
++}
++
++void
+ BaselineScript::adoptFallbackStubs(FallbackICStubSpace *stubSpace)
+ {
+     fallbackStubSpace_.adoptFrom(stubSpace);
+ }
+ 
+ void
+ BaselineScript::copyPCMappingEntries(const CompactBufferWriter &entries)
+ {
+diff -r 8e3a124c9c1a js/src/ion/BaselineJIT.h
+--- a/js/src/ion/BaselineJIT.h	Thu Jun 27 19:32:23 2013 -0700
++++ b/js/src/ion/BaselineJIT.h	Wed Jul 10 09:39:51 2013 +0800
+@@ -91,16 +91,29 @@
+ 
+     // Native code offset.
+     uint32_t nativeOffset;
+ 
+     // Offset in the CompactBuffer where data for pcOffset starts.
+     uint32_t bufferOffset;
+ };
+ 
++struct BlockCounterEntry
++{
++    uint32_t counter;
++    size_t pcOffset;
++    BlockCounterEntry(const size_t pcoffset)
++      : counter(0),
++        pcOffset(pcoffset)
++    { }
++    static size_t offsetOfCounter() {
++        return offsetof(BlockCounterEntry, counter);
++    }
++};
++
+ struct BaselineScript
+ {
+   public:
+     static const uint32_t MAX_JSSCRIPT_LENGTH = 0x0fffffffu;
+ 
+   private:
+     // Code pointer containing the actual method.
+     HeapPtr<IonCode> method_;
+@@ -138,23 +151,27 @@
+     uint32_t icEntries_;
+ 
+     uint32_t pcMappingIndexOffset_;
+     uint32_t pcMappingIndexEntries_;
+ 
+     uint32_t pcMappingOffset_;
+     uint32_t pcMappingSize_;
+ 
++    uint32_t blockCounterOffset_;
++    uint32_t blockCounters_;
++
+   public:
+     // Do not call directly, use BaselineScript::New. This is public for cx->new_.
+     BaselineScript(uint32_t prologueOffset, uint32_t spsPushToggleOffset);
+ 
+     static BaselineScript *New(JSContext *cx, uint32_t prologueOffset,
+                                uint32_t spsPushToggleOffset, size_t icEntries,
+-                               size_t pcMappingIndexEntries, size_t pcMappingSize);
++                               size_t pcMappingIndexEntries, size_t pcMappingSize,
++                               size_t blockCounters);
+     static void Trace(JSTracer *trc, BaselineScript *script);
+     static void Destroy(FreeOp *fop, BaselineScript *script);
+ 
+     void purgeOptimizedStubs(Zone *zone);
+ 
+     static inline size_t offsetOfMethod() {
+         return offsetof(BaselineScript, method_);
+     }
+@@ -197,16 +214,20 @@
+     }
+     uint8_t *pcMappingData() {
+         return reinterpret_cast<uint8_t *>(this) + pcMappingOffset_;
+     }
+     FallbackICStubSpace *fallbackStubSpace() {
+         return &fallbackStubSpace_;
+     }
+ 
++    BlockCounterEntry *blockCounterEntryList() {
++        return (BlockCounterEntry *)(reinterpret_cast<uint8_t *>(this) + blockCounterOffset_);
++    }
++
+     IonCode *method() const {
+         return method_;
+     }
+     void setMethod(IonCode *code) {
+         JS_ASSERT(!method_);
+         method_ = code;
+     }
+ 
+@@ -228,20 +249,27 @@
+     }
+ 
+     void copyICEntries(HandleScript script, const ICEntry *entries, MacroAssembler &masm);
+     void adoptFallbackStubs(FallbackICStubSpace *stubSpace);
+ 
+     PCMappingIndexEntry &pcMappingIndexEntry(size_t index);
+     CompactBufferReader pcMappingReader(size_t indexEntry);
+ 
++    BlockCounterEntry &blockCounterEntry(size_t index);
++    void copyBlockCounterEntries(BlockCounterEntry *entries);
++
+     size_t numPCMappingIndexEntries() const {
+         return pcMappingIndexEntries_;
+     }
+ 
++    size_t numBlockCounters() const {
++        return blockCounters_;
++    }
++
+     void copyPCMappingIndexEntries(const PCMappingIndexEntry *entries);
+ 
+     void copyPCMappingEntries(const CompactBufferWriter &entries);
+     uint8_t *nativeCodeForPC(JSScript *script, jsbytecode *pc, PCMappingSlotInfo *slotInfo = NULL);
+     jsbytecode *pcForReturnOffset(JSScript *script, uint32_t nativeOffset);
+     jsbytecode *pcForReturnAddress(JSScript *script, uint8_t *nativeAddress);
+ 
+     // Toggle debug traps (used for breakpoints and step mode) in the script.
+@@ -251,16 +279,20 @@
+ 
+     void toggleSPS(bool enable);
+ 
+     void noteAccessedGetter(uint32_t pcOffset);
+ 
+     static size_t offsetOfFlags() {
+         return offsetof(BaselineScript, flags_);
+     }
++
++    static size_t offsetOfBlockCounterOffset(){
++        return offsetof(BaselineScript, blockCounterOffset_);
++    }
+ };
+ 
+ inline bool
+ IsBaselineEnabled(JSContext *cx)
+ {
+     return cx->hasOption(JSOPTION_BASELINE);
+ }
+ 
+diff -r 8e3a124c9c1a js/src/ion/shared/BaselineCompiler-shared.h
+--- a/js/src/ion/shared/BaselineCompiler-shared.h	Thu Jun 27 19:32:23 2013 -0700
++++ b/js/src/ion/shared/BaselineCompiler-shared.h	Wed Jul 10 09:39:51 2013 +0800
+@@ -28,16 +28,17 @@
+     bool ionOSRCompileable_;
+     bool debugMode_;
+ 
+     BytecodeAnalysis analysis_;
+     FrameInfo frame;
+ 
+     FallbackICStubSpace stubSpace_;
+     js::Vector<ICEntry, 16, SystemAllocPolicy> icEntries_;
++    js::Vector<BlockCounterEntry, 16, SystemAllocPolicy> blockCounterEntries_;
+ 
+     // Stores the native code offset for a bytecode pc.
+     struct PCMappingEntry
+     {
+         uint32_t pcOffset;
+         uint32_t nativeOffset;
+         PCMappingSlotInfo slotInfo;
+ 
+@@ -60,16 +61,22 @@
+     // to be patched with the actual icEntry offsets after the BaselineScript
+     // has been allocated.
+     struct ICLoadLabel {
+         size_t icEntry;
+         CodeOffsetLabel label;
+     };
+     js::Vector<ICLoadLabel, 16, SystemAllocPolicy> icLoadLabels_;
+ 
++    struct BlockCounterLabel {
++        size_t bcEntry;
++        CodeOffsetLabel label;
++    };
++    js::Vector<BlockCounterLabel, 16, SystemAllocPolicy> blockCounterLabels_;
++
+     uint32_t pushedBeforeCall_;
+     mozilla::DebugOnly<bool> inCall_;
+ 
+     CodeOffsetLabel spsPushToggleOffset_;
+ 
+     BaselineCompilerShared(JSContext *cx, HandleScript script);
+ 
+     ICEntry *allocateICEntry(ICStub *stub, bool isForOp) {
+@@ -91,16 +98,30 @@
+     bool addICLoadLabel(CodeOffsetLabel label) {
+         JS_ASSERT(!icEntries_.empty());
+         ICLoadLabel loadLabel;
+         loadLabel.label = label;
+         loadLabel.icEntry = icEntries_.length() - 1;
+         return icLoadLabels_.append(loadLabel);
+     }
+ 
++    BlockCounterEntry *allocateBlockCounterEntry(const size_t pcoffset) {
++        if(!blockCounterEntries_.append(BlockCounterEntry(pcoffset)))
++            return NULL;
++        return &blockCounterEntries_.back();
++    }
++
++    bool addBlockCounterLabel(CodeOffsetLabel label) {
++        JS_ASSERT(!blockCounterEntries_.empty());
++        BlockCounterLabel bcLabel;
++        bcLabel.label = label;
++        bcLabel.bcEntry = blockCounterEntries_.length() - 1;
++        return blockCounterLabels_.append(bcLabel);
++    }
++
+     JSFunction *function() const {
+         return script->function();
+     }
+ 
+     PCMappingSlotInfo getStackTopSlotInfo() {
+         JS_ASSERT(frame.numUnsyncedSlots() <= 2);
+         switch (frame.numUnsyncedSlots()) {
+           case 0:
