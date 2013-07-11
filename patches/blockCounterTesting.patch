@@ -1,0 +1,97 @@
+diff -r 8935670599f0 js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp	Thu Jul 11 20:10:34 2013 +0800
++++ b/js/src/ion/BaselineCompiler.cpp	Thu Jul 11 21:49:09 2013 +0800
+@@ -192,8 +192,12 @@
+                                            ImmWord(uintptr_t(-1)));
+     }
+ 
+-    IonSpew(IonSpew_BaselineScripts, "%d block counters were emitted for script %s:%d (%p)",
+-            blockCounterEntries_.length(), script->filename(), script->lineno, script.get());
++    unsigned lineno, column;
++	lineno = PCToLineNumber(script, pc, &column);
++    IonSpew(IonSpew_BaselineScripts,
++    		"[block counter] %d block counters were emitted for script %s:%d (%p) (lineno: %u column: %u)",
++            blockCounterEntries_.length(), script->filename(), script->lineno, script->baselineScript(),
++            lineno, column);
+ 
+     if (blockCounterEntries_.length())
+         baselineScript->copyBlockCounterEntries(&blockCounterEntries_[0]);
+@@ -344,8 +348,11 @@
+ bool
+ BaselineCompiler::emitBlockCounter(jsbytecode *pc)
+ {
+-    IonSpew(IonSpew_BaselineOp, "Emitting a block counter for op @ %d: %s",
+-            int(pc - script->code), js_CodeName[JSOp(*pc)]);
++	unsigned lineno, column;
++	lineno = PCToLineNumber(script, pc, &column);
++    IonSpew(IonSpew_BaselineOp, "[block counter] Emitting a block counter for op @ %d: %s (lineno: %u column: %u)",
++            int(pc - script->code), js_CodeName[JSOp(*pc)],
++            lineno, column);
+ 
+     BlockCounterEntry *entry = allocateBlockCounterEntry(pc - script->code);
+     if(!entry)
+diff -r 8935670599f0 js/src/ion/BaselineJIT.cpp
+--- a/js/src/ion/BaselineJIT.cpp	Thu Jul 11 20:10:34 2013 +0800
++++ b/js/src/ion/BaselineJIT.cpp	Thu Jul 11 21:49:09 2013 +0800
+@@ -400,6 +400,19 @@
+ }
+ 
+ void
++BaselineScript::DumpBlockCounters(BaselineScript *script)
++{
++	BlockCounterEntry *entries = script->blockCounterEntryList();
++	size_t length = script->numBlockCounters();
++	IonSpew(IonSpew_BaselineScripts, "[block counter] Dump %zu block counters for %p",
++            length, script);
++	for (size_t i = 0;i < length; i++) {
++		IonSpew(IonSpew_BaselineScripts, "[block counter] Op offset: %zu, count: %u",
++		        entries[i].pcOffset, entries[i].counter);
++	}
++}
++
++void
+ BaselineScript::Destroy(FreeOp *fop, BaselineScript *script)
+ {
+     fop->delete_(script);
+diff -r 8935670599f0 js/src/ion/BaselineJIT.h
+--- a/js/src/ion/BaselineJIT.h	Thu Jul 11 20:10:34 2013 +0800
++++ b/js/src/ion/BaselineJIT.h	Thu Jul 11 21:49:09 2013 +0800
+@@ -168,6 +168,7 @@
+                                size_t pcMappingIndexEntries, size_t pcMappingSize,
+                                size_t blockCounters);
+     static void Trace(JSTracer *trc, BaselineScript *script);
++    static void DumpBlockCounters(BaselineScript *script);
+     static void Destroy(FreeOp *fop, BaselineScript *script);
+ 
+     void purgeOptimizedStubs(Zone *zone);
+diff -r 8935670599f0 js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp	Thu Jul 11 20:10:34 2013 +0800
++++ b/js/src/ion/Ion.cpp	Thu Jul 11 21:49:09 2013 +0800
+@@ -1349,6 +1349,9 @@
+                         script);
+ #endif
+ 
++    if (script->hasBaselineScript())
++    	BaselineScript::DumpBlockCounters(script->baselineScript());
++
+     if (!script->ensureRanAnalysis(cx))
+         return AbortReason_Alloc;
+ 
+diff -r 8935670599f0 js/src/ion/IonSpewer.cpp
+--- a/js/src/ion/IonSpewer.cpp	Thu Jul 11 20:10:34 2013 +0800
++++ b/js/src/ion/IonSpewer.cpp	Thu Jul 11 21:49:09 2013 +0800
+@@ -220,6 +220,14 @@
+         return;
+     LoggingChecked = true;
+     const char *env = getenv("IONFLAGS");
++
++    // Always enable these two channels even if 'IONFLAGS' is absence.
++    EnableChannel(IonSpew_BaselineScripts);
++    EnableChannel(IonSpew_BaselineOp);
++
++    if (LoggingBits != 0)
++        EnableIonDebugLogging();
++
+     if (!env)
+         return;
+     if (strstr(env, "help")) {
