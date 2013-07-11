@@ -1,0 +1,501 @@
+[BaselineOp] Analyzing op @ 0 (end=705): defvar
+[BaselineOp] Analyzing op @ 5 (end=705): defvar
+[BaselineOp] Analyzing op @ 10 (end=705): defvar
+[BaselineOp] Analyzing op @ 15 (end=705): defvar
+[BaselineOp] Analyzing op @ 20 (end=705): defvar
+[BaselineOp] Analyzing op @ 25 (end=705): defvar
+[BaselineOp] Analyzing op @ 30 (end=705): defvar
+[BaselineOp] Analyzing op @ 35 (end=705): defvar
+[BaselineOp] Analyzing op @ 40 (end=705): defvar
+[BaselineOp] Analyzing op @ 45 (end=705): getgname
+[BaselineOp] Analyzing op @ 50 (end=705): pop
+[BaselineOp] Analyzing op @ 51 (end=705): bindgname
+[BaselineOp] Analyzing op @ 56 (end=705): string
+[BaselineOp] Analyzing op @ 61 (end=705): setgname
+[BaselineOp] Analyzing op @ 66 (end=705): pop
+[BaselineOp] Analyzing op @ 67 (end=705): bindgname
+[BaselineOp] Analyzing op @ 72 (end=705): getgname
+[BaselineOp] Analyzing op @ 77 (end=705): getgname
+[BaselineOp] Analyzing op @ 82 (end=705): add
+[BaselineOp] Analyzing op @ 83 (end=705): getgname
+[BaselineOp] Analyzing op @ 88 (end=705): add
+[BaselineOp] Analyzing op @ 89 (end=705): setgname
+[BaselineOp] Analyzing op @ 94 (end=705): pop
+[BaselineOp] Analyzing op @ 95 (end=705): getgname
+[BaselineOp] Analyzing op @ 100 (end=705): pop
+[BaselineOp] Analyzing op @ 101 (end=705): getgname
+[BaselineOp] Analyzing op @ 106 (end=705): pop
+[BaselineOp] Analyzing op @ 107 (end=705): bindgname
+[BaselineOp] Analyzing op @ 112 (end=705): newarray
+[BaselineOp] Analyzing op @ 116 (end=705): regexp
+[BaselineOp] Analyzing op @ 121 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 125 (end=705): regexp
+[BaselineOp] Analyzing op @ 130 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 134 (end=705): regexp
+[BaselineOp] Analyzing op @ 139 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 143 (end=705): regexp
+[BaselineOp] Analyzing op @ 148 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 152 (end=705): regexp
+[BaselineOp] Analyzing op @ 157 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 161 (end=705): regexp
+[BaselineOp] Analyzing op @ 166 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 170 (end=705): regexp
+[BaselineOp] Analyzing op @ 175 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 179 (end=705): regexp
+[BaselineOp] Analyzing op @ 184 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 188 (end=705): regexp
+[BaselineOp] Analyzing op @ 193 (end=705): initelem_array
+[BaselineOp] Analyzing op @ 197 (end=705): endinit
+[BaselineOp] Analyzing op @ 198 (end=705): setgname
+[BaselineOp] Analyzing op @ 203 (end=705): pop
+[BaselineOp] Analyzing op @ 204 (end=705): bindgname
+[BaselineOp] Analyzing op @ 209 (end=705): object
+[BaselineOp] Analyzing op @ 214 (end=705): setgname
+[BaselineOp] Analyzing op @ 219 (end=705): pop
+[BaselineOp] Analyzing op @ 220 (end=705): bindgname
+[BaselineOp] Analyzing op @ 225 (end=705): getgname
+[BaselineOp] Analyzing op @ 230 (end=705): length
+[BaselineOp] Analyzing op @ 235 (end=705): setgname
+[BaselineOp] Analyzing op @ 240 (end=705): pop
+[BaselineOp] Analyzing op @ 241 (end=705): bindgname
+[BaselineOp] Analyzing op @ 246 (end=705): getgname
+[BaselineOp] Analyzing op @ 251 (end=705): dup
+[BaselineOp] Analyzing op @ 252 (end=705): callprop
+[BaselineOp] Analyzing op @ 257 (end=705): swap
+[BaselineOp] Analyzing op @ 258 (end=705): notearg
+[BaselineOp] Analyzing op @ 259 (end=705): regexp
+[BaselineOp] Analyzing op @ 264 (end=705): notearg
+[BaselineOp] Analyzing op @ 265 (end=705): string
+[BaselineOp] Analyzing op @ 270 (end=705): notearg
+[BaselineOp] Analyzing op @ 271 (end=705): call
+[BaselineOp] Analyzing op @ 274 (end=705): setgname
+[BaselineOp] Analyzing op @ 279 (end=705): pop
+[BaselineOp] Analyzing op @ 280 (end=705): bindgname
+[BaselineOp] Analyzing op @ 285 (end=705): getgname
+[BaselineOp] Analyzing op @ 290 (end=705): length
+[BaselineOp] Analyzing op @ 295 (end=705): setgname
+[BaselineOp] Analyzing op @ 300 (end=705): pop
+[BaselineOp] Analyzing op @ 301 (end=705): bindgname
+[BaselineOp] Analyzing op @ 306 (end=705): string
+[BaselineOp] Analyzing op @ 311 (end=705): setgname
+[BaselineOp] Analyzing op @ 316 (end=705): pop
+[BaselineOp] Analyzing op @ 317 (end=705): getgname
+[BaselineOp] Analyzing op @ 322 (end=705): iter
+[BaselineOp] Analyzing op @ 324 (end=705): goto
+[BaselineOp] Analyzing op @ 329 (end=705): loophead
+[BaselineOp] Analyzing op @ 330 (end=705): iternext
+[BaselineOp] Analyzing op @ 331 (end=705): bindgname
+[BaselineOp] Analyzing op @ 336 (end=705): pick
+[BaselineOp] Analyzing op @ 338 (end=705): setgname
+[BaselineOp] Analyzing op @ 343 (end=705): pop
+[BaselineOp] Analyzing op @ 344 (end=705): bindgname
+[BaselineOp] Analyzing op @ 349 (end=705): getgname
+[BaselineOp] Analyzing op @ 354 (end=705): getgname
+[BaselineOp] Analyzing op @ 359 (end=705): getgname
+[BaselineOp] Analyzing op @ 364 (end=705): getelem
+[BaselineOp] Analyzing op @ 365 (end=705): getprop
+[BaselineOp] Analyzing op @ 370 (end=705): string
+[BaselineOp] Analyzing op @ 375 (end=705): add
+[BaselineOp] Analyzing op @ 376 (end=705): getgname
+[BaselineOp] Analyzing op @ 381 (end=705): dup
+[BaselineOp] Analyzing op @ 382 (end=705): callprop
+[BaselineOp] Analyzing op @ 387 (end=705): swap
+[BaselineOp] Analyzing op @ 388 (end=705): notearg
+[BaselineOp] Analyzing op @ 389 (end=705): getgname
+[BaselineOp] Analyzing op @ 394 (end=705): getgname
+[BaselineOp] Analyzing op @ 399 (end=705): getelem
+[BaselineOp] Analyzing op @ 400 (end=705): notearg
+[BaselineOp] Analyzing op @ 401 (end=705): call
+[BaselineOp] Analyzing op @ 404 (end=705): or
+[BaselineOp] Analyzing op @ 409 (end=705): pop
+[BaselineOp] Analyzing op @ 410 (end=705): newarray
+[BaselineOp] Analyzing op @ 414 (end=705): endinit
+[BaselineOp] Analyzing op @ 415 (end=705): length
+[BaselineOp] Analyzing op @ 420 (end=705): add
+[BaselineOp] Analyzing op @ 421 (end=705): string
+[BaselineOp] Analyzing op @ 426 (end=705): add
+[BaselineOp] Analyzing op @ 427 (end=705): add
+[BaselineOp] Analyzing op @ 428 (end=705): setgname
+[BaselineOp] Analyzing op @ 433 (end=705): pop
+[BaselineOp] Analyzing op @ 434 (end=705): loopentry
+[BaselineOp] Analyzing op @ 436 (end=705): moreiter
+[BaselineOp] Analyzing op @ 437 (end=705): ifne
+[BaselineOp] Analyzing op @ 330 (end=705): iternext
+[BaselineOp] Analyzing op @ 331 (end=705): bindgname
+[BaselineOp] Analyzing op @ 336 (end=705): pick
+[BaselineOp] Analyzing op @ 338 (end=705): setgname
+[BaselineOp] Analyzing op @ 343 (end=705): pop
+[BaselineOp] Analyzing op @ 344 (end=705): bindgname
+[BaselineOp] Analyzing op @ 349 (end=705): getgname
+[BaselineOp] Analyzing op @ 354 (end=705): getgname
+[BaselineOp] Analyzing op @ 359 (end=705): getgname
+[BaselineOp] Analyzing op @ 364 (end=705): getelem
+[BaselineOp] Analyzing op @ 365 (end=705): getprop
+[BaselineOp] Analyzing op @ 370 (end=705): string
+[BaselineOp] Analyzing op @ 375 (end=705): add
+[BaselineOp] Analyzing op @ 376 (end=705): getgname
+[BaselineOp] Analyzing op @ 381 (end=705): dup
+[BaselineOp] Analyzing op @ 382 (end=705): callprop
+[BaselineOp] Analyzing op @ 387 (end=705): swap
+[BaselineOp] Analyzing op @ 388 (end=705): notearg
+[BaselineOp] Analyzing op @ 389 (end=705): getgname
+[BaselineOp] Analyzing op @ 394 (end=705): getgname
+[BaselineOp] Analyzing op @ 399 (end=705): getelem
+[BaselineOp] Analyzing op @ 400 (end=705): notearg
+[BaselineOp] Analyzing op @ 401 (end=705): call
+[BaselineOp] Analyzing op @ 404 (end=705): or
+[BaselineOp] Analyzing op @ 409 (end=705): pop
+[BaselineOp] Analyzing op @ 410 (end=705): newarray
+[BaselineOp] Analyzing op @ 414 (end=705): endinit
+[BaselineOp] Analyzing op @ 415 (end=705): length
+[BaselineOp] Analyzing op @ 420 (end=705): add
+[BaselineOp] Analyzing op @ 421 (end=705): string
+[BaselineOp] Analyzing op @ 426 (end=705): add
+[BaselineOp] Analyzing op @ 427 (end=705): add
+[BaselineOp] Analyzing op @ 428 (end=705): setgname
+[BaselineOp] Analyzing op @ 433 (end=705): pop
+[BaselineOp] Analyzing op @ 434 (end=705): loopentry
+[BaselineOp] Analyzing op @ 436 (end=705): moreiter
+[BaselineOp] Analyzing op @ 437 (end=705): ifne
+[BaselineOp] Analyzing op @ 442 (end=705): enditer
+[BaselineOp] Analyzing op @ 443 (end=705): getgname
+[BaselineOp] Analyzing op @ 448 (end=705): iter
+[BaselineOp] Analyzing op @ 450 (end=705): goto
+[BaselineOp] Analyzing op @ 455 (end=705): loophead
+[BaselineOp] Analyzing op @ 456 (end=705): iternext
+[BaselineOp] Analyzing op @ 457 (end=705): bindgname
+[BaselineOp] Analyzing op @ 462 (end=705): pick
+[BaselineOp] Analyzing op @ 464 (end=705): setgname
+[BaselineOp] Analyzing op @ 469 (end=705): pop
+[BaselineOp] Analyzing op @ 470 (end=705): bindgname
+[BaselineOp] Analyzing op @ 475 (end=705): getgname
+[BaselineOp] Analyzing op @ 480 (end=705): dup
+[BaselineOp] Analyzing op @ 481 (end=705): callprop
+[BaselineOp] Analyzing op @ 486 (end=705): swap
+[BaselineOp] Analyzing op @ 487 (end=705): notearg
+[BaselineOp] Analyzing op @ 488 (end=705): getgname
+[BaselineOp] Analyzing op @ 493 (end=705): notearg
+[BaselineOp] Analyzing op @ 494 (end=705): getgname
+[BaselineOp] Analyzing op @ 499 (end=705): getgname
+[BaselineOp] Analyzing op @ 504 (end=705): getelem
+[BaselineOp] Analyzing op @ 505 (end=705): notearg
+[BaselineOp] Analyzing op @ 506 (end=705): call
+[BaselineOp] Analyzing op @ 509 (end=705): setgname
+[BaselineOp] Analyzing op @ 514 (end=705): pop
+[BaselineOp] Analyzing op @ 515 (end=705): loopentry
+[BaselineOp] Analyzing op @ 517 (end=705): moreiter
+[BaselineOp] Analyzing op @ 518 (end=705): ifne
+[BaselineOp] Analyzing op @ 456 (end=705): iternext
+[BaselineOp] Analyzing op @ 457 (end=705): bindgname
+[BaselineOp] Analyzing op @ 462 (end=705): pick
+[BaselineOp] Analyzing op @ 464 (end=705): setgname
+[BaselineOp] Analyzing op @ 469 (end=705): pop
+[BaselineOp] Analyzing op @ 470 (end=705): bindgname
+[BaselineOp] Analyzing op @ 475 (end=705): getgname
+[BaselineOp] Analyzing op @ 480 (end=705): dup
+[BaselineOp] Analyzing op @ 481 (end=705): callprop
+[BaselineOp] Analyzing op @ 486 (end=705): swap
+[BaselineOp] Analyzing op @ 487 (end=705): notearg
+[BaselineOp] Analyzing op @ 488 (end=705): getgname
+[BaselineOp] Analyzing op @ 493 (end=705): notearg
+[BaselineOp] Analyzing op @ 494 (end=705): getgname
+[BaselineOp] Analyzing op @ 499 (end=705): getgname
+[BaselineOp] Analyzing op @ 504 (end=705): getelem
+[BaselineOp] Analyzing op @ 505 (end=705): notearg
+[BaselineOp] Analyzing op @ 506 (end=705): call
+[BaselineOp] Analyzing op @ 509 (end=705): setgname
+[BaselineOp] Analyzing op @ 514 (end=705): pop
+[BaselineOp] Analyzing op @ 515 (end=705): loopentry
+[BaselineOp] Analyzing op @ 517 (end=705): moreiter
+[BaselineOp] Analyzing op @ 518 (end=705): ifne
+[BaselineOp] Analyzing op @ 523 (end=705): enditer
+[BaselineOp] Analyzing op @ 524 (end=705): bindgname
+[BaselineOp] Analyzing op @ 529 (end=705): string
+[BaselineOp] Analyzing op @ 534 (end=705): setgname
+[BaselineOp] Analyzing op @ 539 (end=705): pop
+[BaselineOp] Analyzing op @ 540 (end=705): bindgname
+[BaselineOp] Analyzing op @ 545 (end=705): string
+[BaselineOp] Analyzing op @ 550 (end=705): setgname
+[BaselineOp] Analyzing op @ 555 (end=705): pop
+[BaselineOp] Analyzing op @ 556 (end=705): getgname
+[BaselineOp] Analyzing op @ 561 (end=705): getgname
+[BaselineOp] Analyzing op @ 566 (end=705): ne
+[BaselineOp] Analyzing op @ 567 (end=705): ifeq
+[BaselineOp] Analyzing op @ 572 (end=705): string
+[BaselineOp] Analyzing op @ 577 (end=705): getgname
+[BaselineOp] Analyzing op @ 582 (end=705): dup
+[BaselineOp] Analyzing op @ 583 (end=705): callprop
+[BaselineOp] Analyzing op @ 588 (end=705): swap
+[BaselineOp] Analyzing op @ 589 (end=705): notearg
+[BaselineOp] Analyzing op @ 590 (end=705): getgname
+[BaselineOp] Analyzing op @ 595 (end=705): notearg
+[BaselineOp] Analyzing op @ 596 (end=705): call
+[BaselineOp] Analyzing op @ 599 (end=705): add
+[BaselineOp] Analyzing op @ 600 (end=705): string
+[BaselineOp] Analyzing op @ 605 (end=705): add
+[BaselineOp] Analyzing op @ 606 (end=705): getgname
+[BaselineOp] Analyzing op @ 611 (end=705): dup
+[BaselineOp] Analyzing op @ 612 (end=705): callprop
+[BaselineOp] Analyzing op @ 617 (end=705): swap
+[BaselineOp] Analyzing op @ 618 (end=705): notearg
+[BaselineOp] Analyzing op @ 619 (end=705): getgname
+[BaselineOp] Analyzing op @ 624 (end=705): notearg
+[BaselineOp] Analyzing op @ 625 (end=705): call
+[BaselineOp] Analyzing op @ 628 (end=705): add
+[BaselineOp] Analyzing op @ 629 (end=705): throw
+[BaselineOp] Analyzing op @ 630 (end=705): getgname
+[BaselineOp] Analyzing op @ 635 (end=705): getgname
+[BaselineOp] Analyzing op @ 640 (end=705): ne
+[BaselineOp] Analyzing op @ 641 (end=705): ifeq
+[BaselineOp] Analyzing op @ 646 (end=705): string
+[BaselineOp] Analyzing op @ 651 (end=705): getgname
+[BaselineOp] Analyzing op @ 656 (end=705): dup
+[BaselineOp] Analyzing op @ 657 (end=705): callprop
+[BaselineOp] Analyzing op @ 662 (end=705): swap
+[BaselineOp] Analyzing op @ 663 (end=705): notearg
+[BaselineOp] Analyzing op @ 664 (end=705): getgname
+[BaselineOp] Analyzing op @ 669 (end=705): notearg
+[BaselineOp] Analyzing op @ 670 (end=705): call
+[BaselineOp] Analyzing op @ 673 (end=705): add
+[BaselineOp] Analyzing op @ 674 (end=705): string
+[BaselineOp] Analyzing op @ 679 (end=705): add
+[BaselineOp] Analyzing op @ 680 (end=705): getgname
+[BaselineOp] Analyzing op @ 685 (end=705): dup
+[BaselineOp] Analyzing op @ 686 (end=705): callprop
+[BaselineOp] Analyzing op @ 691 (end=705): swap
+[BaselineOp] Analyzing op @ 692 (end=705): notearg
+[BaselineOp] Analyzing op @ 693 (end=705): getgname
+[BaselineOp] Analyzing op @ 698 (end=705): notearg
+[BaselineOp] Analyzing op @ 699 (end=705): call
+[BaselineOp] Analyzing op @ 702 (end=705): add
+[BaselineOp] Analyzing op @ 703 (end=705): throw
+[BaselineOp] Analyzing op @ 704 (end=705): stop
+[BaselineScripts] Baseline compiling script regexp-dna.js:1 (0x7f80daa51128)
+[BaselineOp] Compiling op @ 0: defvar
+[BaselineOp] Compiling op @ 5: defvar
+[BaselineOp] Compiling op @ 10: defvar
+[BaselineOp] Compiling op @ 15: defvar
+[BaselineOp] Compiling op @ 20: defvar
+[BaselineOp] Compiling op @ 25: defvar
+[BaselineOp] Compiling op @ 30: defvar
+[BaselineOp] Compiling op @ 35: defvar
+[BaselineOp] Compiling op @ 40: defvar
+[BaselineOp] Compiling op @ 45: getgname
+[BaselineOp] Compiling op @ 50: pop
+[BaselineOp] Compiling op @ 51: bindgname
+[BaselineOp] Compiling op @ 56: string
+[BaselineOp] Compiling op @ 61: setgname
+[BaselineOp] Compiling op @ 66: pop
+[BaselineOp] Compiling op @ 67: bindgname
+[BaselineOp] Compiling op @ 72: getgname
+[BaselineOp] Compiling op @ 77: getgname
+[BaselineOp] Compiling op @ 82: add
+[BaselineOp] Compiling op @ 83: getgname
+[BaselineOp] Compiling op @ 88: add
+[BaselineOp] Compiling op @ 89: setgname
+[BaselineOp] Compiling op @ 94: pop
+[BaselineOp] Compiling op @ 95: getgname
+[BaselineOp] Compiling op @ 100: pop
+[BaselineOp] Compiling op @ 101: getgname
+[BaselineOp] Compiling op @ 106: pop
+[BaselineOp] Compiling op @ 107: bindgname
+[BaselineOp] Compiling op @ 112: newarray
+[BaselineOp] Compiling op @ 116: regexp
+[BaselineOp] Compiling op @ 121: initelem_array
+[BaselineOp] Compiling op @ 125: regexp
+[BaselineOp] Compiling op @ 130: initelem_array
+[BaselineOp] Compiling op @ 134: regexp
+[BaselineOp] Compiling op @ 139: initelem_array
+[BaselineOp] Compiling op @ 143: regexp
+[BaselineOp] Compiling op @ 148: initelem_array
+[BaselineOp] Compiling op @ 152: regexp
+[BaselineOp] Compiling op @ 157: initelem_array
+[BaselineOp] Compiling op @ 161: regexp
+[BaselineOp] Compiling op @ 166: initelem_array
+[BaselineOp] Compiling op @ 170: regexp
+[BaselineOp] Compiling op @ 175: initelem_array
+[BaselineOp] Compiling op @ 179: regexp
+[BaselineOp] Compiling op @ 184: initelem_array
+[BaselineOp] Compiling op @ 188: regexp
+[BaselineOp] Compiling op @ 193: initelem_array
+[BaselineOp] Compiling op @ 197: endinit
+[BaselineOp] Compiling op @ 198: setgname
+[BaselineOp] Compiling op @ 203: pop
+[BaselineOp] Compiling op @ 204: bindgname
+[BaselineOp] Compiling op @ 209: object
+[BaselineOp] Compiling op @ 214: setgname
+[BaselineOp] Compiling op @ 219: pop
+[BaselineOp] Compiling op @ 220: bindgname
+[BaselineOp] Compiling op @ 225: getgname
+[BaselineOp] Compiling op @ 230: length
+[BaselineOp] Compiling op @ 235: setgname
+[BaselineOp] Compiling op @ 240: pop
+[BaselineOp] Compiling op @ 241: bindgname
+[BaselineOp] Compiling op @ 246: getgname
+[BaselineOp] Compiling op @ 251: dup
+[BaselineOp] Compiling op @ 252: callprop
+[BaselineOp] Compiling op @ 257: swap
+[BaselineOp] Compiling op @ 258: notearg
+[BaselineOp] Compiling op @ 259: regexp
+[BaselineOp] Compiling op @ 264: notearg
+[BaselineOp] Compiling op @ 265: string
+[BaselineOp] Compiling op @ 270: notearg
+[BaselineOp] Compiling op @ 271: call
+[BaselineOp] Compiling op @ 274: setgname
+[BaselineOp] Compiling op @ 279: pop
+[BaselineOp] Compiling op @ 280: bindgname
+[BaselineOp] Compiling op @ 285: getgname
+[BaselineOp] Compiling op @ 290: length
+[BaselineOp] Compiling op @ 295: setgname
+[BaselineOp] Compiling op @ 300: pop
+[BaselineOp] Compiling op @ 301: bindgname
+[BaselineOp] Compiling op @ 306: string
+[BaselineOp] Compiling op @ 311: setgname
+[BaselineOp] Compiling op @ 316: pop
+[BaselineOp] Compiling op @ 317: getgname
+[BaselineOp] Compiling op @ 322: iter
+[BaselineOp] Compiling op @ 324: goto
+[BaselineOp] Compiling op @ 329: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 329: loophead (lineno: 1706 column: 0)
+[BaselineOp] Compiling op @ 330: iternext
+[BaselineOp] [block counter] Emitting a block counter for op @ 330: iternext (lineno: 1706 column: 0)
+[BaselineOp] Compiling op @ 331: bindgname
+[BaselineOp] Compiling op @ 336: pick
+[BaselineOp] Compiling op @ 338: setgname
+[BaselineOp] Compiling op @ 343: pop
+[BaselineOp] Compiling op @ 344: bindgname
+[BaselineOp] Compiling op @ 349: getgname
+[BaselineOp] Compiling op @ 354: getgname
+[BaselineOp] Compiling op @ 359: getgname
+[BaselineOp] Compiling op @ 364: getelem
+[BaselineOp] Compiling op @ 365: getprop
+[BaselineOp] Compiling op @ 370: string
+[BaselineOp] Compiling op @ 375: add
+[BaselineOp] Compiling op @ 376: getgname
+[BaselineOp] Compiling op @ 381: dup
+[BaselineOp] Compiling op @ 382: callprop
+[BaselineOp] Compiling op @ 387: swap
+[BaselineOp] Compiling op @ 388: notearg
+[BaselineOp] Compiling op @ 389: getgname
+[BaselineOp] Compiling op @ 394: getgname
+[BaselineOp] Compiling op @ 399: getelem
+[BaselineOp] Compiling op @ 400: notearg
+[BaselineOp] Compiling op @ 401: call
+[BaselineOp] Compiling op @ 404: or
+[BaselineOp] Compiling op @ 409: pop
+[BaselineOp] [block counter] Emitting a block counter for op @ 409: pop (lineno: 1707 column: 4)
+[BaselineOp] Compiling op @ 410: newarray
+[BaselineOp] Compiling op @ 414: endinit
+[BaselineOp] Compiling op @ 415: length
+[BaselineOp] [block counter] Emitting a block counter for op @ 415: length (lineno: 1707 column: 4)
+[BaselineOp] Compiling op @ 420: add
+[BaselineOp] Compiling op @ 421: string
+[BaselineOp] Compiling op @ 426: add
+[BaselineOp] Compiling op @ 427: add
+[BaselineOp] Compiling op @ 428: setgname
+[BaselineOp] Compiling op @ 433: pop
+[BaselineOp] Compiling op @ 434: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 434: loopentry (lineno: 1707 column: 4)
+[BaselineOp] Compiling op @ 436: moreiter
+[BaselineOp] Compiling op @ 437: ifne
+[BaselineOp] Compiling op @ 442: enditer
+[BaselineOp] [block counter] Emitting a block counter for op @ 442: enditer (lineno: 1707 column: 4)
+[BaselineOp] Compiling op @ 443: getgname
+[BaselineOp] Compiling op @ 448: iter
+[BaselineOp] Compiling op @ 450: goto
+[BaselineOp] Compiling op @ 455: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 455: loophead (lineno: 1710 column: 0)
+[BaselineOp] Compiling op @ 456: iternext
+[BaselineOp] [block counter] Emitting a block counter for op @ 456: iternext (lineno: 1710 column: 0)
+[BaselineOp] Compiling op @ 457: bindgname
+[BaselineOp] Compiling op @ 462: pick
+[BaselineOp] Compiling op @ 464: setgname
+[BaselineOp] Compiling op @ 469: pop
+[BaselineOp] Compiling op @ 470: bindgname
+[BaselineOp] Compiling op @ 475: getgname
+[BaselineOp] Compiling op @ 480: dup
+[BaselineOp] Compiling op @ 481: callprop
+[BaselineOp] Compiling op @ 486: swap
+[BaselineOp] Compiling op @ 487: notearg
+[BaselineOp] Compiling op @ 488: getgname
+[BaselineOp] Compiling op @ 493: notearg
+[BaselineOp] Compiling op @ 494: getgname
+[BaselineOp] Compiling op @ 499: getgname
+[BaselineOp] Compiling op @ 504: getelem
+[BaselineOp] Compiling op @ 505: notearg
+[BaselineOp] Compiling op @ 506: call
+[BaselineOp] Compiling op @ 509: setgname
+[BaselineOp] Compiling op @ 514: pop
+[BaselineOp] Compiling op @ 515: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 515: loopentry (lineno: 1711 column: 1)
+[BaselineOp] Compiling op @ 517: moreiter
+[BaselineOp] Compiling op @ 518: ifne
+[BaselineOp] Compiling op @ 523: enditer
+[BaselineOp] [block counter] Emitting a block counter for op @ 523: enditer (lineno: 1711 column: 1)
+[BaselineOp] Compiling op @ 524: bindgname
+[BaselineOp] Compiling op @ 529: string
+[BaselineOp] Compiling op @ 534: setgname
+[BaselineOp] Compiling op @ 539: pop
+[BaselineOp] Compiling op @ 540: bindgname
+[BaselineOp] Compiling op @ 545: string
+[BaselineOp] Compiling op @ 550: setgname
+[BaselineOp] Compiling op @ 555: pop
+[BaselineOp] Compiling op @ 556: getgname
+[BaselineOp] Compiling op @ 561: getgname
+[BaselineOp] Compiling op @ 566: ne
+[BaselineOp] Compiling op @ 567: ifeq
+[BaselineOp] Compiling op @ 572: string
+[BaselineOp] [block counter] Emitting a block counter for op @ 572: string (lineno: 1718 column: 4)
+[BaselineOp] Compiling op @ 577: getgname
+[BaselineOp] Compiling op @ 582: dup
+[BaselineOp] Compiling op @ 583: callprop
+[BaselineOp] Compiling op @ 588: swap
+[BaselineOp] Compiling op @ 589: notearg
+[BaselineOp] Compiling op @ 590: getgname
+[BaselineOp] Compiling op @ 595: notearg
+[BaselineOp] Compiling op @ 596: call
+[BaselineOp] Compiling op @ 599: add
+[BaselineOp] Compiling op @ 600: string
+[BaselineOp] Compiling op @ 605: add
+[BaselineOp] Compiling op @ 606: getgname
+[BaselineOp] Compiling op @ 611: dup
+[BaselineOp] Compiling op @ 612: callprop
+[BaselineOp] Compiling op @ 617: swap
+[BaselineOp] Compiling op @ 618: notearg
+[BaselineOp] Compiling op @ 619: getgname
+[BaselineOp] Compiling op @ 624: notearg
+[BaselineOp] Compiling op @ 625: call
+[BaselineOp] Compiling op @ 628: add
+[BaselineOp] Compiling op @ 629: throw
+[BaselineOp] Compiling op @ 630: getgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 630: getgname (lineno: 1720 column: 0)
+[BaselineOp] Compiling op @ 635: getgname
+[BaselineOp] Compiling op @ 640: ne
+[BaselineOp] Compiling op @ 641: ifeq
+[BaselineOp] Compiling op @ 646: string
+[BaselineOp] [block counter] Emitting a block counter for op @ 646: string (lineno: 1721 column: 4)
+[BaselineOp] Compiling op @ 651: getgname
+[BaselineOp] Compiling op @ 656: dup
+[BaselineOp] Compiling op @ 657: callprop
+[BaselineOp] Compiling op @ 662: swap
+[BaselineOp] Compiling op @ 663: notearg
+[BaselineOp] Compiling op @ 664: getgname
+[BaselineOp] Compiling op @ 669: notearg
+[BaselineOp] Compiling op @ 670: call
+[BaselineOp] Compiling op @ 673: add
+[BaselineOp] Compiling op @ 674: string
+[BaselineOp] Compiling op @ 679: add
+[BaselineOp] Compiling op @ 680: getgname
+[BaselineOp] Compiling op @ 685: dup
+[BaselineOp] Compiling op @ 686: callprop
+[BaselineOp] Compiling op @ 691: swap
+[BaselineOp] Compiling op @ 692: notearg
+[BaselineOp] Compiling op @ 693: getgname
+[BaselineOp] Compiling op @ 698: notearg
+[BaselineOp] Compiling op @ 699: call
+[BaselineOp] Compiling op @ 702: add
+[BaselineOp] Compiling op @ 703: throw
+[BaselineOp] Compiling op @ 704: stop
+[BaselineOp] [block counter] Emitting a block counter for op @ 704: stop (lineno: 1721 column: 117)
+[BaselineScripts] Created BaselineScript 0x1cd5e40 (raw 0x7f80dc790360) for regexp-dna.js:1
+[BaselineScripts] [block counter] 14 block counters were emitted for script regexp-dna.js:1 (0x1cd5e40) (lineno: 1721 column: 117)

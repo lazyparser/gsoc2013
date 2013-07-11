@@ -1,0 +1,268 @@
+[BaselineOp] Analyzing op @ 0 (end=84): getarg
+[BaselineOp] Analyzing op @ 3 (end=84): zero
+[BaselineOp] Analyzing op @ 4 (end=84): eq
+[BaselineOp] Analyzing op @ 5 (end=84): ifeq
+[BaselineOp] Analyzing op @ 10 (end=84): getarg
+[BaselineOp] Analyzing op @ 13 (end=84): one
+[BaselineOp] Analyzing op @ 14 (end=84): add
+[BaselineOp] Analyzing op @ 15 (end=84): return
+[BaselineOp] Analyzing op @ 16 (end=84): getarg
+[BaselineOp] Analyzing op @ 19 (end=84): zero
+[BaselineOp] Analyzing op @ 20 (end=84): eq
+[BaselineOp] Analyzing op @ 21 (end=84): ifeq
+[BaselineOp] Analyzing op @ 26 (end=84): callgname
+[BaselineOp] Analyzing op @ 31 (end=84): undefined
+[BaselineOp] Analyzing op @ 32 (end=84): notearg
+[BaselineOp] Analyzing op @ 33 (end=84): getarg
+[BaselineOp] Analyzing op @ 36 (end=84): one
+[BaselineOp] Analyzing op @ 37 (end=84): sub
+[BaselineOp] Analyzing op @ 38 (end=84): notearg
+[BaselineOp] Analyzing op @ 39 (end=84): one
+[BaselineOp] Analyzing op @ 40 (end=84): notearg
+[BaselineOp] Analyzing op @ 41 (end=84): call
+[BaselineOp] Analyzing op @ 44 (end=84): return
+[BaselineOp] Analyzing op @ 45 (end=84): callgname
+[BaselineOp] Analyzing op @ 50 (end=84): undefined
+[BaselineOp] Analyzing op @ 51 (end=84): notearg
+[BaselineOp] Analyzing op @ 52 (end=84): getarg
+[BaselineOp] Analyzing op @ 55 (end=84): one
+[BaselineOp] Analyzing op @ 56 (end=84): sub
+[BaselineOp] Analyzing op @ 57 (end=84): notearg
+[BaselineOp] Analyzing op @ 58 (end=84): callgname
+[BaselineOp] Analyzing op @ 63 (end=84): undefined
+[BaselineOp] Analyzing op @ 64 (end=84): notearg
+[BaselineOp] Analyzing op @ 65 (end=84): getarg
+[BaselineOp] Analyzing op @ 68 (end=84): notearg
+[BaselineOp] Analyzing op @ 69 (end=84): getarg
+[BaselineOp] Analyzing op @ 72 (end=84): one
+[BaselineOp] Analyzing op @ 73 (end=84): sub
+[BaselineOp] Analyzing op @ 74 (end=84): notearg
+[BaselineOp] Analyzing op @ 75 (end=84): call
+[BaselineOp] Analyzing op @ 78 (end=84): notearg
+[BaselineOp] Analyzing op @ 79 (end=84): call
+[BaselineOp] Analyzing op @ 82 (end=84): return
+[BaselineOp] Analyzing op @ 83 (end=84): stop
+[BaselineScripts] Baseline compiling script controlflow-recursive.js:5 (0x7ff5010511f0)
+[BaselineOp] Compiling op @ 0: getarg
+[BaselineOp] Compiling op @ 3: zero
+[BaselineOp] Compiling op @ 4: eq
+[BaselineOp] Compiling op @ 5: ifeq
+[BaselineOp] Compiling op @ 10: getarg
+[BaselineOp] [block counter] Emitting a block counter for op @ 10: getarg (lineno: 6 column: 0)
+[BaselineOp] Compiling op @ 13: one
+[BaselineOp] Compiling op @ 14: add
+[BaselineOp] Compiling op @ 15: return
+[BaselineOp] Compiling op @ 16: getarg
+[BaselineOp] [block counter] Emitting a block counter for op @ 16: getarg (lineno: 7 column: 0)
+[BaselineOp] Compiling op @ 19: zero
+[BaselineOp] Compiling op @ 20: eq
+[BaselineOp] Compiling op @ 21: ifeq
+[BaselineOp] Compiling op @ 26: callgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 26: callgname (lineno: 7 column: 15)
+[BaselineOp] Compiling op @ 31: undefined
+[BaselineOp] Compiling op @ 32: notearg
+[BaselineOp] Compiling op @ 33: getarg
+[BaselineOp] Compiling op @ 36: one
+[BaselineOp] Compiling op @ 37: sub
+[BaselineOp] Compiling op @ 38: notearg
+[BaselineOp] Compiling op @ 39: one
+[BaselineOp] Compiling op @ 40: notearg
+[BaselineOp] Compiling op @ 41: call
+[BaselineOp] Compiling op @ 44: return
+[BaselineOp] Compiling op @ 45: callgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 45: callgname (lineno: 8 column: 3)
+[BaselineOp] Compiling op @ 50: undefined
+[BaselineOp] Compiling op @ 51: notearg
+[BaselineOp] Compiling op @ 52: getarg
+[BaselineOp] Compiling op @ 55: one
+[BaselineOp] Compiling op @ 56: sub
+[BaselineOp] Compiling op @ 57: notearg
+[BaselineOp] Compiling op @ 58: callgname
+[BaselineOp] Compiling op @ 63: undefined
+[BaselineOp] Compiling op @ 64: notearg
+[BaselineOp] Compiling op @ 65: getarg
+[BaselineOp] Compiling op @ 68: notearg
+[BaselineOp] Compiling op @ 69: getarg
+[BaselineOp] Compiling op @ 72: one
+[BaselineOp] Compiling op @ 73: sub
+[BaselineOp] Compiling op @ 74: notearg
+[BaselineOp] Compiling op @ 75: call
+[BaselineOp] Compiling op @ 78: notearg
+[BaselineOp] Compiling op @ 79: call
+[BaselineOp] Compiling op @ 82: return
+[BaselineOp] Compiling op @ 83: stop
+[BaselineScripts] Created BaselineScript 0x2c809c0 (raw 0x7ff502d6e218) for controlflow-recursive.js:5
+[BaselineScripts] [block counter] 4 block counters were emitted for script controlflow-recursive.js:5 (0x2c809c0) (lineno: 8 column: 32)
+[BaselineScripts] [block counter] Dump 4 block counters for 0x2c809c0
+[BaselineScripts] [block counter] Op offset: 10, count: 466
+[BaselineScripts] [block counter] Op offset: 16, count: 522
+[BaselineScripts] [block counter] Op offset: 26, count: 38
+[BaselineScripts] [block counter] Op offset: 45, count: 484
+[BaselineOp] Analyzing op @ 0 (end=49): getarg
+[BaselineOp] Analyzing op @ 3 (end=49): int8
+[BaselineOp] Analyzing op @ 5 (end=49): lt
+[BaselineOp] Analyzing op @ 6 (end=49): ifeq
+[BaselineOp] Analyzing op @ 11 (end=49): one
+[BaselineOp] Analyzing op @ 12 (end=49): return
+[BaselineOp] Analyzing op @ 13 (end=49): callgname
+[BaselineOp] Analyzing op @ 18 (end=49): undefined
+[BaselineOp] Analyzing op @ 19 (end=49): notearg
+[BaselineOp] Analyzing op @ 20 (end=49): getarg
+[BaselineOp] Analyzing op @ 23 (end=49): int8
+[BaselineOp] Analyzing op @ 25 (end=49): sub
+[BaselineOp] Analyzing op @ 26 (end=49): notearg
+[BaselineOp] Analyzing op @ 27 (end=49): call
+[BaselineOp] Analyzing op @ 30 (end=49): callgname
+[BaselineOp] Analyzing op @ 35 (end=49): undefined
+[BaselineOp] Analyzing op @ 36 (end=49): notearg
+[BaselineOp] Analyzing op @ 37 (end=49): getarg
+[BaselineOp] Analyzing op @ 40 (end=49): one
+[BaselineOp] Analyzing op @ 41 (end=49): sub
+[BaselineOp] Analyzing op @ 42 (end=49): notearg
+[BaselineOp] Analyzing op @ 43 (end=49): call
+[BaselineOp] Analyzing op @ 46 (end=49): add
+[BaselineOp] Analyzing op @ 47 (end=49): return
+[BaselineOp] Analyzing op @ 48 (end=49): stop
+[BaselineScripts] Baseline compiling script controlflow-recursive.js:11 (0x7ff5010512b8)
+[BaselineOp] Compiling op @ 0: getarg
+[BaselineOp] Compiling op @ 3: int8
+[BaselineOp] Compiling op @ 5: lt
+[BaselineOp] Compiling op @ 6: ifeq
+[BaselineOp] Compiling op @ 11: one
+[BaselineOp] [block counter] Emitting a block counter for op @ 11: one (lineno: 12 column: 0)
+[BaselineOp] Compiling op @ 12: return
+[BaselineOp] Compiling op @ 13: callgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 13: callgname (lineno: 13 column: 4)
+[BaselineOp] Compiling op @ 18: undefined
+[BaselineOp] Compiling op @ 19: notearg
+[BaselineOp] Compiling op @ 20: getarg
+[BaselineOp] Compiling op @ 23: int8
+[BaselineOp] Compiling op @ 25: sub
+[BaselineOp] Compiling op @ 26: notearg
+[BaselineOp] Compiling op @ 27: call
+[BaselineOp] Compiling op @ 30: callgname
+[BaselineOp] Compiling op @ 35: undefined
+[BaselineOp] Compiling op @ 36: notearg
+[BaselineOp] Compiling op @ 37: getarg
+[BaselineOp] Compiling op @ 40: one
+[BaselineOp] Compiling op @ 41: sub
+[BaselineOp] Compiling op @ 42: notearg
+[BaselineOp] Compiling op @ 43: call
+[BaselineOp] Compiling op @ 46: add
+[BaselineOp] Compiling op @ 47: return
+[BaselineOp] Compiling op @ 48: stop
+[BaselineScripts] Created BaselineScript 0x2c80190 (raw 0x7ff502d6f398) for controlflow-recursive.js:11
+[BaselineScripts] [block counter] 2 block counters were emitted for script controlflow-recursive.js:11 (0x2c80190) (lineno: 13 column: 31)
+[BaselineScripts] [block counter] Dump 2 block counters for 0x2c80190
+[BaselineScripts] [block counter] Op offset: 11, count: 496
+[BaselineScripts] [block counter] Op offset: 13, count: 492
+[BaselineOp] Analyzing op @ 0 (end=103): getarg
+[BaselineOp] Analyzing op @ 3 (end=103): getarg
+[BaselineOp] Analyzing op @ 6 (end=103): ge
+[BaselineOp] Analyzing op @ 7 (end=103): ifeq
+[BaselineOp] Analyzing op @ 12 (end=103): getarg
+[BaselineOp] Analyzing op @ 15 (end=103): return
+[BaselineOp] Analyzing op @ 16 (end=103): callgname
+[BaselineOp] Analyzing op @ 21 (end=103): undefined
+[BaselineOp] Analyzing op @ 22 (end=103): notearg
+[BaselineOp] Analyzing op @ 23 (end=103): callgname
+[BaselineOp] Analyzing op @ 28 (end=103): undefined
+[BaselineOp] Analyzing op @ 29 (end=103): notearg
+[BaselineOp] Analyzing op @ 30 (end=103): getarg
+[BaselineOp] Analyzing op @ 33 (end=103): one
+[BaselineOp] Analyzing op @ 34 (end=103): sub
+[BaselineOp] Analyzing op @ 35 (end=103): notearg
+[BaselineOp] Analyzing op @ 36 (end=103): getarg
+[BaselineOp] Analyzing op @ 39 (end=103): notearg
+[BaselineOp] Analyzing op @ 40 (end=103): getarg
+[BaselineOp] Analyzing op @ 43 (end=103): notearg
+[BaselineOp] Analyzing op @ 44 (end=103): call
+[BaselineOp] Analyzing op @ 47 (end=103): notearg
+[BaselineOp] Analyzing op @ 48 (end=103): callgname
+[BaselineOp] Analyzing op @ 53 (end=103): undefined
+[BaselineOp] Analyzing op @ 54 (end=103): notearg
+[BaselineOp] Analyzing op @ 55 (end=103): getarg
+[BaselineOp] Analyzing op @ 58 (end=103): one
+[BaselineOp] Analyzing op @ 59 (end=103): sub
+[BaselineOp] Analyzing op @ 60 (end=103): notearg
+[BaselineOp] Analyzing op @ 61 (end=103): getarg
+[BaselineOp] Analyzing op @ 64 (end=103): notearg
+[BaselineOp] Analyzing op @ 65 (end=103): getarg
+[BaselineOp] Analyzing op @ 68 (end=103): notearg
+[BaselineOp] Analyzing op @ 69 (end=103): call
+[BaselineOp] Analyzing op @ 72 (end=103): notearg
+[BaselineOp] Analyzing op @ 73 (end=103): callgname
+[BaselineOp] Analyzing op @ 78 (end=103): undefined
+[BaselineOp] Analyzing op @ 79 (end=103): notearg
+[BaselineOp] Analyzing op @ 80 (end=103): getarg
+[BaselineOp] Analyzing op @ 83 (end=103): one
+[BaselineOp] Analyzing op @ 84 (end=103): sub
+[BaselineOp] Analyzing op @ 85 (end=103): notearg
+[BaselineOp] Analyzing op @ 86 (end=103): getarg
+[BaselineOp] Analyzing op @ 89 (end=103): notearg
+[BaselineOp] Analyzing op @ 90 (end=103): getarg
+[BaselineOp] Analyzing op @ 93 (end=103): notearg
+[BaselineOp] Analyzing op @ 94 (end=103): call
+[BaselineOp] Analyzing op @ 97 (end=103): notearg
+[BaselineOp] Analyzing op @ 98 (end=103): call
+[BaselineOp] Analyzing op @ 101 (end=103): return
+[BaselineOp] Analyzing op @ 102 (end=103): stop
+[BaselineScripts] Baseline compiling script controlflow-recursive.js:16 (0x7ff501051380)
+[BaselineOp] Compiling op @ 0: getarg
+[BaselineOp] Compiling op @ 3: getarg
+[BaselineOp] Compiling op @ 6: ge
+[BaselineOp] Compiling op @ 7: ifeq
+[BaselineOp] Compiling op @ 12: getarg
+[BaselineOp] [block counter] Emitting a block counter for op @ 12: getarg (lineno: 17 column: 0)
+[BaselineOp] Compiling op @ 15: return
+[BaselineOp] Compiling op @ 16: callgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 16: callgname (lineno: 18 column: 4)
+[BaselineOp] Compiling op @ 21: undefined
+[BaselineOp] Compiling op @ 22: notearg
+[BaselineOp] Compiling op @ 23: callgname
+[BaselineOp] Compiling op @ 28: undefined
+[BaselineOp] Compiling op @ 29: notearg
+[BaselineOp] Compiling op @ 30: getarg
+[BaselineOp] Compiling op @ 33: one
+[BaselineOp] Compiling op @ 34: sub
+[BaselineOp] Compiling op @ 35: notearg
+[BaselineOp] Compiling op @ 36: getarg
+[BaselineOp] Compiling op @ 39: notearg
+[BaselineOp] Compiling op @ 40: getarg
+[BaselineOp] Compiling op @ 43: notearg
+[BaselineOp] Compiling op @ 44: call
+[BaselineOp] Compiling op @ 47: notearg
+[BaselineOp] Compiling op @ 48: callgname
+[BaselineOp] Compiling op @ 53: undefined
+[BaselineOp] Compiling op @ 54: notearg
+[BaselineOp] Compiling op @ 55: getarg
+[BaselineOp] Compiling op @ 58: one
+[BaselineOp] Compiling op @ 59: sub
+[BaselineOp] Compiling op @ 60: notearg
+[BaselineOp] Compiling op @ 61: getarg
+[BaselineOp] Compiling op @ 64: notearg
+[BaselineOp] Compiling op @ 65: getarg
+[BaselineOp] Compiling op @ 68: notearg
+[BaselineOp] Compiling op @ 69: call
+[BaselineOp] Compiling op @ 72: notearg
+[BaselineOp] Compiling op @ 73: callgname
+[BaselineOp] Compiling op @ 78: undefined
+[BaselineOp] Compiling op @ 79: notearg
+[BaselineOp] Compiling op @ 80: getarg
+[BaselineOp] Compiling op @ 83: one
+[BaselineOp] Compiling op @ 84: sub
+[BaselineOp] Compiling op @ 85: notearg
+[BaselineOp] Compiling op @ 86: getarg
+[BaselineOp] Compiling op @ 89: notearg
+[BaselineOp] Compiling op @ 90: getarg
+[BaselineOp] Compiling op @ 93: notearg
+[BaselineOp] Compiling op @ 94: call
+[BaselineOp] Compiling op @ 97: notearg
+[BaselineOp] Compiling op @ 98: call
+[BaselineOp] Compiling op @ 101: return
+[BaselineOp] Compiling op @ 102: stop
+[BaselineScripts] Created BaselineScript 0x2c88720 (raw 0x7ff502d6faf8) for controlflow-recursive.js:16
+[BaselineScripts] [block counter] 2 block counters were emitted for script controlflow-recursive.js:16 (0x2c88720) (lineno: 18 column: 57)
+[BaselineScripts] [block counter] Dump 2 block counters for 0x2c88720
+[BaselineScripts] [block counter] Op offset: 12, count: 739
+[BaselineScripts] [block counter] Op offset: 16, count: 249

@@ -1,0 +1,304 @@
+[BaselineOp] Analyzing op @ 0 (end=68): one
+[BaselineOp] Analyzing op @ 1 (end=68): setlocal
+[BaselineOp] Analyzing op @ 4 (end=68): pop
+[BaselineOp] Analyzing op @ 5 (end=68): zero
+[BaselineOp] Analyzing op @ 6 (end=68): setlocal
+[BaselineOp] Analyzing op @ 9 (end=68): pop
+[BaselineOp] Analyzing op @ 10 (end=68): goto
+[BaselineOp] Analyzing op @ 15 (end=68): loophead
+[BaselineOp] Analyzing op @ 16 (end=68): getarg
+[BaselineOp] Analyzing op @ 19 (end=68): getlocal
+[BaselineOp] Analyzing op @ 22 (end=68): bitand
+[BaselineOp] Analyzing op @ 23 (end=68): ifeq
+[BaselineOp] Analyzing op @ 28 (end=68): getlocal
+[BaselineOp] Analyzing op @ 31 (end=68): pos
+[BaselineOp] Analyzing op @ 32 (end=68): dup
+[BaselineOp] Analyzing op @ 33 (end=68): one
+[BaselineOp] Analyzing op @ 34 (end=68): add
+[BaselineOp] Analyzing op @ 35 (end=68): setlocal
+[BaselineOp] Analyzing op @ 38 (end=68): pop
+[BaselineOp] Analyzing op @ 39 (end=68): pop
+[BaselineOp] Analyzing op @ 40 (end=68): getlocal
+[BaselineOp] Analyzing op @ 43 (end=68): one
+[BaselineOp] Analyzing op @ 44 (end=68): lsh
+[BaselineOp] Analyzing op @ 45 (end=68): setlocal
+[BaselineOp] Analyzing op @ 48 (end=68): pop
+[BaselineOp] Analyzing op @ 49 (end=68): loopentry
+[BaselineOp] Analyzing op @ 51 (end=68): getlocal
+[BaselineOp] Analyzing op @ 54 (end=68): uint16
+[BaselineOp] Analyzing op @ 57 (end=68): lt
+[BaselineOp] Analyzing op @ 58 (end=68): ifne
+[BaselineOp] Analyzing op @ 16 (end=68): getarg
+[BaselineOp] Analyzing op @ 19 (end=68): getlocal
+[BaselineOp] Analyzing op @ 22 (end=68): bitand
+[BaselineOp] Analyzing op @ 23 (end=68): ifeq
+[BaselineOp] Analyzing op @ 28 (end=68): getlocal
+[BaselineOp] Analyzing op @ 31 (end=68): pos
+[BaselineOp] Analyzing op @ 32 (end=68): dup
+[BaselineOp] Analyzing op @ 33 (end=68): one
+[BaselineOp] Analyzing op @ 34 (end=68): add
+[BaselineOp] Analyzing op @ 35 (end=68): setlocal
+[BaselineOp] Analyzing op @ 38 (end=68): pop
+[BaselineOp] Analyzing op @ 39 (end=68): pop
+[BaselineOp] Analyzing op @ 40 (end=68): getlocal
+[BaselineOp] Analyzing op @ 43 (end=68): one
+[BaselineOp] Analyzing op @ 44 (end=68): lsh
+[BaselineOp] Analyzing op @ 45 (end=68): setlocal
+[BaselineOp] Analyzing op @ 48 (end=68): pop
+[BaselineOp] Analyzing op @ 49 (end=68): loopentry
+[BaselineOp] Analyzing op @ 51 (end=68): getlocal
+[BaselineOp] Analyzing op @ 54 (end=68): uint16
+[BaselineOp] Analyzing op @ 57 (end=68): lt
+[BaselineOp] Analyzing op @ 58 (end=68): ifne
+[BaselineOp] Analyzing op @ 63 (end=68): getlocal
+[BaselineOp] Analyzing op @ 66 (end=68): return
+[BaselineOp] Analyzing op @ 67 (end=68): stop
+[BaselineScripts] Baseline compiling script bitops-bits-in-byte.js:8 (0x7f496a5512b8)
+[BaselineOp] Compiling op @ 0: one
+[BaselineOp] Compiling op @ 1: setlocal
+[BaselineOp] Compiling op @ 4: pop
+[BaselineOp] Compiling op @ 5: zero
+[BaselineOp] Compiling op @ 6: setlocal
+[BaselineOp] Compiling op @ 9: pop
+[BaselineOp] Compiling op @ 10: goto
+[BaselineOp] Compiling op @ 15: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 15: loophead (lineno: 11 column: 0)
+[BaselineOp] Compiling op @ 16: getarg
+[BaselineOp] [block counter] Emitting a block counter for op @ 16: getarg (lineno: 11 column: 0)
+[BaselineOp] Compiling op @ 19: getlocal
+[BaselineOp] Compiling op @ 22: bitand
+[BaselineOp] Compiling op @ 23: ifeq
+[BaselineOp] Compiling op @ 28: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 28: getlocal (lineno: 11 column: 10)
+[BaselineOp] Compiling op @ 31: pos
+[BaselineOp] Compiling op @ 32: dup
+[BaselineOp] Compiling op @ 33: one
+[BaselineOp] Compiling op @ 34: add
+[BaselineOp] Compiling op @ 35: setlocal
+[BaselineOp] Compiling op @ 38: pop
+[BaselineOp] Compiling op @ 39: pop
+[BaselineOp] Compiling op @ 40: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 40: getlocal (lineno: 12 column: 0)
+[BaselineOp] Compiling op @ 43: one
+[BaselineOp] Compiling op @ 44: lsh
+[BaselineOp] Compiling op @ 45: setlocal
+[BaselineOp] Compiling op @ 48: pop
+[BaselineOp] Compiling op @ 49: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 49: loopentry (lineno: 10 column: 6)
+[BaselineOp] Compiling op @ 51: getlocal
+[BaselineOp] Compiling op @ 54: uint16
+[BaselineOp] Compiling op @ 57: lt
+[BaselineOp] Compiling op @ 58: ifne
+[BaselineOp] Compiling op @ 63: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 63: getlocal (lineno: 14 column: 0)
+[BaselineOp] Compiling op @ 66: return
+[BaselineOp] Compiling op @ 67: stop
+[BaselineScripts] Created BaselineScript 0x2baa2f0 (raw 0x7f496c1f2168) for bitops-bits-in-byte.js:8
+[BaselineScripts] [block counter] 6 block counters were emitted for script bitops-bits-in-byte.js:8 (0x2baa2f0) (lineno: 14 column: 9)
+[BaselineOp] Analyzing op @ 0 (end=116): getlocal
+[BaselineOp] Analyzing op @ 3 (end=116): pop
+[BaselineOp] Analyzing op @ 4 (end=116): getlocal
+[BaselineOp] Analyzing op @ 7 (end=116): pop
+[BaselineOp] Analyzing op @ 8 (end=116): getlocal
+[BaselineOp] Analyzing op @ 11 (end=116): pop
+[BaselineOp] Analyzing op @ 12 (end=116): zero
+[BaselineOp] Analyzing op @ 13 (end=116): setlocal
+[BaselineOp] Analyzing op @ 16 (end=116): pop
+[BaselineOp] Analyzing op @ 17 (end=116): zero
+[BaselineOp] Analyzing op @ 18 (end=116): setlocal
+[BaselineOp] Analyzing op @ 21 (end=116): pop
+[BaselineOp] Analyzing op @ 22 (end=116): goto
+[BaselineOp] Analyzing op @ 27 (end=116): loophead
+[BaselineOp] Analyzing op @ 28 (end=116): zero
+[BaselineOp] Analyzing op @ 29 (end=116): setlocal
+[BaselineOp] Analyzing op @ 32 (end=116): pop
+[BaselineOp] Analyzing op @ 33 (end=116): goto
+[BaselineOp] Analyzing op @ 38 (end=116): loophead
+[BaselineOp] Analyzing op @ 39 (end=116): getlocal
+[BaselineOp] Analyzing op @ 42 (end=116): callarg
+[BaselineOp] Analyzing op @ 45 (end=116): undefined
+[BaselineOp] Analyzing op @ 46 (end=116): notearg
+[BaselineOp] Analyzing op @ 47 (end=116): getlocal
+[BaselineOp] Analyzing op @ 50 (end=116): notearg
+[BaselineOp] Analyzing op @ 51 (end=116): call
+[BaselineOp] Analyzing op @ 54 (end=116): add
+[BaselineOp] Analyzing op @ 55 (end=116): setlocal
+[BaselineOp] Analyzing op @ 58 (end=116): pop
+[BaselineOp] Analyzing op @ 59 (end=116): getlocal
+[BaselineOp] Analyzing op @ 62 (end=116): pos
+[BaselineOp] Analyzing op @ 63 (end=116): dup
+[BaselineOp] Analyzing op @ 64 (end=116): one
+[BaselineOp] Analyzing op @ 65 (end=116): add
+[BaselineOp] Analyzing op @ 66 (end=116): setlocal
+[BaselineOp] Analyzing op @ 69 (end=116): pop
+[BaselineOp] Analyzing op @ 70 (end=116): pop
+[BaselineOp] Analyzing op @ 71 (end=116): loopentry
+[BaselineOp] Analyzing op @ 73 (end=116): getlocal
+[BaselineOp] Analyzing op @ 76 (end=116): uint16
+[BaselineOp] Analyzing op @ 79 (end=116): lt
+[BaselineOp] Analyzing op @ 80 (end=116): ifne
+[BaselineOp] Analyzing op @ 85 (end=116): getlocal
+[BaselineOp] Analyzing op @ 88 (end=116): pos
+[BaselineOp] Analyzing op @ 89 (end=116): dup
+[BaselineOp] Analyzing op @ 90 (end=116): one
+[BaselineOp] Analyzing op @ 91 (end=116): add
+[BaselineOp] Analyzing op @ 92 (end=116): setlocal
+[BaselineOp] Analyzing op @ 95 (end=116): pop
+[BaselineOp] Analyzing op @ 96 (end=116): pop
+[BaselineOp] Analyzing op @ 97 (end=116): loopentry
+[BaselineOp] Analyzing op @ 99 (end=116): getlocal
+[BaselineOp] Analyzing op @ 102 (end=116): uint16
+[BaselineOp] Analyzing op @ 105 (end=116): lt
+[BaselineOp] Analyzing op @ 106 (end=116): ifne
+[BaselineOp] Analyzing op @ 28 (end=116): zero
+[BaselineOp] Analyzing op @ 29 (end=116): setlocal
+[BaselineOp] Analyzing op @ 32 (end=116): pop
+[BaselineOp] Analyzing op @ 33 (end=116): goto
+[BaselineOp] Analyzing op @ 38 (end=116): loophead
+[BaselineOp] Analyzing op @ 39 (end=116): getlocal
+[BaselineOp] Analyzing op @ 42 (end=116): callarg
+[BaselineOp] Analyzing op @ 45 (end=116): undefined
+[BaselineOp] Analyzing op @ 46 (end=116): notearg
+[BaselineOp] Analyzing op @ 47 (end=116): getlocal
+[BaselineOp] Analyzing op @ 50 (end=116): notearg
+[BaselineOp] Analyzing op @ 51 (end=116): call
+[BaselineOp] Analyzing op @ 54 (end=116): add
+[BaselineOp] Analyzing op @ 55 (end=116): setlocal
+[BaselineOp] Analyzing op @ 58 (end=116): pop
+[BaselineOp] Analyzing op @ 59 (end=116): getlocal
+[BaselineOp] Analyzing op @ 62 (end=116): pos
+[BaselineOp] Analyzing op @ 63 (end=116): dup
+[BaselineOp] Analyzing op @ 64 (end=116): one
+[BaselineOp] Analyzing op @ 65 (end=116): add
+[BaselineOp] Analyzing op @ 66 (end=116): setlocal
+[BaselineOp] Analyzing op @ 69 (end=116): pop
+[BaselineOp] Analyzing op @ 70 (end=116): pop
+[BaselineOp] Analyzing op @ 71 (end=116): loopentry
+[BaselineOp] Analyzing op @ 73 (end=116): getlocal
+[BaselineOp] Analyzing op @ 76 (end=116): uint16
+[BaselineOp] Analyzing op @ 79 (end=116): lt
+[BaselineOp] Analyzing op @ 80 (end=116): ifne
+[BaselineOp] Analyzing op @ 39 (end=116): getlocal
+[BaselineOp] Analyzing op @ 42 (end=116): callarg
+[BaselineOp] Analyzing op @ 45 (end=116): undefined
+[BaselineOp] Analyzing op @ 46 (end=116): notearg
+[BaselineOp] Analyzing op @ 47 (end=116): getlocal
+[BaselineOp] Analyzing op @ 50 (end=116): notearg
+[BaselineOp] Analyzing op @ 51 (end=116): call
+[BaselineOp] Analyzing op @ 54 (end=116): add
+[BaselineOp] Analyzing op @ 55 (end=116): setlocal
+[BaselineOp] Analyzing op @ 58 (end=116): pop
+[BaselineOp] Analyzing op @ 59 (end=116): getlocal
+[BaselineOp] Analyzing op @ 62 (end=116): pos
+[BaselineOp] Analyzing op @ 63 (end=116): dup
+[BaselineOp] Analyzing op @ 64 (end=116): one
+[BaselineOp] Analyzing op @ 65 (end=116): add
+[BaselineOp] Analyzing op @ 66 (end=116): setlocal
+[BaselineOp] Analyzing op @ 69 (end=116): pop
+[BaselineOp] Analyzing op @ 70 (end=116): pop
+[BaselineOp] Analyzing op @ 71 (end=116): loopentry
+[BaselineOp] Analyzing op @ 73 (end=116): getlocal
+[BaselineOp] Analyzing op @ 76 (end=116): uint16
+[BaselineOp] Analyzing op @ 79 (end=116): lt
+[BaselineOp] Analyzing op @ 80 (end=116): ifne
+[BaselineOp] Analyzing op @ 85 (end=116): getlocal
+[BaselineOp] Analyzing op @ 88 (end=116): pos
+[BaselineOp] Analyzing op @ 89 (end=116): dup
+[BaselineOp] Analyzing op @ 90 (end=116): one
+[BaselineOp] Analyzing op @ 91 (end=116): add
+[BaselineOp] Analyzing op @ 92 (end=116): setlocal
+[BaselineOp] Analyzing op @ 95 (end=116): pop
+[BaselineOp] Analyzing op @ 96 (end=116): pop
+[BaselineOp] Analyzing op @ 97 (end=116): loopentry
+[BaselineOp] Analyzing op @ 99 (end=116): getlocal
+[BaselineOp] Analyzing op @ 102 (end=116): uint16
+[BaselineOp] Analyzing op @ 105 (end=116): lt
+[BaselineOp] Analyzing op @ 106 (end=116): ifne
+[BaselineOp] Analyzing op @ 111 (end=116): getlocal
+[BaselineOp] Analyzing op @ 114 (end=116): return
+[BaselineOp] Analyzing op @ 115 (end=116): stop
+[BaselineScripts] Baseline compiling script bitops-bits-in-byte.js:17 (0x7f496a5511f0)
+[BaselineOp] Compiling op @ 0: getlocal
+[BaselineOp] Compiling op @ 3: pop
+[BaselineOp] Compiling op @ 4: getlocal
+[BaselineOp] Compiling op @ 7: pop
+[BaselineOp] Compiling op @ 8: getlocal
+[BaselineOp] Compiling op @ 11: pop
+[BaselineOp] Compiling op @ 12: zero
+[BaselineOp] Compiling op @ 13: setlocal
+[BaselineOp] Compiling op @ 16: pop
+[BaselineOp] Compiling op @ 17: zero
+[BaselineOp] Compiling op @ 18: setlocal
+[BaselineOp] Compiling op @ 21: pop
+[BaselineOp] Compiling op @ 22: goto
+[BaselineOp] Compiling op @ 27: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 27: loophead (lineno: 21 column: 0)
+[BaselineOp] Compiling op @ 28: zero
+[BaselineOp] [block counter] Emitting a block counter for op @ 28: zero (lineno: 21 column: 4)
+[BaselineOp] Compiling op @ 29: setlocal
+[BaselineOp] Compiling op @ 32: pop
+[BaselineOp] Compiling op @ 33: goto
+[BaselineOp] Compiling op @ 38: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 38: loophead (lineno: 21 column: 25)
+[BaselineOp] Compiling op @ 39: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 39: getlocal (lineno: 21 column: 25)
+[BaselineOp] Compiling op @ 42: callarg
+[BaselineOp] Compiling op @ 45: undefined
+[BaselineOp] Compiling op @ 46: notearg
+[BaselineOp] Compiling op @ 47: getlocal
+[BaselineOp] Compiling op @ 50: notearg
+[BaselineOp] Compiling op @ 51: call
+[BaselineOp] Compiling op @ 54: add
+[BaselineOp] Compiling op @ 55: setlocal
+[BaselineOp] Compiling op @ 58: pop
+[BaselineOp] Compiling op @ 59: getlocal
+[BaselineOp] Compiling op @ 62: pos
+[BaselineOp] Compiling op @ 63: dup
+[BaselineOp] Compiling op @ 64: one
+[BaselineOp] Compiling op @ 65: add
+[BaselineOp] Compiling op @ 66: setlocal
+[BaselineOp] Compiling op @ 69: pop
+[BaselineOp] Compiling op @ 70: pop
+[BaselineOp] Compiling op @ 71: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 71: loopentry (lineno: 21 column: 13)
+[BaselineOp] Compiling op @ 73: getlocal
+[BaselineOp] Compiling op @ 76: uint16
+[BaselineOp] Compiling op @ 79: lt
+[BaselineOp] Compiling op @ 80: ifne
+[BaselineOp] Compiling op @ 85: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 85: getlocal (lineno: 20 column: 20)
+[BaselineOp] Compiling op @ 88: pos
+[BaselineOp] Compiling op @ 89: dup
+[BaselineOp] Compiling op @ 90: one
+[BaselineOp] Compiling op @ 91: add
+[BaselineOp] Compiling op @ 92: setlocal
+[BaselineOp] Compiling op @ 95: pop
+[BaselineOp] Compiling op @ 96: pop
+[BaselineOp] Compiling op @ 97: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 97: loopentry (lineno: 20 column: 13)
+[BaselineOp] Compiling op @ 99: getlocal
+[BaselineOp] Compiling op @ 102: uint16
+[BaselineOp] Compiling op @ 105: lt
+[BaselineOp] Compiling op @ 106: ifne
+[BaselineOp] Compiling op @ 111: getlocal
+[BaselineOp] [block counter] Emitting a block counter for op @ 111: getlocal (lineno: 22 column: 0)
+[BaselineOp] Compiling op @ 114: return
+[BaselineOp] Compiling op @ 115: stop
+[BaselineScripts] Created BaselineScript 0x2ba32f0 (raw 0x7f496c1f27b0) for bitops-bits-in-byte.js:17
+[BaselineScripts] [block counter] 8 block counters were emitted for script bitops-bits-in-byte.js:17 (0x2ba32f0) (lineno: 22 column: 11)
+[BaselineScripts] [block counter] Dump 6 block counters for 0x2baa2f0
+[BaselineScripts] [block counter] Op offset: 15, count: 792
+[BaselineScripts] [block counter] Op offset: 16, count: 792
+[BaselineScripts] [block counter] Op offset: 28, count: 316
+[BaselineScripts] [block counter] Op offset: 40, count: 792
+[BaselineScripts] [block counter] Op offset: 49, count: 891
+[BaselineScripts] [block counter] Op offset: 63, count: 99
+[BaselineScripts] [block counter] Dump 8 block counters for 0x2ba32f0
+[BaselineScripts] [block counter] Op offset: 27, count: 4
+[BaselineScripts] [block counter] Op offset: 28, count: 4
+[BaselineScripts] [block counter] Op offset: 38, count: 1180
+[BaselineScripts] [block counter] Op offset: 39, count: 1180
+[BaselineScripts] [block counter] Op offset: 71, count: 1185
+[BaselineScripts] [block counter] Op offset: 85, count: 4
+[BaselineScripts] [block counter] Op offset: 97, count: 4
+[BaselineScripts] [block counter] Op offset: 111, count: 0

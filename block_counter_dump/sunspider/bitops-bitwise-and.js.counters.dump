@@ -1,0 +1,150 @@
+[BaselineOp] Analyzing op @ 0 (end=181): defvar
+[BaselineOp] Analyzing op @ 5 (end=181): defvar
+[BaselineOp] Analyzing op @ 10 (end=181): defvar
+[BaselineOp] Analyzing op @ 15 (end=181): bindgname
+[BaselineOp] Analyzing op @ 20 (end=181): double
+[BaselineOp] Analyzing op @ 25 (end=181): setgname
+[BaselineOp] Analyzing op @ 30 (end=181): pop
+[BaselineOp] Analyzing op @ 31 (end=181): bindgname
+[BaselineOp] Analyzing op @ 36 (end=181): zero
+[BaselineOp] Analyzing op @ 37 (end=181): setgname
+[BaselineOp] Analyzing op @ 42 (end=181): pop
+[BaselineOp] Analyzing op @ 43 (end=181): goto
+[BaselineOp] Analyzing op @ 48 (end=181): loophead
+[BaselineOp] Analyzing op @ 49 (end=181): bindgname
+[BaselineOp] Analyzing op @ 54 (end=181): getgname
+[BaselineOp] Analyzing op @ 59 (end=181): getgname
+[BaselineOp] Analyzing op @ 64 (end=181): bitand
+[BaselineOp] Analyzing op @ 65 (end=181): setgname
+[BaselineOp] Analyzing op @ 70 (end=181): pop
+[BaselineOp] Analyzing op @ 71 (end=181): bindgname
+[BaselineOp] Analyzing op @ 76 (end=181): getgname
+[BaselineOp] Analyzing op @ 81 (end=181): pos
+[BaselineOp] Analyzing op @ 82 (end=181): dup
+[BaselineOp] Analyzing op @ 83 (end=181): one
+[BaselineOp] Analyzing op @ 84 (end=181): add
+[BaselineOp] Analyzing op @ 85 (end=181): pick
+[BaselineOp] Analyzing op @ 87 (end=181): swap
+[BaselineOp] Analyzing op @ 88 (end=181): setgname
+[BaselineOp] Analyzing op @ 93 (end=181): pop
+[BaselineOp] Analyzing op @ 94 (end=181): pop
+[BaselineOp] Analyzing op @ 95 (end=181): loopentry
+[BaselineOp] Analyzing op @ 97 (end=181): getgname
+[BaselineOp] Analyzing op @ 102 (end=181): uint24
+[BaselineOp] Analyzing op @ 106 (end=181): lt
+[BaselineOp] Analyzing op @ 107 (end=181): ifne
+[BaselineOp] Analyzing op @ 49 (end=181): bindgname
+[BaselineOp] Analyzing op @ 54 (end=181): getgname
+[BaselineOp] Analyzing op @ 59 (end=181): getgname
+[BaselineOp] Analyzing op @ 64 (end=181): bitand
+[BaselineOp] Analyzing op @ 65 (end=181): setgname
+[BaselineOp] Analyzing op @ 70 (end=181): pop
+[BaselineOp] Analyzing op @ 71 (end=181): bindgname
+[BaselineOp] Analyzing op @ 76 (end=181): getgname
+[BaselineOp] Analyzing op @ 81 (end=181): pos
+[BaselineOp] Analyzing op @ 82 (end=181): dup
+[BaselineOp] Analyzing op @ 83 (end=181): one
+[BaselineOp] Analyzing op @ 84 (end=181): add
+[BaselineOp] Analyzing op @ 85 (end=181): pick
+[BaselineOp] Analyzing op @ 87 (end=181): swap
+[BaselineOp] Analyzing op @ 88 (end=181): setgname
+[BaselineOp] Analyzing op @ 93 (end=181): pop
+[BaselineOp] Analyzing op @ 94 (end=181): pop
+[BaselineOp] Analyzing op @ 95 (end=181): loopentry
+[BaselineOp] Analyzing op @ 97 (end=181): getgname
+[BaselineOp] Analyzing op @ 102 (end=181): uint24
+[BaselineOp] Analyzing op @ 106 (end=181): lt
+[BaselineOp] Analyzing op @ 107 (end=181): ifne
+[BaselineOp] Analyzing op @ 112 (end=181): bindgname
+[BaselineOp] Analyzing op @ 117 (end=181): getgname
+[BaselineOp] Analyzing op @ 122 (end=181): setgname
+[BaselineOp] Analyzing op @ 127 (end=181): pop
+[BaselineOp] Analyzing op @ 128 (end=181): bindgname
+[BaselineOp] Analyzing op @ 133 (end=181): zero
+[BaselineOp] Analyzing op @ 134 (end=181): setgname
+[BaselineOp] Analyzing op @ 139 (end=181): pop
+[BaselineOp] Analyzing op @ 140 (end=181): getgname
+[BaselineOp] Analyzing op @ 145 (end=181): getgname
+[BaselineOp] Analyzing op @ 150 (end=181): ne
+[BaselineOp] Analyzing op @ 151 (end=181): ifeq
+[BaselineOp] Analyzing op @ 156 (end=181): string
+[BaselineOp] Analyzing op @ 161 (end=181): getgname
+[BaselineOp] Analyzing op @ 166 (end=181): add
+[BaselineOp] Analyzing op @ 167 (end=181): string
+[BaselineOp] Analyzing op @ 172 (end=181): add
+[BaselineOp] Analyzing op @ 173 (end=181): getgname
+[BaselineOp] Analyzing op @ 178 (end=181): add
+[BaselineOp] Analyzing op @ 179 (end=181): throw
+[BaselineOp] Analyzing op @ 180 (end=181): stop
+[BaselineScripts] Baseline compiling script bitops-bitwise-and.js:1 (0x7ff43e951128)
+[BaselineOp] Compiling op @ 0: defvar
+[BaselineOp] Compiling op @ 5: defvar
+[BaselineOp] Compiling op @ 10: defvar
+[BaselineOp] Compiling op @ 15: bindgname
+[BaselineOp] Compiling op @ 20: double
+[BaselineOp] Compiling op @ 25: setgname
+[BaselineOp] Compiling op @ 30: pop
+[BaselineOp] Compiling op @ 31: bindgname
+[BaselineOp] Compiling op @ 36: zero
+[BaselineOp] Compiling op @ 37: setgname
+[BaselineOp] Compiling op @ 42: pop
+[BaselineOp] Compiling op @ 43: goto
+[BaselineOp] Compiling op @ 48: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 48: loophead (lineno: 28 column: 4)
+[BaselineOp] Compiling op @ 49: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 49: bindgname (lineno: 28 column: 4)
+[BaselineOp] Compiling op @ 54: getgname
+[BaselineOp] Compiling op @ 59: getgname
+[BaselineOp] Compiling op @ 64: bitand
+[BaselineOp] Compiling op @ 65: setgname
+[BaselineOp] Compiling op @ 70: pop
+[BaselineOp] Compiling op @ 71: bindgname
+[BaselineOp] Compiling op @ 76: getgname
+[BaselineOp] Compiling op @ 81: pos
+[BaselineOp] Compiling op @ 82: dup
+[BaselineOp] Compiling op @ 83: one
+[BaselineOp] Compiling op @ 84: add
+[BaselineOp] Compiling op @ 85: pick
+[BaselineOp] Compiling op @ 87: swap
+[BaselineOp] Compiling op @ 88: setgname
+[BaselineOp] Compiling op @ 93: pop
+[BaselineOp] Compiling op @ 94: pop
+[BaselineOp] Compiling op @ 95: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 95: loopentry (lineno: 27 column: 16)
+[BaselineOp] Compiling op @ 97: getgname
+[BaselineOp] Compiling op @ 102: uint24
+[BaselineOp] Compiling op @ 106: lt
+[BaselineOp] Compiling op @ 107: ifne
+[BaselineOp] Compiling op @ 112: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 112: bindgname (lineno: 30 column: 0)
+[BaselineOp] Compiling op @ 117: getgname
+[BaselineOp] Compiling op @ 122: setgname
+[BaselineOp] Compiling op @ 127: pop
+[BaselineOp] Compiling op @ 128: bindgname
+[BaselineOp] Compiling op @ 133: zero
+[BaselineOp] Compiling op @ 134: setgname
+[BaselineOp] Compiling op @ 139: pop
+[BaselineOp] Compiling op @ 140: getgname
+[BaselineOp] Compiling op @ 145: getgname
+[BaselineOp] Compiling op @ 150: ne
+[BaselineOp] Compiling op @ 151: ifeq
+[BaselineOp] Compiling op @ 156: string
+[BaselineOp] [block counter] Emitting a block counter for op @ 156: string (lineno: 34 column: 4)
+[BaselineOp] Compiling op @ 161: getgname
+[BaselineOp] Compiling op @ 166: add
+[BaselineOp] Compiling op @ 167: string
+[BaselineOp] Compiling op @ 172: add
+[BaselineOp] Compiling op @ 173: getgname
+[BaselineOp] Compiling op @ 178: add
+[BaselineOp] Compiling op @ 179: throw
+[BaselineOp] Compiling op @ 180: stop
+[BaselineOp] [block counter] Emitting a block counter for op @ 180: stop (lineno: 34 column: 75)
+[BaselineScripts] Created BaselineScript 0x2720600 (raw 0x7ff4406291d0) for bitops-bitwise-and.js:1
+[BaselineScripts] [block counter] 6 block counters were emitted for script bitops-bitwise-and.js:1 (0x2720600) (lineno: 34 column: 75)
+[BaselineScripts] [block counter] Dump 6 block counters for 0x2720600
+[BaselineScripts] [block counter] Op offset: 48, count: 1088
+[BaselineScripts] [block counter] Op offset: 49, count: 1088
+[BaselineScripts] [block counter] Op offset: 95, count: 1089
+[BaselineScripts] [block counter] Op offset: 112, count: 0
+[BaselineScripts] [block counter] Op offset: 156, count: 0
+[BaselineScripts] [block counter] Op offset: 180, count: 0

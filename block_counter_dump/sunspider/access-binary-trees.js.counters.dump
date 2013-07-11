@@ -1,0 +1,944 @@
+[BaselineOp] Analyzing op @ 0 (end=100): getarg
+[BaselineOp] Analyzing op @ 3 (end=100): zero
+[BaselineOp] Analyzing op @ 4 (end=100): gt
+[BaselineOp] Analyzing op @ 5 (end=100): ifeq
+[BaselineOp] Analyzing op @ 10 (end=100): getgname
+[BaselineOp] Analyzing op @ 15 (end=100): undefined
+[BaselineOp] Analyzing op @ 16 (end=100): notearg
+[BaselineOp] Analyzing op @ 17 (end=100): callgname
+[BaselineOp] Analyzing op @ 22 (end=100): undefined
+[BaselineOp] Analyzing op @ 23 (end=100): notearg
+[BaselineOp] Analyzing op @ 24 (end=100): int8
+[BaselineOp] Analyzing op @ 26 (end=100): getarg
+[BaselineOp] Analyzing op @ 29 (end=100): mul
+[BaselineOp] Analyzing op @ 30 (end=100): one
+[BaselineOp] Analyzing op @ 31 (end=100): sub
+[BaselineOp] Analyzing op @ 32 (end=100): notearg
+[BaselineOp] Analyzing op @ 33 (end=100): getarg
+[BaselineOp] Analyzing op @ 36 (end=100): one
+[BaselineOp] Analyzing op @ 37 (end=100): sub
+[BaselineOp] Analyzing op @ 38 (end=100): notearg
+[BaselineOp] Analyzing op @ 39 (end=100): call
+[BaselineOp] Analyzing op @ 42 (end=100): notearg
+[BaselineOp] Analyzing op @ 43 (end=100): callgname
+[BaselineOp] Analyzing op @ 48 (end=100): undefined
+[BaselineOp] Analyzing op @ 49 (end=100): notearg
+[BaselineOp] Analyzing op @ 50 (end=100): int8
+[BaselineOp] Analyzing op @ 52 (end=100): getarg
+[BaselineOp] Analyzing op @ 55 (end=100): mul
+[BaselineOp] Analyzing op @ 56 (end=100): notearg
+[BaselineOp] Analyzing op @ 57 (end=100): getarg
+[BaselineOp] Analyzing op @ 60 (end=100): one
+[BaselineOp] Analyzing op @ 61 (end=100): sub
+[BaselineOp] Analyzing op @ 62 (end=100): notearg
+[BaselineOp] Analyzing op @ 63 (end=100): call
+[BaselineOp] Analyzing op @ 66 (end=100): notearg
+[BaselineOp] Analyzing op @ 67 (end=100): getarg
+[BaselineOp] Analyzing op @ 70 (end=100): notearg
+[BaselineOp] Analyzing op @ 71 (end=100): new
+[BaselineOp] Analyzing op @ 74 (end=100): return
+[BaselineOp] Analyzing op @ 75 (end=100): goto
+[BaselineOp] Analyzing op @ 80 (end=100): getgname
+[BaselineOp] Analyzing op @ 85 (end=100): undefined
+[BaselineOp] Analyzing op @ 86 (end=100): notearg
+[BaselineOp] Analyzing op @ 87 (end=100): null
+[BaselineOp] Analyzing op @ 88 (end=100): notearg
+[BaselineOp] Analyzing op @ 89 (end=100): null
+[BaselineOp] Analyzing op @ 90 (end=100): notearg
+[BaselineOp] Analyzing op @ 91 (end=100): getarg
+[BaselineOp] Analyzing op @ 94 (end=100): notearg
+[BaselineOp] Analyzing op @ 95 (end=100): new
+[BaselineOp] Analyzing op @ 98 (end=100): return
+[BaselineOp] Analyzing op @ 99 (end=100): stop
+[BaselineScripts] Baseline compiling script access-binary-trees.js:16 (0x7fc05e0511f0)
+[BaselineOp] Compiling op @ 0: getarg
+[BaselineOp] Compiling op @ 3: zero
+[BaselineOp] Compiling op @ 4: gt
+[BaselineOp] Compiling op @ 5: ifeq
+[BaselineOp] Compiling op @ 10: getgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 10: getgname (lineno: 18 column: 0)
+[BaselineOp] Compiling op @ 15: undefined
+[BaselineOp] Compiling op @ 16: notearg
+[BaselineOp] Compiling op @ 17: callgname
+[BaselineOp] Compiling op @ 22: undefined
+[BaselineOp] Compiling op @ 23: notearg
+[BaselineOp] Compiling op @ 24: int8
+[BaselineOp] Compiling op @ 26: getarg
+[BaselineOp] Compiling op @ 29: mul
+[BaselineOp] Compiling op @ 30: one
+[BaselineOp] Compiling op @ 31: sub
+[BaselineOp] Compiling op @ 32: notearg
+[BaselineOp] Compiling op @ 33: getarg
+[BaselineOp] Compiling op @ 36: one
+[BaselineOp] Compiling op @ 37: sub
+[BaselineOp] Compiling op @ 38: notearg
+[BaselineOp] Compiling op @ 39: call
+[BaselineOp] Compiling op @ 42: notearg
+[BaselineOp] Compiling op @ 43: callgname
+[BaselineOp] Compiling op @ 48: undefined
+[BaselineOp] Compiling op @ 49: notearg
+[BaselineOp] Compiling op @ 50: int8
+[BaselineOp] Compiling op @ 52: getarg
+[BaselineOp] Compiling op @ 55: mul
+[BaselineOp] Compiling op @ 56: notearg
+[BaselineOp] Compiling op @ 57: getarg
+[BaselineOp] Compiling op @ 60: one
+[BaselineOp] Compiling op @ 61: sub
+[BaselineOp] Compiling op @ 62: notearg
+[BaselineOp] Compiling op @ 63: call
+[BaselineOp] Compiling op @ 66: notearg
+[BaselineOp] Compiling op @ 67: getarg
+[BaselineOp] Compiling op @ 70: notearg
+[BaselineOp] Compiling op @ 71: new
+[BaselineOp] Compiling op @ 74: return
+[BaselineOp] Compiling op @ 75: goto
+[BaselineOp] Compiling op @ 80: getgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 80: getgname (lineno: 25 column: 6)
+[BaselineOp] Compiling op @ 85: undefined
+[BaselineOp] Compiling op @ 86: notearg
+[BaselineOp] Compiling op @ 87: null
+[BaselineOp] Compiling op @ 88: notearg
+[BaselineOp] Compiling op @ 89: null
+[BaselineOp] Compiling op @ 90: notearg
+[BaselineOp] Compiling op @ 91: getarg
+[BaselineOp] Compiling op @ 94: notearg
+[BaselineOp] Compiling op @ 95: new
+[BaselineOp] Compiling op @ 98: return
+[BaselineOp] Compiling op @ 99: stop
+[BaselineScripts] Created BaselineScript 0x2ecf900 (raw 0x7fc05fde7218) for access-binary-trees.js:16
+[BaselineScripts] [block counter] 2 block counters were emitted for script access-binary-trees.js:16 (0x2ecf900) (lineno: 25 column: 42)
+[BaselineOp] Analyzing op @ 0 (end=31): this
+[BaselineOp] Analyzing op @ 1 (end=31): getarg
+[BaselineOp] Analyzing op @ 4 (end=31): setprop
+[BaselineOp] Analyzing op @ 9 (end=31): pop
+[BaselineOp] Analyzing op @ 10 (end=31): this
+[BaselineOp] Analyzing op @ 11 (end=31): getarg
+[BaselineOp] Analyzing op @ 14 (end=31): setprop
+[BaselineOp] Analyzing op @ 19 (end=31): pop
+[BaselineOp] Analyzing op @ 20 (end=31): this
+[BaselineOp] Analyzing op @ 21 (end=31): getarg
+[BaselineOp] Analyzing op @ 24 (end=31): setprop
+[BaselineOp] Analyzing op @ 29 (end=31): pop
+[BaselineOp] Analyzing op @ 30 (end=31): stop
+[BaselineScripts] Baseline compiling script access-binary-trees.js:5 (0x7fc05e0512b8)
+[BaselineOp] Compiling op @ 0: this
+[BaselineOp] Compiling op @ 1: getarg
+[BaselineOp] Compiling op @ 4: setprop
+[BaselineOp] Compiling op @ 9: pop
+[BaselineOp] Compiling op @ 10: this
+[BaselineOp] Compiling op @ 11: getarg
+[BaselineOp] Compiling op @ 14: setprop
+[BaselineOp] Compiling op @ 19: pop
+[BaselineOp] Compiling op @ 20: this
+[BaselineOp] Compiling op @ 21: getarg
+[BaselineOp] Compiling op @ 24: setprop
+[BaselineOp] Compiling op @ 29: pop
+[BaselineOp] Compiling op @ 30: stop
+[BaselineScripts] Created BaselineScript 0x2ece9b0 (raw 0x7fc05fde7a28) for access-binary-trees.js:5
+[BaselineScripts] [block counter] 0 block counters were emitted for script access-binary-trees.js:5 (0x2ece9b0) (lineno: 8 column: 20)
+[BaselineOp] Analyzing op @ 0 (end=69): this
+[BaselineOp] Analyzing op @ 1 (end=69): getprop
+[BaselineOp] Analyzing op @ 6 (end=69): null
+[BaselineOp] Analyzing op @ 7 (end=69): eq
+[BaselineOp] Analyzing op @ 8 (end=69): ifeq
+[BaselineOp] Analyzing op @ 13 (end=69): this
+[BaselineOp] Analyzing op @ 14 (end=69): getprop
+[BaselineOp] Analyzing op @ 19 (end=69): return
+[BaselineOp] Analyzing op @ 20 (end=69): goto
+[BaselineOp] Analyzing op @ 25 (end=69): this
+[BaselineOp] Analyzing op @ 26 (end=69): getprop
+[BaselineOp] Analyzing op @ 31 (end=69): this
+[BaselineOp] Analyzing op @ 32 (end=69): getprop
+[BaselineOp] Analyzing op @ 37 (end=69): dup
+[BaselineOp] Analyzing op @ 38 (end=69): callprop
+[BaselineOp] Analyzing op @ 43 (end=69): swap
+[BaselineOp] Analyzing op @ 44 (end=69): notearg
+[BaselineOp] Analyzing op @ 45 (end=69): call
+[BaselineOp] Analyzing op @ 48 (end=69): add
+[BaselineOp] Analyzing op @ 49 (end=69): this
+[BaselineOp] Analyzing op @ 50 (end=69): getprop
+[BaselineOp] Analyzing op @ 55 (end=69): dup
+[BaselineOp] Analyzing op @ 56 (end=69): callprop
+[BaselineOp] Analyzing op @ 61 (end=69): swap
+[BaselineOp] Analyzing op @ 62 (end=69): notearg
+[BaselineOp] Analyzing op @ 63 (end=69): call
+[BaselineOp] Analyzing op @ 66 (end=69): sub
+[BaselineOp] Analyzing op @ 67 (end=69): return
+[BaselineOp] Analyzing op @ 68 (end=69): stop
+[BaselineScripts] Baseline compiling script access-binary-trees.js:11 (0x7fc05e051380)
+[BaselineOp] Compiling op @ 0: this
+[BaselineOp] Compiling op @ 1: getprop
+[BaselineOp] Compiling op @ 6: null
+[BaselineOp] Compiling op @ 7: eq
+[BaselineOp] Compiling op @ 8: ifeq
+[BaselineOp] Compiling op @ 13: this
+[BaselineOp] [block counter] Emitting a block counter for op @ 13: this (lineno: 12 column: 24)
+[BaselineOp] Compiling op @ 14: getprop
+[BaselineOp] Compiling op @ 19: return
+[BaselineOp] Compiling op @ 20: goto
+[BaselineOp] Compiling op @ 25: this
+[BaselineOp] [block counter] Emitting a block counter for op @ 25: this (lineno: 13 column: 8)
+[BaselineOp] Compiling op @ 26: getprop
+[BaselineOp] Compiling op @ 31: this
+[BaselineOp] Compiling op @ 32: getprop
+[BaselineOp] Compiling op @ 37: dup
+[BaselineOp] Compiling op @ 38: callprop
+[BaselineOp] Compiling op @ 43: swap
+[BaselineOp] Compiling op @ 44: notearg
+[BaselineOp] Compiling op @ 45: call
+[BaselineOp] Compiling op @ 48: add
+[BaselineOp] Compiling op @ 49: this
+[BaselineOp] Compiling op @ 50: getprop
+[BaselineOp] Compiling op @ 55: dup
+[BaselineOp] Compiling op @ 56: callprop
+[BaselineOp] Compiling op @ 61: swap
+[BaselineOp] Compiling op @ 62: notearg
+[BaselineOp] Compiling op @ 63: call
+[BaselineOp] Compiling op @ 66: sub
+[BaselineOp] Compiling op @ 67: return
+[BaselineOp] Compiling op @ 68: stop
+[BaselineScripts] Created BaselineScript 0x2ec8690 (raw 0x7fc05fde8120) for access-binary-trees.js:11
+[BaselineScripts] [block counter] 2 block counters were emitted for script access-binary-trees.js:11 (0x2ec8690) (lineno: 13 column: 74)
+[BaselineOp] Analyzing op @ 0 (end=641): deffun
+[BaselineOp] Analyzing op @ 5 (end=641): deffun
+[BaselineOp] Analyzing op @ 10 (end=641): defvar
+[BaselineOp] Analyzing op @ 15 (end=641): defvar
+[BaselineOp] Analyzing op @ 20 (end=641): defvar
+[BaselineOp] Analyzing op @ 25 (end=641): defvar
+[BaselineOp] Analyzing op @ 30 (end=641): defvar
+[BaselineOp] Analyzing op @ 35 (end=641): defvar
+[BaselineOp] Analyzing op @ 40 (end=641): defvar
+[BaselineOp] Analyzing op @ 45 (end=641): defvar
+[BaselineOp] Analyzing op @ 50 (end=641): defvar
+[BaselineOp] Analyzing op @ 55 (end=641): defvar
+[BaselineOp] Analyzing op @ 60 (end=641): defvar
+[BaselineOp] Analyzing op @ 65 (end=641): getgname
+[BaselineOp] Analyzing op @ 70 (end=641): getprop
+[BaselineOp] Analyzing op @ 75 (end=641): lambda
+[BaselineOp] Analyzing op @ 80 (end=641): setprop
+[BaselineOp] Analyzing op @ 85 (end=641): pop
+[BaselineOp] Analyzing op @ 86 (end=641): bindgname
+[BaselineOp] Analyzing op @ 91 (end=641): zero
+[BaselineOp] Analyzing op @ 92 (end=641): setgname
+[BaselineOp] Analyzing op @ 97 (end=641): pop
+[BaselineOp] Analyzing op @ 98 (end=641): bindgname
+[BaselineOp] Analyzing op @ 103 (end=641): int8
+[BaselineOp] Analyzing op @ 105 (end=641): setgname
+[BaselineOp] Analyzing op @ 110 (end=641): pop
+[BaselineOp] Analyzing op @ 111 (end=641): goto
+[BaselineOp] Analyzing op @ 116 (end=641): loophead
+[BaselineOp] Analyzing op @ 117 (end=641): bindgname
+[BaselineOp] Analyzing op @ 122 (end=641): int8
+[BaselineOp] Analyzing op @ 124 (end=641): setgname
+[BaselineOp] Analyzing op @ 129 (end=641): pop
+[BaselineOp] Analyzing op @ 130 (end=641): bindgname
+[BaselineOp] Analyzing op @ 135 (end=641): getgname
+[BaselineOp] Analyzing op @ 140 (end=641): dup
+[BaselineOp] Analyzing op @ 141 (end=641): callprop
+[BaselineOp] Analyzing op @ 146 (end=641): swap
+[BaselineOp] Analyzing op @ 147 (end=641): notearg
+[BaselineOp] Analyzing op @ 148 (end=641): getgname
+[BaselineOp] Analyzing op @ 153 (end=641): int8
+[BaselineOp] Analyzing op @ 155 (end=641): add
+[BaselineOp] Analyzing op @ 156 (end=641): notearg
+[BaselineOp] Analyzing op @ 157 (end=641): getgname
+[BaselineOp] Analyzing op @ 162 (end=641): notearg
+[BaselineOp] Analyzing op @ 163 (end=641): call
+[BaselineOp] Analyzing op @ 166 (end=641): setgname
+[BaselineOp] Analyzing op @ 171 (end=641): pop
+[BaselineOp] Analyzing op @ 172 (end=641): bindgname
+[BaselineOp] Analyzing op @ 177 (end=641): getgname
+[BaselineOp] Analyzing op @ 182 (end=641): one
+[BaselineOp] Analyzing op @ 183 (end=641): add
+[BaselineOp] Analyzing op @ 184 (end=641): setgname
+[BaselineOp] Analyzing op @ 189 (end=641): pop
+[BaselineOp] Analyzing op @ 190 (end=641): bindgname
+[BaselineOp] Analyzing op @ 195 (end=641): callgname
+[BaselineOp] Analyzing op @ 200 (end=641): undefined
+[BaselineOp] Analyzing op @ 201 (end=641): notearg
+[BaselineOp] Analyzing op @ 202 (end=641): zero
+[BaselineOp] Analyzing op @ 203 (end=641): notearg
+[BaselineOp] Analyzing op @ 204 (end=641): getgname
+[BaselineOp] Analyzing op @ 209 (end=641): notearg
+[BaselineOp] Analyzing op @ 210 (end=641): call
+[BaselineOp] Analyzing op @ 213 (end=641): dup
+[BaselineOp] Analyzing op @ 214 (end=641): callprop
+[BaselineOp] Analyzing op @ 219 (end=641): swap
+[BaselineOp] Analyzing op @ 220 (end=641): notearg
+[BaselineOp] Analyzing op @ 221 (end=641): call
+[BaselineOp] Analyzing op @ 224 (end=641): setgname
+[BaselineOp] Analyzing op @ 229 (end=641): pop
+[BaselineOp] Analyzing op @ 230 (end=641): bindgname
+[BaselineOp] Analyzing op @ 235 (end=641): callgname
+[BaselineOp] Analyzing op @ 240 (end=641): undefined
+[BaselineOp] Analyzing op @ 241 (end=641): notearg
+[BaselineOp] Analyzing op @ 242 (end=641): zero
+[BaselineOp] Analyzing op @ 243 (end=641): notearg
+[BaselineOp] Analyzing op @ 244 (end=641): getgname
+[BaselineOp] Analyzing op @ 249 (end=641): notearg
+[BaselineOp] Analyzing op @ 250 (end=641): call
+[BaselineOp] Analyzing op @ 253 (end=641): setgname
+[BaselineOp] Analyzing op @ 258 (end=641): pop
+[BaselineOp] Analyzing op @ 259 (end=641): bindgname
+[BaselineOp] Analyzing op @ 264 (end=641): getgname
+[BaselineOp] Analyzing op @ 269 (end=641): setgname
+[BaselineOp] Analyzing op @ 274 (end=641): pop
+[BaselineOp] Analyzing op @ 275 (end=641): goto
+[BaselineOp] Analyzing op @ 280 (end=641): loophead
+[BaselineOp] Analyzing op @ 281 (end=641): bindgname
+[BaselineOp] Analyzing op @ 286 (end=641): one
+[BaselineOp] Analyzing op @ 287 (end=641): getgname
+[BaselineOp] Analyzing op @ 292 (end=641): getgname
+[BaselineOp] Analyzing op @ 297 (end=641): sub
+[BaselineOp] Analyzing op @ 298 (end=641): getgname
+[BaselineOp] Analyzing op @ 303 (end=641): add
+[BaselineOp] Analyzing op @ 304 (end=641): lsh
+[BaselineOp] Analyzing op @ 305 (end=641): setgname
+[BaselineOp] Analyzing op @ 310 (end=641): pop
+[BaselineOp] Analyzing op @ 311 (end=641): bindgname
+[BaselineOp] Analyzing op @ 316 (end=641): zero
+[BaselineOp] Analyzing op @ 317 (end=641): setgname
+[BaselineOp] Analyzing op @ 322 (end=641): pop
+[BaselineOp] Analyzing op @ 323 (end=641): bindgname
+[BaselineOp] Analyzing op @ 328 (end=641): one
+[BaselineOp] Analyzing op @ 329 (end=641): setgname
+[BaselineOp] Analyzing op @ 334 (end=641): pop
+[BaselineOp] Analyzing op @ 335 (end=641): goto
+[BaselineOp] Analyzing op @ 340 (end=641): loophead
+[BaselineOp] Analyzing op @ 341 (end=641): bindgname
+[BaselineOp] Analyzing op @ 346 (end=641): getgname
+[BaselineOp] Analyzing op @ 351 (end=641): callgname
+[BaselineOp] Analyzing op @ 356 (end=641): undefined
+[BaselineOp] Analyzing op @ 357 (end=641): notearg
+[BaselineOp] Analyzing op @ 358 (end=641): getgname
+[BaselineOp] Analyzing op @ 363 (end=641): notearg
+[BaselineOp] Analyzing op @ 364 (end=641): getgname
+[BaselineOp] Analyzing op @ 369 (end=641): notearg
+[BaselineOp] Analyzing op @ 370 (end=641): call
+[BaselineOp] Analyzing op @ 373 (end=641): dup
+[BaselineOp] Analyzing op @ 374 (end=641): callprop
+[BaselineOp] Analyzing op @ 379 (end=641): swap
+[BaselineOp] Analyzing op @ 380 (end=641): notearg
+[BaselineOp] Analyzing op @ 381 (end=641): call
+[BaselineOp] Analyzing op @ 384 (end=641): add
+[BaselineOp] Analyzing op @ 385 (end=641): setgname
+[BaselineOp] Analyzing op @ 390 (end=641): pop
+[BaselineOp] Analyzing op @ 391 (end=641): bindgname
+[BaselineOp] Analyzing op @ 396 (end=641): getgname
+[BaselineOp] Analyzing op @ 401 (end=641): callgname
+[BaselineOp] Analyzing op @ 406 (end=641): undefined
+[BaselineOp] Analyzing op @ 407 (end=641): notearg
+[BaselineOp] Analyzing op @ 408 (end=641): getgname
+[BaselineOp] Analyzing op @ 413 (end=641): neg
+[BaselineOp] Analyzing op @ 414 (end=641): notearg
+[BaselineOp] Analyzing op @ 415 (end=641): getgname
+[BaselineOp] Analyzing op @ 420 (end=641): notearg
+[BaselineOp] Analyzing op @ 421 (end=641): call
+[BaselineOp] Analyzing op @ 424 (end=641): dup
+[BaselineOp] Analyzing op @ 425 (end=641): callprop
+[BaselineOp] Analyzing op @ 430 (end=641): swap
+[BaselineOp] Analyzing op @ 431 (end=641): notearg
+[BaselineOp] Analyzing op @ 432 (end=641): call
+[BaselineOp] Analyzing op @ 435 (end=641): add
+[BaselineOp] Analyzing op @ 436 (end=641): setgname
+[BaselineOp] Analyzing op @ 441 (end=641): pop
+[BaselineOp] Analyzing op @ 442 (end=641): bindgname
+[BaselineOp] Analyzing op @ 447 (end=641): getgname
+[BaselineOp] Analyzing op @ 452 (end=641): pos
+[BaselineOp] Analyzing op @ 453 (end=641): dup
+[BaselineOp] Analyzing op @ 454 (end=641): one
+[BaselineOp] Analyzing op @ 455 (end=641): add
+[BaselineOp] Analyzing op @ 456 (end=641): pick
+[BaselineOp] Analyzing op @ 458 (end=641): swap
+[BaselineOp] Analyzing op @ 459 (end=641): setgname
+[BaselineOp] Analyzing op @ 464 (end=641): pop
+[BaselineOp] Analyzing op @ 465 (end=641): pop
+[BaselineOp] Analyzing op @ 466 (end=641): loopentry
+[BaselineOp] Analyzing op @ 468 (end=641): getgname
+[BaselineOp] Analyzing op @ 473 (end=641): getgname
+[BaselineOp] Analyzing op @ 478 (end=641): le
+[BaselineOp] Analyzing op @ 479 (end=641): ifne
+[BaselineOp] Analyzing op @ 484 (end=641): bindgname
+[BaselineOp] Analyzing op @ 489 (end=641): getgname
+[BaselineOp] Analyzing op @ 494 (end=641): int8
+[BaselineOp] Analyzing op @ 496 (end=641): add
+[BaselineOp] Analyzing op @ 497 (end=641): setgname
+[BaselineOp] Analyzing op @ 502 (end=641): pop
+[BaselineOp] Analyzing op @ 503 (end=641): loopentry
+[BaselineOp] Analyzing op @ 505 (end=641): getgname
+[BaselineOp] Analyzing op @ 510 (end=641): getgname
+[BaselineOp] Analyzing op @ 515 (end=641): le
+[BaselineOp] Analyzing op @ 516 (end=641): ifne
+[BaselineOp] Analyzing op @ 521 (end=641): bindgname
+[BaselineOp] Analyzing op @ 526 (end=641): getgname
+[BaselineOp] Analyzing op @ 531 (end=641): getgname
+[BaselineOp] Analyzing op @ 536 (end=641): dup
+[BaselineOp] Analyzing op @ 537 (end=641): callprop
+[BaselineOp] Analyzing op @ 542 (end=641): swap
+[BaselineOp] Analyzing op @ 543 (end=641): notearg
+[BaselineOp] Analyzing op @ 544 (end=641): call
+[BaselineOp] Analyzing op @ 547 (end=641): add
+[BaselineOp] Analyzing op @ 548 (end=641): setgname
+[BaselineOp] Analyzing op @ 553 (end=641): pop
+[BaselineOp] Analyzing op @ 554 (end=641): bindgname
+[BaselineOp] Analyzing op @ 559 (end=641): getgname
+[BaselineOp] Analyzing op @ 564 (end=641): one
+[BaselineOp] Analyzing op @ 565 (end=641): add
+[BaselineOp] Analyzing op @ 566 (end=641): setgname
+[BaselineOp] Analyzing op @ 571 (end=641): pop
+[BaselineOp] Analyzing op @ 572 (end=641): loopentry
+[BaselineOp] Analyzing op @ 574 (end=641): getgname
+[BaselineOp] Analyzing op @ 579 (end=641): int8
+[BaselineOp] Analyzing op @ 581 (end=641): le
+[BaselineOp] Analyzing op @ 582 (end=641): ifne
+[BaselineOp] Analyzing op @ 117 (end=641): bindgname
+[BaselineOp] Analyzing op @ 122 (end=641): int8
+[BaselineOp] Analyzing op @ 124 (end=641): setgname
+[BaselineOp] Analyzing op @ 129 (end=641): pop
+[BaselineOp] Analyzing op @ 130 (end=641): bindgname
+[BaselineOp] Analyzing op @ 135 (end=641): getgname
+[BaselineOp] Analyzing op @ 140 (end=641): dup
+[BaselineOp] Analyzing op @ 141 (end=641): callprop
+[BaselineOp] Analyzing op @ 146 (end=641): swap
+[BaselineOp] Analyzing op @ 147 (end=641): notearg
+[BaselineOp] Analyzing op @ 148 (end=641): getgname
+[BaselineOp] Analyzing op @ 153 (end=641): int8
+[BaselineOp] Analyzing op @ 155 (end=641): add
+[BaselineOp] Analyzing op @ 156 (end=641): notearg
+[BaselineOp] Analyzing op @ 157 (end=641): getgname
+[BaselineOp] Analyzing op @ 162 (end=641): notearg
+[BaselineOp] Analyzing op @ 163 (end=641): call
+[BaselineOp] Analyzing op @ 166 (end=641): setgname
+[BaselineOp] Analyzing op @ 171 (end=641): pop
+[BaselineOp] Analyzing op @ 172 (end=641): bindgname
+[BaselineOp] Analyzing op @ 177 (end=641): getgname
+[BaselineOp] Analyzing op @ 182 (end=641): one
+[BaselineOp] Analyzing op @ 183 (end=641): add
+[BaselineOp] Analyzing op @ 184 (end=641): setgname
+[BaselineOp] Analyzing op @ 189 (end=641): pop
+[BaselineOp] Analyzing op @ 190 (end=641): bindgname
+[BaselineOp] Analyzing op @ 195 (end=641): callgname
+[BaselineOp] Analyzing op @ 200 (end=641): undefined
+[BaselineOp] Analyzing op @ 201 (end=641): notearg
+[BaselineOp] Analyzing op @ 202 (end=641): zero
+[BaselineOp] Analyzing op @ 203 (end=641): notearg
+[BaselineOp] Analyzing op @ 204 (end=641): getgname
+[BaselineOp] Analyzing op @ 209 (end=641): notearg
+[BaselineOp] Analyzing op @ 210 (end=641): call
+[BaselineOp] Analyzing op @ 213 (end=641): dup
+[BaselineOp] Analyzing op @ 214 (end=641): callprop
+[BaselineOp] Analyzing op @ 219 (end=641): swap
+[BaselineOp] Analyzing op @ 220 (end=641): notearg
+[BaselineOp] Analyzing op @ 221 (end=641): call
+[BaselineOp] Analyzing op @ 224 (end=641): setgname
+[BaselineOp] Analyzing op @ 229 (end=641): pop
+[BaselineOp] Analyzing op @ 230 (end=641): bindgname
+[BaselineOp] Analyzing op @ 235 (end=641): callgname
+[BaselineOp] Analyzing op @ 240 (end=641): undefined
+[BaselineOp] Analyzing op @ 241 (end=641): notearg
+[BaselineOp] Analyzing op @ 242 (end=641): zero
+[BaselineOp] Analyzing op @ 243 (end=641): notearg
+[BaselineOp] Analyzing op @ 244 (end=641): getgname
+[BaselineOp] Analyzing op @ 249 (end=641): notearg
+[BaselineOp] Analyzing op @ 250 (end=641): call
+[BaselineOp] Analyzing op @ 253 (end=641): setgname
+[BaselineOp] Analyzing op @ 258 (end=641): pop
+[BaselineOp] Analyzing op @ 259 (end=641): bindgname
+[BaselineOp] Analyzing op @ 264 (end=641): getgname
+[BaselineOp] Analyzing op @ 269 (end=641): setgname
+[BaselineOp] Analyzing op @ 274 (end=641): pop
+[BaselineOp] Analyzing op @ 275 (end=641): goto
+[BaselineOp] Analyzing op @ 280 (end=641): loophead
+[BaselineOp] Analyzing op @ 281 (end=641): bindgname
+[BaselineOp] Analyzing op @ 286 (end=641): one
+[BaselineOp] Analyzing op @ 287 (end=641): getgname
+[BaselineOp] Analyzing op @ 292 (end=641): getgname
+[BaselineOp] Analyzing op @ 297 (end=641): sub
+[BaselineOp] Analyzing op @ 298 (end=641): getgname
+[BaselineOp] Analyzing op @ 303 (end=641): add
+[BaselineOp] Analyzing op @ 304 (end=641): lsh
+[BaselineOp] Analyzing op @ 305 (end=641): setgname
+[BaselineOp] Analyzing op @ 310 (end=641): pop
+[BaselineOp] Analyzing op @ 311 (end=641): bindgname
+[BaselineOp] Analyzing op @ 316 (end=641): zero
+[BaselineOp] Analyzing op @ 317 (end=641): setgname
+[BaselineOp] Analyzing op @ 322 (end=641): pop
+[BaselineOp] Analyzing op @ 323 (end=641): bindgname
+[BaselineOp] Analyzing op @ 328 (end=641): one
+[BaselineOp] Analyzing op @ 329 (end=641): setgname
+[BaselineOp] Analyzing op @ 334 (end=641): pop
+[BaselineOp] Analyzing op @ 335 (end=641): goto
+[BaselineOp] Analyzing op @ 340 (end=641): loophead
+[BaselineOp] Analyzing op @ 341 (end=641): bindgname
+[BaselineOp] Analyzing op @ 346 (end=641): getgname
+[BaselineOp] Analyzing op @ 351 (end=641): callgname
+[BaselineOp] Analyzing op @ 356 (end=641): undefined
+[BaselineOp] Analyzing op @ 357 (end=641): notearg
+[BaselineOp] Analyzing op @ 358 (end=641): getgname
+[BaselineOp] Analyzing op @ 363 (end=641): notearg
+[BaselineOp] Analyzing op @ 364 (end=641): getgname
+[BaselineOp] Analyzing op @ 369 (end=641): notearg
+[BaselineOp] Analyzing op @ 370 (end=641): call
+[BaselineOp] Analyzing op @ 373 (end=641): dup
+[BaselineOp] Analyzing op @ 374 (end=641): callprop
+[BaselineOp] Analyzing op @ 379 (end=641): swap
+[BaselineOp] Analyzing op @ 380 (end=641): notearg
+[BaselineOp] Analyzing op @ 381 (end=641): call
+[BaselineOp] Analyzing op @ 384 (end=641): add
+[BaselineOp] Analyzing op @ 385 (end=641): setgname
+[BaselineOp] Analyzing op @ 390 (end=641): pop
+[BaselineOp] Analyzing op @ 391 (end=641): bindgname
+[BaselineOp] Analyzing op @ 396 (end=641): getgname
+[BaselineOp] Analyzing op @ 401 (end=641): callgname
+[BaselineOp] Analyzing op @ 406 (end=641): undefined
+[BaselineOp] Analyzing op @ 407 (end=641): notearg
+[BaselineOp] Analyzing op @ 408 (end=641): getgname
+[BaselineOp] Analyzing op @ 413 (end=641): neg
+[BaselineOp] Analyzing op @ 414 (end=641): notearg
+[BaselineOp] Analyzing op @ 415 (end=641): getgname
+[BaselineOp] Analyzing op @ 420 (end=641): notearg
+[BaselineOp] Analyzing op @ 421 (end=641): call
+[BaselineOp] Analyzing op @ 424 (end=641): dup
+[BaselineOp] Analyzing op @ 425 (end=641): callprop
+[BaselineOp] Analyzing op @ 430 (end=641): swap
+[BaselineOp] Analyzing op @ 431 (end=641): notearg
+[BaselineOp] Analyzing op @ 432 (end=641): call
+[BaselineOp] Analyzing op @ 435 (end=641): add
+[BaselineOp] Analyzing op @ 436 (end=641): setgname
+[BaselineOp] Analyzing op @ 441 (end=641): pop
+[BaselineOp] Analyzing op @ 442 (end=641): bindgname
+[BaselineOp] Analyzing op @ 447 (end=641): getgname
+[BaselineOp] Analyzing op @ 452 (end=641): pos
+[BaselineOp] Analyzing op @ 453 (end=641): dup
+[BaselineOp] Analyzing op @ 454 (end=641): one
+[BaselineOp] Analyzing op @ 455 (end=641): add
+[BaselineOp] Analyzing op @ 456 (end=641): pick
+[BaselineOp] Analyzing op @ 458 (end=641): swap
+[BaselineOp] Analyzing op @ 459 (end=641): setgname
+[BaselineOp] Analyzing op @ 464 (end=641): pop
+[BaselineOp] Analyzing op @ 465 (end=641): pop
+[BaselineOp] Analyzing op @ 466 (end=641): loopentry
+[BaselineOp] Analyzing op @ 468 (end=641): getgname
+[BaselineOp] Analyzing op @ 473 (end=641): getgname
+[BaselineOp] Analyzing op @ 478 (end=641): le
+[BaselineOp] Analyzing op @ 479 (end=641): ifne
+[BaselineOp] Analyzing op @ 484 (end=641): bindgname
+[BaselineOp] Analyzing op @ 489 (end=641): getgname
+[BaselineOp] Analyzing op @ 494 (end=641): int8
+[BaselineOp] Analyzing op @ 496 (end=641): add
+[BaselineOp] Analyzing op @ 497 (end=641): setgname
+[BaselineOp] Analyzing op @ 502 (end=641): pop
+[BaselineOp] Analyzing op @ 503 (end=641): loopentry
+[BaselineOp] Analyzing op @ 505 (end=641): getgname
+[BaselineOp] Analyzing op @ 510 (end=641): getgname
+[BaselineOp] Analyzing op @ 515 (end=641): le
+[BaselineOp] Analyzing op @ 516 (end=641): ifne
+[BaselineOp] Analyzing op @ 281 (end=641): bindgname
+[BaselineOp] Analyzing op @ 286 (end=641): one
+[BaselineOp] Analyzing op @ 287 (end=641): getgname
+[BaselineOp] Analyzing op @ 292 (end=641): getgname
+[BaselineOp] Analyzing op @ 297 (end=641): sub
+[BaselineOp] Analyzing op @ 298 (end=641): getgname
+[BaselineOp] Analyzing op @ 303 (end=641): add
+[BaselineOp] Analyzing op @ 304 (end=641): lsh
+[BaselineOp] Analyzing op @ 305 (end=641): setgname
+[BaselineOp] Analyzing op @ 310 (end=641): pop
+[BaselineOp] Analyzing op @ 311 (end=641): bindgname
+[BaselineOp] Analyzing op @ 316 (end=641): zero
+[BaselineOp] Analyzing op @ 317 (end=641): setgname
+[BaselineOp] Analyzing op @ 322 (end=641): pop
+[BaselineOp] Analyzing op @ 323 (end=641): bindgname
+[BaselineOp] Analyzing op @ 328 (end=641): one
+[BaselineOp] Analyzing op @ 329 (end=641): setgname
+[BaselineOp] Analyzing op @ 334 (end=641): pop
+[BaselineOp] Analyzing op @ 335 (end=641): goto
+[BaselineOp] Analyzing op @ 340 (end=641): loophead
+[BaselineOp] Analyzing op @ 341 (end=641): bindgname
+[BaselineOp] Analyzing op @ 346 (end=641): getgname
+[BaselineOp] Analyzing op @ 351 (end=641): callgname
+[BaselineOp] Analyzing op @ 356 (end=641): undefined
+[BaselineOp] Analyzing op @ 357 (end=641): notearg
+[BaselineOp] Analyzing op @ 358 (end=641): getgname
+[BaselineOp] Analyzing op @ 363 (end=641): notearg
+[BaselineOp] Analyzing op @ 364 (end=641): getgname
+[BaselineOp] Analyzing op @ 369 (end=641): notearg
+[BaselineOp] Analyzing op @ 370 (end=641): call
+[BaselineOp] Analyzing op @ 373 (end=641): dup
+[BaselineOp] Analyzing op @ 374 (end=641): callprop
+[BaselineOp] Analyzing op @ 379 (end=641): swap
+[BaselineOp] Analyzing op @ 380 (end=641): notearg
+[BaselineOp] Analyzing op @ 381 (end=641): call
+[BaselineOp] Analyzing op @ 384 (end=641): add
+[BaselineOp] Analyzing op @ 385 (end=641): setgname
+[BaselineOp] Analyzing op @ 390 (end=641): pop
+[BaselineOp] Analyzing op @ 391 (end=641): bindgname
+[BaselineOp] Analyzing op @ 396 (end=641): getgname
+[BaselineOp] Analyzing op @ 401 (end=641): callgname
+[BaselineOp] Analyzing op @ 406 (end=641): undefined
+[BaselineOp] Analyzing op @ 407 (end=641): notearg
+[BaselineOp] Analyzing op @ 408 (end=641): getgname
+[BaselineOp] Analyzing op @ 413 (end=641): neg
+[BaselineOp] Analyzing op @ 414 (end=641): notearg
+[BaselineOp] Analyzing op @ 415 (end=641): getgname
+[BaselineOp] Analyzing op @ 420 (end=641): notearg
+[BaselineOp] Analyzing op @ 421 (end=641): call
+[BaselineOp] Analyzing op @ 424 (end=641): dup
+[BaselineOp] Analyzing op @ 425 (end=641): callprop
+[BaselineOp] Analyzing op @ 430 (end=641): swap
+[BaselineOp] Analyzing op @ 431 (end=641): notearg
+[BaselineOp] Analyzing op @ 432 (end=641): call
+[BaselineOp] Analyzing op @ 435 (end=641): add
+[BaselineOp] Analyzing op @ 436 (end=641): setgname
+[BaselineOp] Analyzing op @ 441 (end=641): pop
+[BaselineOp] Analyzing op @ 442 (end=641): bindgname
+[BaselineOp] Analyzing op @ 447 (end=641): getgname
+[BaselineOp] Analyzing op @ 452 (end=641): pos
+[BaselineOp] Analyzing op @ 453 (end=641): dup
+[BaselineOp] Analyzing op @ 454 (end=641): one
+[BaselineOp] Analyzing op @ 455 (end=641): add
+[BaselineOp] Analyzing op @ 456 (end=641): pick
+[BaselineOp] Analyzing op @ 458 (end=641): swap
+[BaselineOp] Analyzing op @ 459 (end=641): setgname
+[BaselineOp] Analyzing op @ 464 (end=641): pop
+[BaselineOp] Analyzing op @ 465 (end=641): pop
+[BaselineOp] Analyzing op @ 466 (end=641): loopentry
+[BaselineOp] Analyzing op @ 468 (end=641): getgname
+[BaselineOp] Analyzing op @ 473 (end=641): getgname
+[BaselineOp] Analyzing op @ 478 (end=641): le
+[BaselineOp] Analyzing op @ 479 (end=641): ifne
+[BaselineOp] Analyzing op @ 341 (end=641): bindgname
+[BaselineOp] Analyzing op @ 346 (end=641): getgname
+[BaselineOp] Analyzing op @ 351 (end=641): callgname
+[BaselineOp] Analyzing op @ 356 (end=641): undefined
+[BaselineOp] Analyzing op @ 357 (end=641): notearg
+[BaselineOp] Analyzing op @ 358 (end=641): getgname
+[BaselineOp] Analyzing op @ 363 (end=641): notearg
+[BaselineOp] Analyzing op @ 364 (end=641): getgname
+[BaselineOp] Analyzing op @ 369 (end=641): notearg
+[BaselineOp] Analyzing op @ 370 (end=641): call
+[BaselineOp] Analyzing op @ 373 (end=641): dup
+[BaselineOp] Analyzing op @ 374 (end=641): callprop
+[BaselineOp] Analyzing op @ 379 (end=641): swap
+[BaselineOp] Analyzing op @ 380 (end=641): notearg
+[BaselineOp] Analyzing op @ 381 (end=641): call
+[BaselineOp] Analyzing op @ 384 (end=641): add
+[BaselineOp] Analyzing op @ 385 (end=641): setgname
+[BaselineOp] Analyzing op @ 390 (end=641): pop
+[BaselineOp] Analyzing op @ 391 (end=641): bindgname
+[BaselineOp] Analyzing op @ 396 (end=641): getgname
+[BaselineOp] Analyzing op @ 401 (end=641): callgname
+[BaselineOp] Analyzing op @ 406 (end=641): undefined
+[BaselineOp] Analyzing op @ 407 (end=641): notearg
+[BaselineOp] Analyzing op @ 408 (end=641): getgname
+[BaselineOp] Analyzing op @ 413 (end=641): neg
+[BaselineOp] Analyzing op @ 414 (end=641): notearg
+[BaselineOp] Analyzing op @ 415 (end=641): getgname
+[BaselineOp] Analyzing op @ 420 (end=641): notearg
+[BaselineOp] Analyzing op @ 421 (end=641): call
+[BaselineOp] Analyzing op @ 424 (end=641): dup
+[BaselineOp] Analyzing op @ 425 (end=641): callprop
+[BaselineOp] Analyzing op @ 430 (end=641): swap
+[BaselineOp] Analyzing op @ 431 (end=641): notearg
+[BaselineOp] Analyzing op @ 432 (end=641): call
+[BaselineOp] Analyzing op @ 435 (end=641): add
+[BaselineOp] Analyzing op @ 436 (end=641): setgname
+[BaselineOp] Analyzing op @ 441 (end=641): pop
+[BaselineOp] Analyzing op @ 442 (end=641): bindgname
+[BaselineOp] Analyzing op @ 447 (end=641): getgname
+[BaselineOp] Analyzing op @ 452 (end=641): pos
+[BaselineOp] Analyzing op @ 453 (end=641): dup
+[BaselineOp] Analyzing op @ 454 (end=641): one
+[BaselineOp] Analyzing op @ 455 (end=641): add
+[BaselineOp] Analyzing op @ 456 (end=641): pick
+[BaselineOp] Analyzing op @ 458 (end=641): swap
+[BaselineOp] Analyzing op @ 459 (end=641): setgname
+[BaselineOp] Analyzing op @ 464 (end=641): pop
+[BaselineOp] Analyzing op @ 465 (end=641): pop
+[BaselineOp] Analyzing op @ 466 (end=641): loopentry
+[BaselineOp] Analyzing op @ 468 (end=641): getgname
+[BaselineOp] Analyzing op @ 473 (end=641): getgname
+[BaselineOp] Analyzing op @ 478 (end=641): le
+[BaselineOp] Analyzing op @ 479 (end=641): ifne
+[BaselineOp] Analyzing op @ 484 (end=641): bindgname
+[BaselineOp] Analyzing op @ 489 (end=641): getgname
+[BaselineOp] Analyzing op @ 494 (end=641): int8
+[BaselineOp] Analyzing op @ 496 (end=641): add
+[BaselineOp] Analyzing op @ 497 (end=641): setgname
+[BaselineOp] Analyzing op @ 502 (end=641): pop
+[BaselineOp] Analyzing op @ 503 (end=641): loopentry
+[BaselineOp] Analyzing op @ 505 (end=641): getgname
+[BaselineOp] Analyzing op @ 510 (end=641): getgname
+[BaselineOp] Analyzing op @ 515 (end=641): le
+[BaselineOp] Analyzing op @ 516 (end=641): ifne
+[BaselineOp] Analyzing op @ 521 (end=641): bindgname
+[BaselineOp] Analyzing op @ 526 (end=641): getgname
+[BaselineOp] Analyzing op @ 531 (end=641): getgname
+[BaselineOp] Analyzing op @ 536 (end=641): dup
+[BaselineOp] Analyzing op @ 537 (end=641): callprop
+[BaselineOp] Analyzing op @ 542 (end=641): swap
+[BaselineOp] Analyzing op @ 543 (end=641): notearg
+[BaselineOp] Analyzing op @ 544 (end=641): call
+[BaselineOp] Analyzing op @ 547 (end=641): add
+[BaselineOp] Analyzing op @ 548 (end=641): setgname
+[BaselineOp] Analyzing op @ 553 (end=641): pop
+[BaselineOp] Analyzing op @ 554 (end=641): bindgname
+[BaselineOp] Analyzing op @ 559 (end=641): getgname
+[BaselineOp] Analyzing op @ 564 (end=641): one
+[BaselineOp] Analyzing op @ 565 (end=641): add
+[BaselineOp] Analyzing op @ 566 (end=641): setgname
+[BaselineOp] Analyzing op @ 571 (end=641): pop
+[BaselineOp] Analyzing op @ 572 (end=641): loopentry
+[BaselineOp] Analyzing op @ 574 (end=641): getgname
+[BaselineOp] Analyzing op @ 579 (end=641): int8
+[BaselineOp] Analyzing op @ 581 (end=641): le
+[BaselineOp] Analyzing op @ 582 (end=641): ifne
+[BaselineOp] Analyzing op @ 587 (end=641): bindgname
+[BaselineOp] Analyzing op @ 592 (end=641): int8
+[BaselineOp] Analyzing op @ 594 (end=641): setgname
+[BaselineOp] Analyzing op @ 599 (end=641): pop
+[BaselineOp] Analyzing op @ 600 (end=641): getgname
+[BaselineOp] Analyzing op @ 605 (end=641): getgname
+[BaselineOp] Analyzing op @ 610 (end=641): ne
+[BaselineOp] Analyzing op @ 611 (end=641): ifeq
+[BaselineOp] Analyzing op @ 616 (end=641): string
+[BaselineOp] Analyzing op @ 621 (end=641): getgname
+[BaselineOp] Analyzing op @ 626 (end=641): add
+[BaselineOp] Analyzing op @ 627 (end=641): string
+[BaselineOp] Analyzing op @ 632 (end=641): add
+[BaselineOp] Analyzing op @ 633 (end=641): getgname
+[BaselineOp] Analyzing op @ 638 (end=641): add
+[BaselineOp] Analyzing op @ 639 (end=641): throw
+[BaselineOp] Analyzing op @ 640 (end=641): stop
+[BaselineScripts] Baseline compiling script access-binary-trees.js:1 (0x7fc05e051128)
+[BaselineOp] Compiling op @ 0: deffun
+[BaselineOp] Compiling op @ 5: deffun
+[BaselineOp] Compiling op @ 10: defvar
+[BaselineOp] Compiling op @ 15: defvar
+[BaselineOp] Compiling op @ 20: defvar
+[BaselineOp] Compiling op @ 25: defvar
+[BaselineOp] Compiling op @ 30: defvar
+[BaselineOp] Compiling op @ 35: defvar
+[BaselineOp] Compiling op @ 40: defvar
+[BaselineOp] Compiling op @ 45: defvar
+[BaselineOp] Compiling op @ 50: defvar
+[BaselineOp] Compiling op @ 55: defvar
+[BaselineOp] Compiling op @ 60: defvar
+[BaselineOp] Compiling op @ 65: getgname
+[BaselineOp] Compiling op @ 70: getprop
+[BaselineOp] Compiling op @ 75: lambda
+[BaselineOp] Compiling op @ 80: setprop
+[BaselineOp] Compiling op @ 85: pop
+[BaselineOp] Compiling op @ 86: bindgname
+[BaselineOp] Compiling op @ 91: zero
+[BaselineOp] Compiling op @ 92: setgname
+[BaselineOp] Compiling op @ 97: pop
+[BaselineOp] Compiling op @ 98: bindgname
+[BaselineOp] Compiling op @ 103: int8
+[BaselineOp] Compiling op @ 105: setgname
+[BaselineOp] Compiling op @ 110: pop
+[BaselineOp] Compiling op @ 111: goto
+[BaselineOp] Compiling op @ 116: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 116: loophead (lineno: 32 column: 0)
+[BaselineOp] Compiling op @ 117: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 117: bindgname (lineno: 32 column: 0)
+[BaselineOp] Compiling op @ 122: int8
+[BaselineOp] Compiling op @ 124: setgname
+[BaselineOp] Compiling op @ 129: pop
+[BaselineOp] Compiling op @ 130: bindgname
+[BaselineOp] Compiling op @ 135: getgname
+[BaselineOp] Compiling op @ 140: dup
+[BaselineOp] Compiling op @ 141: callprop
+[BaselineOp] Compiling op @ 146: swap
+[BaselineOp] Compiling op @ 147: notearg
+[BaselineOp] Compiling op @ 148: getgname
+[BaselineOp] Compiling op @ 153: int8
+[BaselineOp] Compiling op @ 155: add
+[BaselineOp] Compiling op @ 156: notearg
+[BaselineOp] Compiling op @ 157: getgname
+[BaselineOp] Compiling op @ 162: notearg
+[BaselineOp] Compiling op @ 163: call
+[BaselineOp] Compiling op @ 166: setgname
+[BaselineOp] Compiling op @ 171: pop
+[BaselineOp] Compiling op @ 172: bindgname
+[BaselineOp] Compiling op @ 177: getgname
+[BaselineOp] Compiling op @ 182: one
+[BaselineOp] Compiling op @ 183: add
+[BaselineOp] Compiling op @ 184: setgname
+[BaselineOp] Compiling op @ 189: pop
+[BaselineOp] Compiling op @ 190: bindgname
+[BaselineOp] Compiling op @ 195: callgname
+[BaselineOp] Compiling op @ 200: undefined
+[BaselineOp] Compiling op @ 201: notearg
+[BaselineOp] Compiling op @ 202: zero
+[BaselineOp] Compiling op @ 203: notearg
+[BaselineOp] Compiling op @ 204: getgname
+[BaselineOp] Compiling op @ 209: notearg
+[BaselineOp] Compiling op @ 210: call
+[BaselineOp] Compiling op @ 213: dup
+[BaselineOp] Compiling op @ 214: callprop
+[BaselineOp] Compiling op @ 219: swap
+[BaselineOp] Compiling op @ 220: notearg
+[BaselineOp] Compiling op @ 221: call
+[BaselineOp] Compiling op @ 224: setgname
+[BaselineOp] Compiling op @ 229: pop
+[BaselineOp] Compiling op @ 230: bindgname
+[BaselineOp] Compiling op @ 235: callgname
+[BaselineOp] Compiling op @ 240: undefined
+[BaselineOp] Compiling op @ 241: notearg
+[BaselineOp] Compiling op @ 242: zero
+[BaselineOp] Compiling op @ 243: notearg
+[BaselineOp] Compiling op @ 244: getgname
+[BaselineOp] Compiling op @ 249: notearg
+[BaselineOp] Compiling op @ 250: call
+[BaselineOp] Compiling op @ 253: setgname
+[BaselineOp] Compiling op @ 258: pop
+[BaselineOp] Compiling op @ 259: bindgname
+[BaselineOp] Compiling op @ 264: getgname
+[BaselineOp] Compiling op @ 269: setgname
+[BaselineOp] Compiling op @ 274: pop
+[BaselineOp] Compiling op @ 275: goto
+[BaselineOp] Compiling op @ 280: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 280: loophead (lineno: 40 column: 0)
+[BaselineOp] Compiling op @ 281: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 281: bindgname (lineno: 40 column: 0)
+[BaselineOp] Compiling op @ 286: one
+[BaselineOp] Compiling op @ 287: getgname
+[BaselineOp] Compiling op @ 292: getgname
+[BaselineOp] Compiling op @ 297: sub
+[BaselineOp] Compiling op @ 298: getgname
+[BaselineOp] Compiling op @ 303: add
+[BaselineOp] Compiling op @ 304: lsh
+[BaselineOp] Compiling op @ 305: setgname
+[BaselineOp] Compiling op @ 310: pop
+[BaselineOp] Compiling op @ 311: bindgname
+[BaselineOp] Compiling op @ 316: zero
+[BaselineOp] Compiling op @ 317: setgname
+[BaselineOp] Compiling op @ 322: pop
+[BaselineOp] Compiling op @ 323: bindgname
+[BaselineOp] Compiling op @ 328: one
+[BaselineOp] Compiling op @ 329: setgname
+[BaselineOp] Compiling op @ 334: pop
+[BaselineOp] Compiling op @ 335: goto
+[BaselineOp] Compiling op @ 340: loophead
+[BaselineOp] [block counter] Emitting a block counter for op @ 340: loophead (lineno: 44 column: 0)
+[BaselineOp] Compiling op @ 341: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 341: bindgname (lineno: 44 column: 12)
+[BaselineOp] Compiling op @ 346: getgname
+[BaselineOp] Compiling op @ 351: callgname
+[BaselineOp] Compiling op @ 356: undefined
+[BaselineOp] Compiling op @ 357: notearg
+[BaselineOp] Compiling op @ 358: getgname
+[BaselineOp] Compiling op @ 363: notearg
+[BaselineOp] Compiling op @ 364: getgname
+[BaselineOp] Compiling op @ 369: notearg
+[BaselineOp] Compiling op @ 370: call
+[BaselineOp] Compiling op @ 373: dup
+[BaselineOp] Compiling op @ 374: callprop
+[BaselineOp] Compiling op @ 379: swap
+[BaselineOp] Compiling op @ 380: notearg
+[BaselineOp] Compiling op @ 381: call
+[BaselineOp] Compiling op @ 384: add
+[BaselineOp] Compiling op @ 385: setgname
+[BaselineOp] Compiling op @ 390: pop
+[BaselineOp] Compiling op @ 391: bindgname
+[BaselineOp] Compiling op @ 396: getgname
+[BaselineOp] Compiling op @ 401: callgname
+[BaselineOp] Compiling op @ 406: undefined
+[BaselineOp] Compiling op @ 407: notearg
+[BaselineOp] Compiling op @ 408: getgname
+[BaselineOp] Compiling op @ 413: neg
+[BaselineOp] Compiling op @ 414: notearg
+[BaselineOp] Compiling op @ 415: getgname
+[BaselineOp] Compiling op @ 420: notearg
+[BaselineOp] Compiling op @ 421: call
+[BaselineOp] Compiling op @ 424: dup
+[BaselineOp] Compiling op @ 425: callprop
+[BaselineOp] Compiling op @ 430: swap
+[BaselineOp] Compiling op @ 431: notearg
+[BaselineOp] Compiling op @ 432: call
+[BaselineOp] Compiling op @ 435: add
+[BaselineOp] Compiling op @ 436: setgname
+[BaselineOp] Compiling op @ 441: pop
+[BaselineOp] Compiling op @ 442: bindgname
+[BaselineOp] Compiling op @ 447: getgname
+[BaselineOp] Compiling op @ 452: pos
+[BaselineOp] Compiling op @ 453: dup
+[BaselineOp] Compiling op @ 454: one
+[BaselineOp] Compiling op @ 455: add
+[BaselineOp] Compiling op @ 456: pick
+[BaselineOp] Compiling op @ 458: swap
+[BaselineOp] Compiling op @ 459: setgname
+[BaselineOp] Compiling op @ 464: pop
+[BaselineOp] Compiling op @ 465: pop
+[BaselineOp] Compiling op @ 466: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 466: loopentry (lineno: 43 column: 22)
+[BaselineOp] Compiling op @ 468: getgname
+[BaselineOp] Compiling op @ 473: getgname
+[BaselineOp] Compiling op @ 478: le
+[BaselineOp] Compiling op @ 479: ifne
+[BaselineOp] Compiling op @ 484: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 484: bindgname (lineno: 39 column: 46)
+[BaselineOp] Compiling op @ 489: getgname
+[BaselineOp] Compiling op @ 494: int8
+[BaselineOp] Compiling op @ 496: add
+[BaselineOp] Compiling op @ 497: setgname
+[BaselineOp] Compiling op @ 502: pop
+[BaselineOp] Compiling op @ 503: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 503: loopentry (lineno: 39 column: 29)
+[BaselineOp] Compiling op @ 505: getgname
+[BaselineOp] Compiling op @ 510: getgname
+[BaselineOp] Compiling op @ 515: le
+[BaselineOp] Compiling op @ 516: ifne
+[BaselineOp] Compiling op @ 521: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 521: bindgname (lineno: 49 column: 4)
+[BaselineOp] Compiling op @ 526: getgname
+[BaselineOp] Compiling op @ 531: getgname
+[BaselineOp] Compiling op @ 536: dup
+[BaselineOp] Compiling op @ 537: callprop
+[BaselineOp] Compiling op @ 542: swap
+[BaselineOp] Compiling op @ 543: notearg
+[BaselineOp] Compiling op @ 544: call
+[BaselineOp] Compiling op @ 547: add
+[BaselineOp] Compiling op @ 548: setgname
+[BaselineOp] Compiling op @ 553: pop
+[BaselineOp] Compiling op @ 554: bindgname
+[BaselineOp] Compiling op @ 559: getgname
+[BaselineOp] Compiling op @ 564: one
+[BaselineOp] Compiling op @ 565: add
+[BaselineOp] Compiling op @ 566: setgname
+[BaselineOp] Compiling op @ 571: pop
+[BaselineOp] Compiling op @ 572: loopentry
+[BaselineOp] [block counter] Emitting a block counter for op @ 572: loopentry (lineno: 31 column: 17)
+[BaselineOp] Compiling op @ 574: getgname
+[BaselineOp] Compiling op @ 579: int8
+[BaselineOp] Compiling op @ 581: le
+[BaselineOp] Compiling op @ 582: ifne
+[BaselineOp] Compiling op @ 587: bindgname
+[BaselineOp] [block counter] Emitting a block counter for op @ 587: bindgname (lineno: 52 column: 0)
+[BaselineOp] Compiling op @ 592: int8
+[BaselineOp] Compiling op @ 594: setgname
+[BaselineOp] Compiling op @ 599: pop
+[BaselineOp] Compiling op @ 600: getgname
+[BaselineOp] Compiling op @ 605: getgname
+[BaselineOp] Compiling op @ 610: ne
+[BaselineOp] Compiling op @ 611: ifeq
+[BaselineOp] Compiling op @ 616: string
+[BaselineOp] [block counter] Emitting a block counter for op @ 616: string (lineno: 54 column: 4)
+[BaselineOp] Compiling op @ 621: getgname
+[BaselineOp] Compiling op @ 626: add
+[BaselineOp] Compiling op @ 627: string
+[BaselineOp] Compiling op @ 632: add
+[BaselineOp] Compiling op @ 633: getgname
+[BaselineOp] Compiling op @ 638: add
+[BaselineOp] Compiling op @ 639: throw
+[BaselineOp] Compiling op @ 640: stop
+[BaselineOp] [block counter] Emitting a block counter for op @ 640: stop (lineno: 54 column: 72)
+[BaselineScripts] Created BaselineScript 0x2ecd1c0 (raw 0x7fc05fde86b0) for access-binary-trees.js:1
+[BaselineScripts] [block counter] 14 block counters were emitted for script access-binary-trees.js:1 (0x2ecd1c0) (lineno: 54 column: 72)
+[BaselineScripts] [block counter] Dump 2 block counters for 0x2ecf900
+[BaselineScripts] [block counter] Op offset: 10, count: 481
+[BaselineScripts] [block counter] Op offset: 80, count: 507
+[BaselineScripts] [block counter] Dump 0 block counters for 0x2ece9b0
+[BaselineScripts] [block counter] Dump 2 block counters for 0x2ec8690
+[BaselineScripts] [block counter] Op offset: 13, count: 509
+[BaselineScripts] [block counter] Op offset: 25, count: 479
