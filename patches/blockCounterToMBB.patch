@@ -1,0 +1,211 @@
+# HG changeset patch
+# Parent 6040cd2453ac582c0aaaa314f89d5c2828e0e3a7
+# User Wei Wu <lazyparser@gmail.com>
+Add block profiles into MBasicBlock.
+
+diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp
++++ b/js/src/ion/Ion.cpp
+@@ -955,16 +955,24 @@ OptimizeMIR(MIRGenerator *mir)
+     if (!RenumberBlocks(graph))
+         return false;
+     IonSpewPass("Renumber Blocks");
+     AssertGraphCoherency(graph);
+ 
+     if (mir->shouldCancel("Renumber Blocks"))
+         return false;
+ 
++    if (!AttachBlockProfiles(graph))
++        return false;
++    //IonSpewPass("Attach Block Profiles");
++    AssertGraphCoherency(graph);
++
++    if (mir->shouldCancel("Attach Block Profiles"))
++        return false;
++
+     if (!BuildDominatorTree(graph))
+         return false;
+     // No spew: graph not changed.
+ 
+     if (mir->shouldCancel("Dominator Tree"))
+         return false;
+ 
+     // This must occur before any code elimination.
+diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
+--- a/js/src/ion/IonAnalysis.cpp
++++ b/js/src/ion/IonAnalysis.cpp
+@@ -4,16 +4,18 @@
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ #include "IonBuilder.h"
+ #include "MIRGraph.h"
+ #include "Ion.h"
+ #include "IonAnalysis.h"
+ #include "LIR.h"
++#include "BaselineJIT.h"
++#include "IonSpewer.h"
+ 
+ using namespace js;
+ using namespace js::ion;
+ 
+ // A critical edge is an edge which is neither its successor's only predecessor
+ // nor its predecessor's only successor. Critical edges must be split to
+ // prevent copy-insertion and code motion from affecting other edges.
+ bool
+@@ -35,16 +37,47 @@ ion::SplitCriticalEdges(MIRGraph &graph)
+ 
+             block->replaceSuccessor(i, split);
+             target->replacePredecessor(*block, split);
+         }
+     }
+     return true;
+ }
+ 
++bool
++ion::AttachBlockProfiles(MIRGraph &graph)
++{
++    for (MBasicBlockIterator block(graph.begin()); block != graph.end(); block++) {
++        JSScript *jsscript = block->info().script();
++        jsbytecode *code = jsscript->code;
++        BaselineScript *blscript = jsscript->baselineScript();
++        size_t numCounters = blscript->numBlockCounters();
++
++        IonSpew(IonSpew_Scripts, "[AttachBlockProfiles] jsscript(%p) blscript(%p) code(%p)",
++                   jsscript, blscript, code);
++
++        jsbytecode *pc = block->pc();
++        size_t i;
++        for (i = 0; i < numCounters; i++) {
++            BlockCounterEntry entry = blscript->blockCounterEntry(i);
++            if (entry.pcOffset + code == pc) {
++                block->setBlockUseCount(entry.counter);
++                IonSpew(IonSpew_Scripts,
++                        "[AttachBlockProfiles] Hooray found counter for block(%zu) counter[%zu] offset(%zu) value(%zu)",
++                        block->id(), i, entry.pcOffset, entry.counter);
++                break;
++            }
++        }
++        if (i >= numCounters) {
++            IonSpew(IonSpew_Scripts, "[AttachBlockProfiles] Oops no counter for block(%zu)", block->id());
++        }
++    }
++    return true;;
++}
++
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
+diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
+--- a/js/src/ion/IonAnalysis.h
++++ b/js/src/ion/IonAnalysis.h
+@@ -16,16 +16,19 @@ namespace js {
+ namespace ion {
+ 
+ class MIRGenerator;
+ class MIRGraph;
+ 
+ bool
+ SplitCriticalEdges(MIRGraph &graph);
+ 
++bool
++AttachBlockProfiles(MIRGraph &graph);
++
+ enum Observability {
+     ConservativeObservability,
+     AggressiveObservability
+ };
+ 
+ bool
+ EliminatePhis(MIRGenerator *mir, MIRGraph &graph, Observability observe);
+ 
+diff --git a/js/src/ion/MIRGraph.cpp b/js/src/ion/MIRGraph.cpp
+--- a/js/src/ion/MIRGraph.cpp
++++ b/js/src/ion/MIRGraph.cpp
+@@ -239,17 +239,19 @@ MBasicBlock::MBasicBlock(MIRGraph &graph
+     successorWithPhis_(NULL),
+     positionInPhiSuccessor_(0),
+     kind_(kind),
+     loopDepth_(0),
+     mark_(false),
+     immediateDominator_(NULL),
+     numDominated_(0),
+     loopHeader_(NULL),
+-    trackedPc_(pc)
++    trackedPc_(pc),
++    blockUseCount_(0),
++    blockUseCountAvailable_(false)
+ {
+ }
+ 
+ bool
+ MBasicBlock::init()
+ {
+     return slots_.init(info_.nslots());
+ }
+diff --git a/js/src/ion/MIRGraph.h b/js/src/ion/MIRGraph.h
+--- a/js/src/ion/MIRGraph.h
++++ b/js/src/ion/MIRGraph.h
+@@ -475,16 +475,38 @@ class MBasicBlock : public TempObject, p
+     void updateTrackedPc(jsbytecode *pc) {
+         trackedPc_ = pc;
+     }
+ 
+     jsbytecode *trackedPc() {
+         return trackedPc_;
+     }
+ 
++    // SplitCriticalEdges() may introduce new MBasicBlocks,
++    // which has no profile available.
++    bool isBlockUseCountAvailable() {
++        return blockUseCountAvailable_;
++    }
++    void setBlockUseCount(const uint32_t useCount) {
++        blockUseCount_ = useCount;
++        blockUseCountAvailable_ = true;
++    }
++
++    uint32_t getBlockUseCount() {
++        return blockUseCount_;
++    }
++
++    bool isWorthFiltered() {
++        uint32_t scriptUseCount = info_.script()->getUseCount();
++        // TODO: Decide whether this block is worth to be filtered out.
++        if (isBlockUseCountAvailable() && getBlockUseCount() < scriptUseCount / 10)
++            return true;
++        return false;
++    }
++
+   private:
+     MIRGraph &graph_;
+     CompileInfo &info_; // Each block originates from a particular script.
+     InlineList<MInstruction> instructions_;
+     Vector<MBasicBlock *, 1, IonAllocPolicy> predecessors_;
+     InlineForwardList<MPhi> phis_;
+     InlineForwardList<MResumePoint> resumePoints_;
+     FixedList<MDefinition *> slots_;
+@@ -495,16 +517,18 @@ class MBasicBlock : public TempObject, p
+     uint32_t domIndex_; // Index in the dominator tree.
+     LBlock *lir_;
+     MStart *start_;
+     MResumePoint *entryResumePoint_;
+     MBasicBlock *successorWithPhis_;
+     uint32_t positionInPhiSuccessor_;
+     Kind kind_;
+     uint32_t loopDepth_;
++    uint32_t blockUseCount_;
++    bool blockUseCountAvailable_;
+ 
+     // Utility mark for traversal algorithms.
+     bool mark_;
+ 
+     Vector<MBasicBlock *, 1, IonAllocPolicy> immediatelyDominated_;
+     MBasicBlock *immediateDominator_;
+     size_t numDominated_;
+     MBasicBlock *loopHeader_;
