@@ -1,0 +1,140 @@
+# HG changeset patch
+# Parent 3f4810c704c5db4fce76d76f36e1dbe107d78fb5
+# User Wei Wu <lazyparser@gmail.com>
+Toggle Branch Profiling.
+
+diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp
++++ b/js/src/ion/BaselineCompiler.cpp
+@@ -339,16 +339,19 @@ BaselineCompiler::emitIC(ICStub *stub, b
+         return false;
+ 
+     return true;
+ }
+ 
+ bool
+ BaselineCompiler::emitBlockCounter(jsbytecode *pc)
+ {
++    if (!ionCompileable_ && !ionOSRCompileable_)
++        return true;
++
+     IonSpew(IonSpew_BaselineOp, "Emitting a block counter for op @ %d: %s",
+             int(pc - script->code), js_CodeName[JSOp(*pc)]);
+ 
+     BlockCounterEntry *entry = allocateBlockCounterEntry(pc - script->code);
+     if(!entry)
+         return false;
+ 
+     Register addressReg = R1.scratchReg();
+@@ -654,17 +657,17 @@ BaselineCompiler::emitBody()
+             emittedOps = 0;
+         if (!addPCMappingEntry(addIndexEntry))
+             return Method_Error;
+ 
+         // Emit traps for breakpoints and step mode.
+         if (debugMode_ && !emitDebugTrap())
+             return Method_Error;
+ 
+-        if (info->jumpTarget && !emitBlockCounter(pc))
++        if (js_IonOptions.baselineBranchProfiling && info->jumpTarget && !emitBlockCounter(pc))
+             return Method_Error;
+ 
+         switch (op) {
+           default:
+             IonSpew(IonSpew_BaselineAbort, "Unhandled op: %s", js_CodeName[op]);
+             return Method_CantCompile;
+ 
+ #define EMIT_OP(OP)                            \
+diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
+--- a/js/src/ion/Ion.h
++++ b/js/src/ion/Ion.h
+@@ -174,16 +174,21 @@ struct IonOptions
+     // Default: false
+     bool eagerCompilation;
+ 
+     // How many uses of a parallel kernel before we attempt compilation.
+     //
+     // Default: 1
+     uint32_t usesBeforeCompileParallel;
+ 
++    // Whether baseline scripts are instrumented.
++    //
++    // Default: false
++    bool baselineBranchProfiling;
++
+     void setEagerCompilation() {
+         eagerCompilation = true;
+         usesBeforeCompile = 0;
+         baselineUsesBeforeCompile = 0;
+ 
+         parallelCompilation = false;
+     }
+ 
+@@ -208,17 +213,18 @@ struct IonOptions
+         maxStackArgs(4096),
+         maxInlineDepth(3),
+         smallFunctionMaxInlineDepth(10),
+         smallFunctionMaxBytecodeLength(100),
+         polyInlineMax(4),
+         inlineMaxTotalBytecodeLength(1000),
+         inlineUseCountRatio(128),
+         eagerCompilation(false),
+-        usesBeforeCompileParallel(1)
++        usesBeforeCompileParallel(1),
++        baselineBranchProfiling(false)
+     {
+     }
+ 
+     uint32_t usesBeforeInlining() {
+         return usesBeforeCompile * usesBeforeInliningFactor;
+     }
+ };
+ 
+diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
+--- a/js/src/shell/js.cpp
++++ b/js/src/shell/js.cpp
+@@ -5038,16 +5038,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
+ 
+     useCount = op->getIntOption("baseline-uses-before-compile");
+     if (useCount >= 0)
+         ion::js_IonOptions.baselineUsesBeforeCompile = useCount;
+ 
+     if (op->getBoolOption("baseline-eager"))
+         ion::js_IonOptions.baselineUsesBeforeCompile = 0;
+ 
++    if (const char *str = op->getStringOption("baseline-branch-profiling")) {
++        if (strcmp(str, "off") == 0)
++            ion::js_IonOptions.baselineBranchProfiling = false;
++        else if (strcmp(str, "on") == 0)
++            ion::js_IonOptions.baselineBranchProfiling = true;
++        else
++            return OptionFailure("baseline-branch-profiling", str);
++    }
++
+     if (const char *str = op->getStringOption("ion-regalloc")) {
+         if (strcmp(str, "lsra") == 0)
+             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_LSRA;
+         else if (strcmp(str, "backtracking") == 0)
+             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Backtracking;
+         else if (strcmp(str, "stupid") == 0)
+             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Stupid;
+         else
+@@ -5288,16 +5297,18 @@ main(int argc, char **argv, char **envp)
+         || !op.addIntOption('\0', "ion-uses-before-compile", "COUNT",
+                             "Wait for COUNT calls or iterations before compiling "
+                             "(default: 10240)", -1)
+         || !op.addStringOption('\0', "ion-regalloc", "[mode]",
+                                "Specify Ion register allocation:\n"
+                                "  lsra: Linear Scan register allocation (default)\n"
+                                "  backtracking: Priority based backtracking register allocation\n"
+                                "  stupid: Simple block local register allocation")
++       || !op.addStringOption('\0', "baseline-branch-profiling", "on/off",
++                              "Profile baseline generated codes (default: off, on to enable)")
+         || !op.addBoolOption('\0', "ion-eager", "Always ion-compile methods (implies --baseline-eager)")
+ #ifdef JS_THREADSAFE
+         || !op.addStringOption('\0', "ion-parallel-compile", "on/off",
+                                "Compile scripts off thread (default: off)")
+ #endif
+         || !op.addBoolOption('\0', "baseline", "Enable baseline compiler (default)")
+         || !op.addBoolOption('\0', "no-baseline", "Disable baseline compiler")
+         || !op.addBoolOption('\0', "baseline-eager", "Always baseline-compile methods")
