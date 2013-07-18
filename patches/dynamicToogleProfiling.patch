@@ -1,0 +1,143 @@
+# HG changeset patch
+# Parent 80e31eef72b643a293b62988d2ff0bdb1dcc5720
+# User Wei Wu <lazyparser@gmail.com>
+Dynamic toggle block counters
+
+diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp
++++ b/js/src/ion/BaselineCompiler.cpp
+@@ -202,26 +202,30 @@ BaselineCompiler::compile()
+     for (size_t i = 0; i < blockCounterLabels_.length(); i++) {
+         CodeOffsetLabel label = blockCounterLabels_[i].label;
+         label.fixup(&masm);
+         size_t bcEntry = blockCounterLabels_[i].bcEntry;
+         BlockCounterEntry *bcEntryAddr = &baselineScript->blockCounterEntry(bcEntry);
+         Assembler::patchDataWithValueCheck(CodeLocationLabel(code, label),
+                                            ImmWord(uintptr_t(bcEntryAddr)),
+                                            ImmWord(uintptr_t(-1)));
++        bcEntryAddr->toggleOffset.fixup(&masm);
+     }
+ 
+     // All barriers are emitted off-by-default, toggle them on if needed.
+     if (cx->zone()->needsBarrier())
+         baselineScript->toggleBarriers(true);
+ 
+     // All SPS instrumentation is emitted toggled off.  Toggle them on if needed.
+     if (cx->runtime()->spsProfiler.enabled())
+         baselineScript->toggleSPS(true);
+ 
++    if (js_IonOptions.baselineBranchProfiling)
++        baselineScript->toggleBlockCounters(true);
++
+     return Method_Compiled;
+ }
+ 
+ bool
+ BaselineCompiler::emitPrologue()
+ {
+     masm.push(BaselineFrameReg);
+     masm.mov(BaselineStackReg, BaselineFrameReg);
+@@ -349,24 +353,30 @@ BaselineCompiler::emitBlockCounter(jsbyt
+ 
+     IonSpew(IonSpew_BaselineOp, "Emitting a block counter for op @ %d: %s",
+             int(pc - script->code), js_CodeName[JSOp(*pc)]);
+ 
+     BlockCounterEntry *entry = allocateBlockCounterEntry(pc - script->code);
+     if(!entry)
+         return false;
+ 
++    Label skipCount;
++    CodeOffsetLabel toggleOffset = masm.toggledJump(&skipCount);
++    entry->toggleOffset = toggleOffset;
++
+     Register addressReg = R1.scratchReg();
+     Register counterReg = R0.scratchReg();
+     CodeOffsetLabel counterOffset = masm.movWithPatch(ImmWord(-1), addressReg);
+     Address counterAddr(addressReg, BlockCounterEntry::offsetOfCounter());
+     masm.load32(counterAddr, counterReg);
+     masm.add32(Imm32(1), counterReg);
+     masm.store32(counterReg, counterAddr);
+ 
++    masm.bind(&skipCount);
++
+     if(!addBlockCounterLabel(counterOffset))
+         return false;
+ 
+     return true;
+ }
+ 
+ typedef bool (*DebugPrologueFn)(JSContext *, BaselineFrame *, JSBool *);
+ static const VMFunction DebugPrologueInfo = FunctionInfo<DebugPrologueFn>(ion::DebugPrologue);
+diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
+--- a/js/src/ion/BaselineJIT.cpp
++++ b/js/src/ion/BaselineJIT.cpp
+@@ -773,16 +773,29 @@ BaselineScript::toggleSPS(bool enable)
+         Assembler::ToggleToCmp(pushToggleLocation);
+     else
+         Assembler::ToggleToJmp(pushToggleLocation);
+ #ifdef DEBUG
+     spsOn_ = enable;
+ #endif
+ }
+ 
++
++void
++BaselineScript::toggleBlockCounters(bool enable)
++{
++    for (size_t i = 0; i < blockCounters_; i++) {
++        CodeLocationLabel counterToggleLocation(method_, blockCounterEntry(i).toggleOffset);
++        if (enable)
++            Assembler::ToggleToCmp(counterToggleLocation);
++        else
++            Assembler::ToggleToJmp(counterToggleLocation);
++    }
++}
++
+ void
+ BaselineScript::purgeOptimizedStubs(Zone *zone)
+ {
+     IonSpew(IonSpew_BaselineIC, "Purging optimized stubs");
+ 
+     for (size_t i = 0; i < numICEntries(); i++) {
+         ICEntry &entry = icEntry(i);
+         if (!entry.hasStub())
+diff --git a/js/src/ion/BaselineJIT.h b/js/src/ion/BaselineJIT.h
+--- a/js/src/ion/BaselineJIT.h
++++ b/js/src/ion/BaselineJIT.h
+@@ -95,16 +95,17 @@ struct PCMappingIndexEntry
+     // Offset in the CompactBuffer where data for pcOffset starts.
+     uint32_t bufferOffset;
+ };
+ 
+ struct BlockCounterEntry
+ {
+     uint32_t counter;
+     size_t pcOffset;
++    CodeOffsetLabel toggleOffset;
+     BlockCounterEntry(const size_t pcoffset)
+       : counter(0),
+         pcOffset(pcoffset)
+     { }
+     static size_t offsetOfCounter() {
+         return offsetof(BlockCounterEntry, counter);
+     }
+ };
+@@ -283,16 +284,18 @@ struct BaselineScript
+ 
+     static size_t offsetOfFlags() {
+         return offsetof(BaselineScript, flags_);
+     }
+ 
+     static size_t offsetOfBlockCounterOffset(){
+         return offsetof(BaselineScript, blockCounterOffset_);
+     }
++
++    void toggleBlockCounters(bool enable);
+ };
+ 
+ inline bool
+ IsBaselineEnabled(JSContext *cx)
+ {
+     return cx->hasOption(JSOPTION_BASELINE);
+ }
+ 
