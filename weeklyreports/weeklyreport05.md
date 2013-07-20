@@ -11,7 +11,7 @@ Deliverables:
 
 [toggleProfiling.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/toggleProfiling.patch)
 
-[dynamicToogleProfiling.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/dynamicToogleProfiling.patch)
+[dynamicToggleProfiling.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/dynamicToggleProfiling.patch)
 
 What I am planning to do next week:
 -----------------------------------
