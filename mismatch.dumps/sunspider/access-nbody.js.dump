@@ -1,0 +1,122 @@
+[BaselineScripts] Baseline compiling script access-nbody.js:128 (0x7eff601518f8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getlocal (lineno: 129 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 46: loophead (lineno: 134 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 41: goto (lineno: 133 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 45: unused43 (lineno: 133 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 47: this (lineno: 134 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 151: loophead (lineno: 142 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 146: goto (lineno: 141 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 150: unused168 (lineno: 141 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 152: this (lineno: 142 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 314: loopentry (lineno: 141 column: 22)
+[BranchProfiles] [emitBlockCounter] op @ 328: getlocal (lineno: 133 column: 25)
+[BranchProfiles] [emitBlockCounter] op @ 340: loopentry (lineno: 133 column: 17)
+[BranchProfiles] [emitBlockCounter] op @ 354: getlocal (lineno: 151 column: 3)
+[BaselineScripts] Created BaselineScript 0x1b10c20 (raw 0x7eff61a35bc0) for access-nbody.js:128
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script access-nbody.js:128 (0x1b10c20) (lineno: 151 column: 12)
+[BaselineScripts] Baseline compiling script access-nbody.js:95 (0x7eff601519c0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getlocal (lineno: 96 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 45: loophead (lineno: 100 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 40: goto (lineno: 99 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 44: backpatch (lineno: 99 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 46: this (lineno: 100 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 74: loophead (lineno: 102 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 69: goto (lineno: 101 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 73: initelem (lineno: 101 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 75: this (lineno: 102 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 419: loopentry (lineno: 101 column: 22)
+[BranchProfiles] [emitBlockCounter] op @ 433: getlocal (lineno: 99 column: 25)
+[BranchProfiles] [emitBlockCounter] op @ 445: loopentry (lineno: 99 column: 17)
+[BranchProfiles] [emitBlockCounter] op @ 459: zero (lineno: 120 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 469: loophead (lineno: 121 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 464: goto (lineno: 120 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 468: gosub (lineno: 120 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 470: this (lineno: 121 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 580: loopentry (lineno: 120 column: 17)
+[BranchProfiles] [emitBlockCounter] op @ 594: stop (lineno: 124 column: 29)
+[BaselineScripts] Created BaselineScript 0x1bc9ed0 (raw 0x7eff61a36ba0) for access-nbody.js:95
+[BranchProfiles] [BaselineCompiler] Statistics 13 counters emitted for script access-nbody.js:95 (0x1bc9ed0) (lineno: 124 column: 29)
+[BaselineScripts] Baseline compiling script access-nbody.js:157 (0x7eff601511f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 158 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 133: loophead (lineno: 165 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 128: goto (lineno: 164 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 132: typeof (lineno: 164 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 134: getlocal (lineno: 165 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 167: loopentry (lineno: 164 column: 22)
+[BranchProfiles] [emitBlockCounter] op @ 181: bindgname (lineno: 167 column: 8)
+[BaselineScripts] Created BaselineScript 0x1bc9830 (raw 0x7eff61a37b48) for access-nbody.js:157
+[BranchProfiles] [BaselineCompiler] Statistics 5 counters emitted for script access-nbody.js:157 (0x1bc9830) (lineno: 167 column: 31)
+[BranchProfiles] [DumpBlockCounters] Statistics 13 counters for baselineScript 0x1bc9ed0
+[BranchProfiles] [DumpBlockCounters] offset 0 value 35
+[BranchProfiles] [DumpBlockCounters] offset 45 value 178
+[BranchProfiles] [DumpBlockCounters] offset 46 value 178
+[BranchProfiles] [DumpBlockCounters] offset 74 value 354
+[BranchProfiles] [DumpBlockCounters] offset 75 value 354
+[BranchProfiles] [DumpBlockCounters] offset 419 value 533
+[BranchProfiles] [DumpBlockCounters] offset 433 value 179
+[BranchProfiles] [DumpBlockCounters] offset 445 value 214
+[BranchProfiles] [DumpBlockCounters] offset 459 value 36
+[BranchProfiles] [DumpBlockCounters] offset 469 value 180
+[BranchProfiles] [DumpBlockCounters] offset 470 value 180
+[BranchProfiles] [DumpBlockCounters] offset 580 value 216
+[BranchProfiles] [DumpBlockCounters] offset 594 value 36
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b12088) - code(0x1b12088) = (0) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 35
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b120b0) - code(0x1b12088) = (40) numCounters 13 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b120b6) - code(0x1b12088) = (46) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 46 value 178
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b120cd) - code(0x1b12088) = (69) numCounters 13 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b120d3) - code(0x1b12088) = (75) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 4 offset 75 value 354
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b12239) - code(0x1b12088) = (433) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 6 offset 433 value 179
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b12253) - code(0x1b12088) = (459) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 8 offset 459 value 36
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b12258) - code(0x1b12088) = (464) numCounters 13 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 7
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b1225e) - code(0x1b12088) = (470) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 10 offset 470 value 180
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b122da) - code(0x1b12088) = (594) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 12 offset 594 value 36
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 7 NotFound 3 Total 10
+[BaselineScripts] Baseline compiling script access-nbody.js:79 (0x7eff60151768)
+[BranchProfiles] [emitBlockCounter] op @ 0: this (lineno: 80 column: 3)
+[BranchProfiles] [emitBlockCounter] op @ 50: loophead (lineno: 86 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 45: goto (lineno: 85 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 49: unused104 (lineno: 85 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 51: this (lineno: 86 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 149: loopentry (lineno: 85 column: 17)
+[BranchProfiles] [emitBlockCounter] op @ 163: this (lineno: 92 column: 3)
+[BaselineScripts] Created BaselineScript 0x1bc2350 (raw 0x7eff61a38ce0) for access-nbody.js:79
+[BranchProfiles] [BaselineCompiler] Statistics 5 counters emitted for script access-nbody.js:79 (0x1bc2350) (lineno: 92 column: 43)
+[BaselineScripts] Baseline compiling script access-nbody.js:9 (0x7eff60151380)
+[BranchProfiles] [emitBlockCounter] op @ 0: this (lineno: 10 column: 3)
+[BaselineScripts] Created BaselineScript 0x1bd3530 (raw 0x7eff61a392a0) for access-nbody.js:9
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script access-nbody.js:9 (0x1bd3530) (lineno: 16 column: 20)
+[BranchProfiles] [DumpBlockCounters] Statistics 5 counters for baselineScript 0x1bc9830
+[BranchProfiles] [DumpBlockCounters] offset 0 value 2
+[BranchProfiles] [DumpBlockCounters] offset 133 value 1084
+[BranchProfiles] [DumpBlockCounters] offset 134 value 1084
+[BranchProfiles] [DumpBlockCounters] offset 167 value 1087
+[BranchProfiles] [DumpBlockCounters] offset 181 value 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b05118) - code(0x1b05118) = (0) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 2
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b051bf) - code(0x1b05118) = (167) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 3 offset 167 value 1087
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b051bf) - code(0x1b05118) = (167) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 3 offset 167 value 1087
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b05198) - code(0x1b05118) = (128) numCounters 5 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b0519e) - code(0x1b05118) = (134) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 2 offset 134 value 1084
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x1b051cd) - code(0x1b05118) = (181) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 181 value 2
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 5 NotFound 1 Total 6

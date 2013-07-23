@@ -1,0 +1,40 @@
+[BaselineScripts] Baseline compiling script bitops-bitwise-and.js:1 (0x7f66e5d51128)
+[BranchProfiles] [emitBlockCounter] op @ 0: defvar (lineno: 27 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 48: loophead (lineno: 28 column: 4)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 43: goto (lineno: 27 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 47: unused52 (lineno: 27 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 49: bindgname (lineno: 28 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 95: loopentry (lineno: 27 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 112: bindgname (lineno: 30 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 156: string (lineno: 34 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 180: stop (lineno: 34 column: 75)
+[BaselineScripts] Created BaselineScript 0x25c6180 (raw 0x7f66e7589a08) for bitops-bitwise-and.js:1
+[BranchProfiles] [BaselineCompiler] Statistics 7 counters emitted for script bitops-bitwise-and.js:1 (0x25c6180) (lineno: 34 column: 75)
+[BranchProfiles] [DumpBlockCounters] Statistics 7 counters for baselineScript 0x25c6180
+[BranchProfiles] [DumpBlockCounters] offset 0 value 0
+[BranchProfiles] [DumpBlockCounters] offset 48 value 1088
+[BranchProfiles] [DumpBlockCounters] offset 49 value 1088
+[BranchProfiles] [DumpBlockCounters] offset 95 value 1089
+[BranchProfiles] [DumpBlockCounters] offset 112 value 0
+[BranchProfiles] [DumpBlockCounters] offset 156 value 0
+[BranchProfiles] [DumpBlockCounters] offset 180 value 0
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8308) - code(0x25c8308) = (0) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8367) - code(0x25c8308) = (95) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 3 offset 95 value 1089
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8367) - code(0x25c8308) = (95) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 3 offset 95 value 1089
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8333) - code(0x25c8308) = (43) numCounters 7 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8339) - code(0x25c8308) = (49) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 2 offset 49 value 1088
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c8378) - code(0x25c8308) = (112) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 112 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c83a4) - code(0x25c8308) = (156) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 5 offset 156 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x25c83bc) - code(0x25c8308) = (180) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 6 offset 180 value 0
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 7 NotFound 1 Total 8

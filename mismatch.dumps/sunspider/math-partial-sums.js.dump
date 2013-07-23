@@ -1,0 +1,72 @@
+[BaselineScripts] Baseline compiling script math-partial-sums.js:5 (0x7f1d30e511f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: bindgname (lineno: 6 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 145: loophead (lineno: 12 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 140: goto (lineno: 11 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 144: getaliasedvar (lineno: 11 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 146: getlocal (lineno: 12 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 532: loopentry (lineno: 11 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 546: getgname (lineno: 31 column: 4)
+[BaselineScripts] Created BaselineScript 0x2c64950 (raw 0x7f1d32758bc0) for math-partial-sums.js:5
+[BranchProfiles] [BaselineCompiler] Statistics 5 counters emitted for script math-partial-sums.js:5 (0x2c64950) (lineno: 31 column: 29)
+[BranchProfiles] [DumpBlockCounters] Statistics 5 counters for baselineScript 0x2c64950
+[BranchProfiles] [DumpBlockCounters] offset 0 value 0
+[BranchProfiles] [DumpBlockCounters] offset 145 value 1015
+[BranchProfiles] [DumpBlockCounters] offset 146 value 1015
+[BranchProfiles] [DumpBlockCounters] offset 532 value 1016
+[BranchProfiles] [DumpBlockCounters] offset 546 value 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b488) - code(0x2c5b488) = (0) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b514) - code(0x2c5b488) = (140) numCounters 5 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b51a) - code(0x2c5b488) = (146) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 146 value 1015
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b6aa) - code(0x2c5b488) = (546) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 4 offset 546 value 1
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 3 NotFound 1 Total 4
+[BranchProfiles] [DumpBlockCounters] Statistics 5 counters for baselineScript 0x2c64950
+[BranchProfiles] [DumpBlockCounters] offset 0 value 1
+[BranchProfiles] [DumpBlockCounters] offset 145 value 2114
+[BranchProfiles] [DumpBlockCounters] offset 146 value 2114
+[BranchProfiles] [DumpBlockCounters] offset 532 value 2116
+[BranchProfiles] [DumpBlockCounters] offset 546 value 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b488) - code(0x2c5b488) = (0) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b69c) - code(0x2c5b488) = (532) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 3 offset 532 value 2116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b69c) - code(0x2c5b488) = (532) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 3 offset 532 value 2116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b514) - code(0x2c5b488) = (140) numCounters 5 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b51a) - code(0x2c5b488) = (146) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 2 offset 146 value 2114
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b6aa) - code(0x2c5b488) = (546) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 546 value 1
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 5 NotFound 1 Total 6
+[BranchProfiles] [DumpBlockCounters] Statistics 5 counters for baselineScript 0x2c64950
+[BranchProfiles] [DumpBlockCounters] offset 0 value 2
+[BranchProfiles] [DumpBlockCounters] offset 145 value 3211
+[BranchProfiles] [DumpBlockCounters] offset 146 value 3211
+[BranchProfiles] [DumpBlockCounters] offset 532 value 3215
+[BranchProfiles] [DumpBlockCounters] offset 546 value 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b488) - code(0x2c5b488) = (0) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 2
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b69c) - code(0x2c5b488) = (532) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 3 offset 532 value 3215
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b69c) - code(0x2c5b488) = (532) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 3 offset 532 value 3215
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b514) - code(0x2c5b488) = (140) numCounters 5 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b51a) - code(0x2c5b488) = (146) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 2 offset 146 value 3211
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x2c5b6aa) - code(0x2c5b488) = (546) numCounters 5 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 546 value 2
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 5 NotFound 1 Total 6

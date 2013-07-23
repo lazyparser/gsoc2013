@@ -1,0 +1,134 @@
+[BaselineScripts] Baseline compiling script math-spectral-norm.js:10 (0x7f524d351380)
+[BranchProfiles] [emitBlockCounter] op @ 0: zero (lineno: 11 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 12 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 5: goto (lineno: 11 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 9: label (lineno: 11 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: zero (lineno: 12 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 26: loophead (lineno: 14 column: 6)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 21: goto (lineno: 13 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 25: unused50 (lineno: 13 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 27: getlocal (lineno: 14 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 71: loopentry (lineno: 13 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 90: getarg (lineno: 15 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 111: loopentry (lineno: 11 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 130: stop (lineno: 15 column: 13)
+[BaselineScripts] Created BaselineScript 0x377b610 (raw 0x7f524ec04be0) for math-spectral-norm.js:10
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script math-spectral-norm.js:10 (0x377b610) (lineno: 15 column: 13)
+[BaselineScripts] Baseline compiling script math-spectral-norm.js:6 (0x7f524d351448)
+[BranchProfiles] [emitBlockCounter] op @ 0: one (lineno: 7 column: 2)
+[BaselineScripts] Created BaselineScript 0x3776800 (raw 0x7f524ec05478) for math-spectral-norm.js:6
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script math-spectral-norm.js:6 (0x3776800) (lineno: 7 column: 33)
+[BaselineScripts] Baseline compiling script math-spectral-norm.js:19 (0x7f524d351510)
+[BranchProfiles] [emitBlockCounter] op @ 0: zero (lineno: 20 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 21 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 5: goto (lineno: 20 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 9: label (lineno: 20 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: zero (lineno: 21 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 26: loophead (lineno: 23 column: 6)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 21: goto (lineno: 22 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 25: unused50 (lineno: 22 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 27: getlocal (lineno: 23 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 71: loopentry (lineno: 22 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 90: getarg (lineno: 24 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 111: loopentry (lineno: 20 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 130: stop (lineno: 24 column: 13)
+[BaselineScripts] Created BaselineScript 0x377e470 (raw 0x7f524ec05bd8) for math-spectral-norm.js:19
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script math-spectral-norm.js:19 (0x377e470) (lineno: 24 column: 13)
+[BaselineScripts] Baseline compiling script math-spectral-norm.js:33 (0x7f524d3511f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getlocal (lineno: 34 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 51: loophead (lineno: 36 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 46: goto (lineno: 35 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 50: unused41 (lineno: 35 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 52: getlocal (lineno: 36 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 87: loopentry (lineno: 35 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 101: zero (lineno: 38 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 111: loophead (lineno: 39 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 106: goto (lineno: 38 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 110: zero (lineno: 38 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 112: callgname (lineno: 39 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 168: loopentry (lineno: 38 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 181: zero (lineno: 42 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 191: loophead (lineno: 43 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 186: goto (lineno: 42 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 190: zero (lineno: 42 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 192: getlocal (lineno: 43 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 248: loopentry (lineno: 42 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 262: getgname (lineno: 46 column: 2)
+[BaselineScripts] Created BaselineScript 0x3781360 (raw 0x7f524ec06180) for math-spectral-norm.js:33
+[BranchProfiles] [BaselineCompiler] Statistics 13 counters emitted for script math-spectral-norm.js:33 (0x3781360) (lineno: 46 column: 27)
+[BaselineScripts] Baseline compiling script math-spectral-norm.js:28 (0x7f524d3512b8)
+[BranchProfiles] [emitBlockCounter] op @ 0: callgname (lineno: 29 column: 2)
+[BaselineScripts] Created BaselineScript 0x377fe10 (raw 0x7f524ec06958) for math-spectral-norm.js:28
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script math-spectral-norm.js:28 (0x377fe10) (lineno: 30 column: 11)
+[BranchProfiles] [DumpBlockCounters] Statistics 1 counters for baselineScript 0x3776800
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777768) - code(0x3777768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 1 NotFound 0 Total 1
+[BranchProfiles] [DumpBlockCounters] Statistics 9 counters for baselineScript 0x377b610
+[BranchProfiles] [DumpBlockCounters] offset 0 value 19
+[BranchProfiles] [DumpBlockCounters] offset 10 value 118
+[BranchProfiles] [DumpBlockCounters] offset 11 value 118
+[BranchProfiles] [DumpBlockCounters] offset 26 value 714
+[BranchProfiles] [DumpBlockCounters] offset 27 value 714
+[BranchProfiles] [DumpBlockCounters] offset 71 value 833
+[BranchProfiles] [DumpBlockCounters] offset 90 value 119
+[BranchProfiles] [DumpBlockCounters] offset 111 value 138
+[BranchProfiles] [DumpBlockCounters] offset 130 value 20
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777688) - code(0x3777688) = (0) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 19
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x377768d) - code(0x3777688) = (5) numCounters 9 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777693) - code(0x3777688) = (11) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 11 value 118
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x377769d) - code(0x3777688) = (21) numCounters 9 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37776a3) - code(0x3777688) = (27) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 4 offset 27 value 714
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777768) - code(0x3777768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37776b8) - code(0x3777688) = (48) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 6
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37776e2) - code(0x3777688) = (90) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 6 offset 90 value 119
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x377770a) - code(0x3777688) = (130) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 8 offset 130 value 20
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 6 NotFound 3 Total 9
+[BranchProfiles] [DumpBlockCounters] Statistics 9 counters for baselineScript 0x377e470
+[BranchProfiles] [DumpBlockCounters] offset 0 value 19
+[BranchProfiles] [DumpBlockCounters] offset 10 value 118
+[BranchProfiles] [DumpBlockCounters] offset 11 value 118
+[BranchProfiles] [DumpBlockCounters] offset 26 value 714
+[BranchProfiles] [DumpBlockCounters] offset 27 value 714
+[BranchProfiles] [DumpBlockCounters] offset 71 value 833
+[BranchProfiles] [DumpBlockCounters] offset 90 value 119
+[BranchProfiles] [DumpBlockCounters] offset 111 value 138
+[BranchProfiles] [DumpBlockCounters] offset 130 value 20
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777538) - code(0x3777538) = (0) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 19
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x377753d) - code(0x3777538) = (5) numCounters 9 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777543) - code(0x3777538) = (11) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 11 value 118
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x377754d) - code(0x3777538) = (21) numCounters 9 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 3
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777553) - code(0x3777538) = (27) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 4 offset 27 value 714
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777768) - code(0x3777768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777568) - code(0x3777538) = (48) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 6
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3777592) - code(0x3777538) = (90) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 6 offset 90 value 119
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37775ba) - code(0x3777538) = (130) numCounters 9 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 8 offset 130 value 20
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 6 NotFound 3 Total 9

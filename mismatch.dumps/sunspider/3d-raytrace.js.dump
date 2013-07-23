@@ -1,0 +1,938 @@
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:71 (0x7f2bfa451448)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 72 column: 4)
+[BaselineScripts] Created BaselineScript 0x37349f0 (raw 0x7f2bfbd24a50) for 3d-raytrace.js:71
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:71 (0x37349f0) (lineno: 72 column: 66)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:125 (0x7f2bfa451380)
+[BranchProfiles] [emitBlockCounter] op @ 0: callgname (lineno: 126 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 116: getgname (lineno: 130 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 167: this (lineno: 131 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 180: this (lineno: 133 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 189: goto (lineno: 133 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 194: getgname (lineno: 135 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 245: this (lineno: 136 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 258: this (lineno: 138 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 267: this (lineno: 139 column: 0)
+[BaselineScripts] Created BaselineScript 0x37fd900 (raw 0x7f2bfbd25370) for 3d-raytrace.js:125
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script 3d-raytrace.js:125 (0x37fd900) (lineno: 157 column: 36)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:87 (0x7f2bfa451510)
+[BranchProfiles] [emitBlockCounter] op @ 0: newarray (lineno: 88 column: 4)
+[BaselineScripts] Created BaselineScript 0x37f7680 (raw 0x7f2bfbd26448) for 3d-raytrace.js:87
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:87 (0x37f7680) (lineno: 90 column: 43)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:94 (0x7f2bfa4515d8)
+[BranchProfiles] [emitBlockCounter] op @ 0: callgname (lineno: 95 column: 0)
+[BaselineScripts] Created BaselineScript 0x37fb8d0 (raw 0x7f2bfbd27148) for 3d-raytrace.js:94
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:94 (0x37fb8d0) (lineno: 96 column: 48)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:34 (0x7f2bfa4516a0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 35 column: 4)
+[BaselineScripts] Created BaselineScript 0x37fc670 (raw 0x7f2bfbd273f8) for 3d-raytrace.js:34
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:34 (0x37fc670) (lineno: 35 column: 80)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:79 (0x7f2bfa451768)
+[BranchProfiles] [emitBlockCounter] op @ 0: getarg (lineno: 80 column: 4)
+[BaselineScripts] Created BaselineScript 0x37fce90 (raw 0x7f2bfbd277e8) for 3d-raytrace.js:79
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:79 (0x37fce90) (lineno: 80 column: 57)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:26 (0x7f2bfa4512b8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 27 column: 4)
+[BaselineScripts] Created BaselineScript 0x37fd070 (raw 0x7f2bfbd27de0) for 3d-raytrace.js:26
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:26 (0x37fd070) (lineno: 27 column: 28)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:313 (0x7f2bfa4511f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 315 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1329: loophead (lineno: 393 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 1324: goto (lineno: 392 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 1328: getlocal (lineno: 392 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1330: getlocal (lineno: 393 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 1358: loophead (lineno: 395 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 1353: goto (lineno: 394 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 1357: mod (lineno: 394 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1359: getlocal (lineno: 395 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 1384: loopentry (lineno: 394 column: 24)
+[BranchProfiles] [emitBlockCounter] op @ 1398: getlocal (lineno: 392 column: 30)
+[BranchProfiles] [emitBlockCounter] op @ 1410: loopentry (lineno: 392 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 1424: getgname (lineno: 399 column: 0)
+[BaselineScripts] Created BaselineScript 0x3809d30 (raw 0x7f2bfbd27fd8) for 3d-raytrace.js:313
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script 3d-raytrace.js:313 (0x3809d30) (lineno: 402 column: 18)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:107 (0x7f2bfa451b50)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 108 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 67: loophead (lineno: 113 column: 8)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 62: goto (lineno: 112 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 66: enumelem (lineno: 112 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 68: bindgname (lineno: 113 column: 13)
+[BranchProfiles] [emitBlockCounter] op @ 85: loophead (lineno: 114 column: 12)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 80: goto (lineno: 113 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 84: true (lineno: 113 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 86: getlocal (lineno: 114 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 147: loopentry (lineno: 113 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 162: bindgname (lineno: 112 column: 23)
+[BranchProfiles] [emitBlockCounter] op @ 186: loopentry (lineno: 112 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 201: bindgname (lineno: 115 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 218: loophead (lineno: 116 column: 8)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 213: goto (lineno: 115 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 217: unused49 (lineno: 115 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 219: getarg (lineno: 116 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 262: loopentry (lineno: 115 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 277: getarg (lineno: 117 column: 4)
+[BaselineScripts] Created BaselineScript 0x3822d00 (raw 0x7f2bfbd2a120) for 3d-raytrace.js:107
+[BranchProfiles] [BaselineCompiler] Statistics 13 counters emitted for script 3d-raytrace.js:107 (0x3822d00) (lineno: 120 column: 16)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:189 (0x7f2bfa46e128)
+[BranchProfiles] [emitBlockCounter] op @ 0: null (lineno: 190 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 15: loophead (lineno: 192 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 10: goto (lineno: 191 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 14: case (lineno: 191 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 16: this (lineno: 192 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 74: pop (lineno: 194 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 87: pop (lineno: 194 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 95: ifeq (lineno: 194 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 100: goto (lineno: 195 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 105: getlocal (lineno: 196 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 119: getlocal (lineno: 191 column: 43)
+[BranchProfiles] [emitBlockCounter] op @ 131: loopentry (lineno: 191 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 153: getlocal (lineno: 200 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 162: newarray (lineno: 201 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 205: getlocal (lineno: 203 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 279: newarray (lineno: 206 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 319: null (lineno: 208 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 337: getlocal (lineno: 210 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 372: getlocal (lineno: 212 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 384: null (lineno: 216 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 408: callgname (lineno: 218 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 518: getlocal (lineno: 221 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 522: newarray (lineno: 224 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 578: loophead (lineno: 226 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 573: goto (lineno: 225 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 577: callgname (lineno: 225 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 579: this (lineno: 226 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 696: goto (lineno: 232 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 701: callgname (lineno: 233 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 733: callgname (lineno: 235 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 772: getlocal (lineno: 225 column: 44)
+[BranchProfiles] [emitBlockCounter] op @ 784: loopentry (lineno: 225 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 806: callgname (lineno: 237 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 836: callgname (lineno: 239 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 900: getlocal (lineno: 241 column: 4)
+[BaselineScripts] Created BaselineScript 0x382f530 (raw 0x7f2bfbd0b1b8) for 3d-raytrace.js:189
+[BranchProfiles] [BaselineCompiler] Statistics 31 counters emitted for script 3d-raytrace.js:189 (0x382f530) (lineno: 241 column: 13)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:160 (0x7f2bfa46e1f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: this (lineno: 161 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 142: pop (lineno: 165 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 150: ifeq (lineno: 165 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 155: null (lineno: 166 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 157: getarg (lineno: 167 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 252: null (lineno: 171 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 254: getlocal (lineno: 172 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 289: null (lineno: 174 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 291: getlocal (lineno: 176 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 305: null (lineno: 177 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 307: getlocal (lineno: 178 column: 4)
+[BaselineScripts] Created BaselineScript 0x3817e80 (raw 0x7f2bfbd0c888) for 3d-raytrace.js:160
+[BranchProfiles] [BaselineCompiler] Statistics 11 counters emitted for script 3d-raytrace.js:160 (0x3817e80) (lineno: 178 column: 13)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:244 (0x7f2bfa46e510)
+[BranchProfiles] [emitBlockCounter] op @ 0: double (lineno: 245 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 31: loophead (lineno: 248 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 26: goto (lineno: 247 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 30: eval (lineno: 247 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 32: this (lineno: 248 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 92: pop (lineno: 250 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 105: pop (lineno: 250 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 113: ifeq (lineno: 250 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 118: goto (lineno: 251 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 123: true (lineno: 252 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 125: bindgname (lineno: 247 column: 43)
+[BranchProfiles] [emitBlockCounter] op @ 149: loopentry (lineno: 247 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 173: false (lineno: 255 column: 4)
+[BaselineScripts] Created BaselineScript 0x382d680 (raw 0x7f2bfbd0d638) for 3d-raytrace.js:244
+[BranchProfiles] [BaselineCompiler] Statistics 11 counters emitted for script 3d-raytrace.js:244 (0x382d680) (lineno: 255 column: 17)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:83 (0x7f2bfa451f38)
+[BranchProfiles] [emitBlockCounter] op @ 0: newarray (lineno: 84 column: 4)
+[BaselineScripts] Created BaselineScript 0x382cf80 (raw 0x7f2bfbd0dbf0) for 3d-raytrace.js:83
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:83 (0x382cf80) (lineno: 84 column: 54)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:38 (0x7f2bfa46e060)
+[BranchProfiles] [emitBlockCounter] op @ 0: getarg (lineno: 39 column: 4)
+[BaselineScripts] Created BaselineScript 0x3830380 (raw 0x7f2bfbd0deb0) for 3d-raytrace.js:38
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:38 (0x3830380) (lineno: 42 column: 16)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:52 (0x7f2bfa46e448)
+[BranchProfiles] [emitBlockCounter] op @ 0: getarg (lineno: 53 column: 4)
+[BaselineScripts] Created BaselineScript 0x382eda0 (raw 0x7f2bfbd0e168) for 3d-raytrace.js:52
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:52 (0x382eda0) (lineno: 56 column: 16)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:59 (0x7f2bfa4519c0)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 60 column: 0)
+[BaselineScripts] Created BaselineScript 0x3831b30 (raw 0x7f2bfbd0e3c0) for 3d-raytrace.js:59
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:59 (0x3831b30) (lineno: 64 column: 16)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:292 (0x7f2bfa451da8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getarg (lineno: 293 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 12: loophead (lineno: 294 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 7: goto (lineno: 293 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 11: lsh (lineno: 293 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 13: getarg (lineno: 294 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 49: loophead (lineno: 296 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 44: goto (lineno: 295 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 48: length (lineno: 295 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 50: getlocal (lineno: 296 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 261: loopentry (lineno: 295 column: 24)
+[BranchProfiles] [emitBlockCounter] op @ 275: getlocal (lineno: 293 column: 36)
+[BranchProfiles] [emitBlockCounter] op @ 287: loopentry (lineno: 293 column: 25)
+[BranchProfiles] [emitBlockCounter] op @ 301: stop (lineno: 300 column: 29)
+[BaselineScripts] Created BaselineScript 0x38267c0 (raw 0x7f2bfbd0e790) for 3d-raytrace.js:292
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script 3d-raytrace.js:292 (0x38267c0) (lineno: 300 column: 29)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:67 (0x7f2bfa46e2b8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 68 column: 4)
+[BaselineScripts] Created BaselineScript 0x3828100 (raw 0x7f2bfbd0efd0) for 3d-raytrace.js:67
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:67 (0x3828100) (lineno: 68 column: 66)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:357 (0x7f2bfa46e380)
+[BranchProfiles] [emitBlockCounter] op @ 0: getarg (lineno: 358 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 65: getaliasedvar (lineno: 367 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 80: getaliasedvar (lineno: 369 column: 12)
+[BaselineScripts] Created BaselineScript 0x3828d40 (raw 0x7f2bfbd0f250) for 3d-raytrace.js:357
+[BranchProfiles] [BaselineCompiler] Statistics 3 counters emitted for script 3d-raytrace.js:357 (0x3828d40) (lineno: 369 column: 25)
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:75 (0x7f2bfa46e5d8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getgname (lineno: 76 column: 4)
+[BaselineScripts] Created BaselineScript 0x38296f0 (raw 0x7f2bfbd0f6a8) for 3d-raytrace.js:75
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:75 (0x38296f0) (lineno: 76 column: 66)
+[BranchProfiles] [DumpBlockCounters] Statistics 11 counters for baselineScript 0x3817e80
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [DumpBlockCounters] offset 142 value 808
+[BranchProfiles] [DumpBlockCounters] offset 150 value 988
+[BranchProfiles] [DumpBlockCounters] offset 155 value 287
+[BranchProfiles] [DumpBlockCounters] offset 157 value 701
+[BranchProfiles] [DumpBlockCounters] offset 252 value 434
+[BranchProfiles] [DumpBlockCounters] offset 254 value 267
+[BranchProfiles] [DumpBlockCounters] offset 289 value 151
+[BranchProfiles] [DumpBlockCounters] offset 291 value 116
+[BranchProfiles] [DumpBlockCounters] offset 305 value 72
+[BranchProfiles] [DumpBlockCounters] offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820de6) - code(0x3820d58) = (142) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 1 offset 142 value 808
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820dee) - code(0x3820d58) = (150) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 2 offset 150 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df3) - code(0x3820d58) = (155) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 3 offset 155 value 287
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df5) - code(0x3820d58) = (157) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 157 value 701
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e54) - code(0x3820d58) = (252) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 5 offset 252 value 434
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e56) - code(0x3820d58) = (254) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 6 offset 254 value 267
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e79) - code(0x3820d58) = (289) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 7 offset 289 value 151
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e7b) - code(0x3820d58) = (291) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 8 offset 291 value 116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e89) - code(0x3820d58) = (305) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 9 offset 305 value 72
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e8b) - code(0x3820d58) = (307) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 10 offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 12 NotFound 0 Total 12
+[BranchProfiles] [DumpBlockCounters] Statistics 11 counters for baselineScript 0x382d680
+[BranchProfiles] [DumpBlockCounters] offset 0 value 80
+[BranchProfiles] [DumpBlockCounters] offset 31 value 854
+[BranchProfiles] [DumpBlockCounters] offset 32 value 854
+[BranchProfiles] [DumpBlockCounters] offset 92 value 26
+[BranchProfiles] [DumpBlockCounters] offset 105 value 26
+[BranchProfiles] [DumpBlockCounters] offset 113 value 854
+[BranchProfiles] [DumpBlockCounters] offset 118 value 828
+[BranchProfiles] [DumpBlockCounters] offset 123 value 26
+[BranchProfiles] [DumpBlockCounters] offset 125 value 828
+[BranchProfiles] [DumpBlockCounters] offset 149 value 909
+[BranchProfiles] [DumpBlockCounters] offset 173 value 55
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad18) - code(0x381ad18) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 80
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad32) - code(0x381ad18) = (26) numCounters 11 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad38) - code(0x381ad18) = (32) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 32 value 854
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820de6) - code(0x3820d58) = (142) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 1 offset 142 value 809
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820dee) - code(0x3820d58) = (150) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 2 offset 150 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df3) - code(0x3820d58) = (155) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 3 offset 155 value 288
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df5) - code(0x3820d58) = (157) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 4 offset 157 value 701
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e54) - code(0x3820d58) = (252) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 5 offset 252 value 434
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e56) - code(0x3820d58) = (254) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 6 offset 254 value 267
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e79) - code(0x3820d58) = (289) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 7 offset 289 value 151
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e7b) - code(0x3820d58) = (291) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 12 counterId 8 offset 291 value 116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e89) - code(0x3820d58) = (305) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 13 counterId 9 offset 305 value 72
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e8b) - code(0x3820d58) = (307) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 14 counterId 10 offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad66) - code(0x381ad18) = (78) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 15
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad66) - code(0x381ad18) = (78) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 16
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad74) - code(0x381ad18) = (92) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 17 counterId 3 offset 92 value 26
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad74) - code(0x381ad18) = (92) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 18 counterId 3 offset 92 value 26
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad81) - code(0x381ad18) = (105) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 19 counterId 4 offset 105 value 26
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad89) - code(0x381ad18) = (113) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 20 counterId 5 offset 113 value 854
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad89) - code(0x381ad18) = (113) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 21 counterId 5 offset 113 value 854
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad8e) - code(0x381ad18) = (118) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 22 counterId 6 offset 118 value 828
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad93) - code(0x381ad18) = (123) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 23 counterId 7 offset 123 value 26
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381ad95) - code(0x381ad18) = (125) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 24 counterId 8 offset 125 value 828
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381adc5) - code(0x381ad18) = (173) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 25 counterId 10 offset 173 value 55
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 23 NotFound 3 Total 26
+[BranchProfiles] [DumpBlockCounters] Statistics 31 counters for baselineScript 0x382f530
+[BranchProfiles] [DumpBlockCounters] offset 0 value 54
+[BranchProfiles] [DumpBlockCounters] offset 15 value 761
+[BranchProfiles] [DumpBlockCounters] offset 16 value 761
+[BranchProfiles] [DumpBlockCounters] offset 74 value 44
+[BranchProfiles] [DumpBlockCounters] offset 87 value 44
+[BranchProfiles] [DumpBlockCounters] offset 95 value 761
+[BranchProfiles] [DumpBlockCounters] offset 100 value 717
+[BranchProfiles] [DumpBlockCounters] offset 105 value 44
+[BranchProfiles] [DumpBlockCounters] offset 119 value 761
+[BranchProfiles] [DumpBlockCounters] offset 131 value 816
+[BranchProfiles] [DumpBlockCounters] offset 153 value 55
+[BranchProfiles] [DumpBlockCounters] offset 162 value 12
+[BranchProfiles] [DumpBlockCounters] offset 205 value 43
+[BranchProfiles] [DumpBlockCounters] offset 279 value 43
+[BranchProfiles] [DumpBlockCounters] offset 319 value 43
+[BranchProfiles] [DumpBlockCounters] offset 337 value 43
+[BranchProfiles] [DumpBlockCounters] offset 372 value 0
+[BranchProfiles] [DumpBlockCounters] offset 384 value 43
+[BranchProfiles] [DumpBlockCounters] offset 408 value 12
+[BranchProfiles] [DumpBlockCounters] offset 518 value 12
+[BranchProfiles] [DumpBlockCounters] offset 522 value 31
+[BranchProfiles] [DumpBlockCounters] offset 578 value 93
+[BranchProfiles] [DumpBlockCounters] offset 579 value 93
+[BranchProfiles] [DumpBlockCounters] offset 696 value 32
+[BranchProfiles] [DumpBlockCounters] offset 701 value 61
+[BranchProfiles] [DumpBlockCounters] offset 733 value 61
+[BranchProfiles] [DumpBlockCounters] offset 772 value 93
+[BranchProfiles] [DumpBlockCounters] offset 784 value 124
+[BranchProfiles] [DumpBlockCounters] offset 806 value 31
+[BranchProfiles] [DumpBlockCounters] offset 836 value 0
+[BranchProfiles] [DumpBlockCounters] offset 900 value 31
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 10
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820848) - code(0x3820848) = (0) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 54
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820852) - code(0x3820848) = (10) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820858) - code(0x3820848) = (16) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 16 value 761
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820de6) - code(0x3820d58) = (142) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 1 offset 142 value 809
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820dee) - code(0x3820d58) = (150) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 2 offset 150 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df3) - code(0x3820d58) = (155) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 3 offset 155 value 288
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df5) - code(0x3820d58) = (157) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 4 offset 157 value 701
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e54) - code(0x3820d58) = (252) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 5 offset 252 value 434
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e56) - code(0x3820d58) = (254) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 6 offset 254 value 267
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e79) - code(0x3820d58) = (289) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 7 offset 289 value 151
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e7b) - code(0x3820d58) = (291) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 12 counterId 8 offset 291 value 116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e89) - code(0x3820d58) = (305) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 13 counterId 9 offset 305 value 72
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e8b) - code(0x3820d58) = (307) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 14 counterId 10 offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 15
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 16
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 17 counterId 3 offset 74 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 18 counterId 3 offset 74 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382089f) - code(0x3820848) = (87) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 19 counterId 4 offset 87 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 20 counterId 5 offset 95 value 761
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 21 counterId 5 offset 95 value 761
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ac) - code(0x3820848) = (100) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 22 counterId 6 offset 100 value 717
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208b1) - code(0x3820848) = (105) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 23 counterId 7 offset 105 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208bf) - code(0x3820848) = (119) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 24 counterId 8 offset 119 value 761
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208e1) - code(0x3820848) = (153) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 25 counterId 10 offset 153 value 55
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ea) - code(0x3820848) = (162) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 26 counterId 11 offset 162 value 12
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820915) - code(0x3820848) = (205) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 27 counterId 12 offset 205 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 28 counterId 0 offset 0 value 290
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382093e) - code(0x3820848) = (246) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 29
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381db08) - code(0x381db08) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 30 counterId 0 offset 0 value 33
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820942) - code(0x3820848) = (250) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 32 counterId 0 offset 0 value 120
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 33
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 34
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382095f) - code(0x3820848) = (279) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 35 counterId 13 offset 279 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820987) - code(0x3820848) = (319) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 36 counterId 14 offset 319 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820999) - code(0x3820848) = (337) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 37 counterId 15 offset 337 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209bc) - code(0x3820848) = (372) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 38 counterId 16 offset 372 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 39 counterId 17 offset 384 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 40 counterId 17 offset 384 value 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209e0) - code(0x3820848) = (408) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 41 counterId 18 offset 408 value 12
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 42 counterId 0 offset 0 value 120
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a07) - code(0x3820848) = (447) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 44 counterId 0 offset 0 value 290
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a0c) - code(0x3820848) = (452) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 45
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 46 counterId 0 offset 0 value 155
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a14) - code(0x3820848) = (460) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 47
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a4e) - code(0x3820848) = (518) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 48 counterId 19 offset 518 value 12
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 49 counterId 20 offset 522 value 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 50 counterId 20 offset 522 value 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a85) - code(0x3820848) = (573) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 51
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a8b) - code(0x3820848) = (579) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 52 counterId 22 offset 579 value 93
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c218) - code(0x372c218) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 53 counterId 0 offset 0 value 111
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820aab) - code(0x3820848) = (611) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 54
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c048) - code(0x372c048) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 55 counterId 0 offset 0 value 101
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820abd) - code(0x3820848) = (629) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 56
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 57 counterId 0 offset 0 value 83
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820ad5) - code(0x3820848) = (653) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b00) - code(0x3820848) = (696) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 59 counterId 23 offset 696 value 32
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b05) - code(0x3820848) = (701) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 60 counterId 24 offset 701 value 61
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 61 counterId 0 offset 0 value 120
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 62
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 63
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b25) - code(0x3820848) = (733) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 64 counterId 25 offset 733 value 61
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 65 counterId 0 offset 0 value 290
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b47) - code(0x3820848) = (767) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 66
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 67 counterId 0 offset 0 value 155
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4b) - code(0x3820848) = (771) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 68
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 69 counterId 26 offset 772 value 93
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 70 counterId 26 offset 772 value 93
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b6e) - code(0x3820848) = (806) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 71 counterId 28 offset 806 value 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f7f38) - code(0x37f7f38) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 72 counterId 0 offset 0 value 21
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 73
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 74
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b8c) - code(0x3820848) = (836) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 75 counterId 29 offset 836 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 76 counterId 0 offset 0 value 83
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bac) - code(0x3820848) = (868) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 78 counterId 0 offset 0 value 83
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc4) - code(0x3820848) = (892) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 79
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 80 counterId 0 offset 0 value 155
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc8) - code(0x3820848) = (896) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 81
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bcc) - code(0x3820848) = (900) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 82 counterId 30 offset 900 value 31
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 60 NotFound 23 Total 83
+[BranchProfiles] [DumpBlockCounters] Statistics 31 counters for baselineScript 0x382f530
+[BranchProfiles] [DumpBlockCounters] offset 0 value 111
+[BranchProfiles] [DumpBlockCounters] offset 15 value 1559
+[BranchProfiles] [DumpBlockCounters] offset 16 value 1559
+[BranchProfiles] [DumpBlockCounters] offset 74 value 90
+[BranchProfiles] [DumpBlockCounters] offset 87 value 90
+[BranchProfiles] [DumpBlockCounters] offset 95 value 1559
+[BranchProfiles] [DumpBlockCounters] offset 100 value 1469
+[BranchProfiles] [DumpBlockCounters] offset 105 value 90
+[BranchProfiles] [DumpBlockCounters] offset 119 value 1559
+[BranchProfiles] [DumpBlockCounters] offset 131 value 1671
+[BranchProfiles] [DumpBlockCounters] offset 153 value 112
+[BranchProfiles] [DumpBlockCounters] offset 162 value 25
+[BranchProfiles] [DumpBlockCounters] offset 205 value 87
+[BranchProfiles] [DumpBlockCounters] offset 279 value 86
+[BranchProfiles] [DumpBlockCounters] offset 319 value 87
+[BranchProfiles] [DumpBlockCounters] offset 337 value 84
+[BranchProfiles] [DumpBlockCounters] offset 372 value 4
+[BranchProfiles] [DumpBlockCounters] offset 384 value 88
+[BranchProfiles] [DumpBlockCounters] offset 408 value 30
+[BranchProfiles] [DumpBlockCounters] offset 518 value 30
+[BranchProfiles] [DumpBlockCounters] offset 522 value 58
+[BranchProfiles] [DumpBlockCounters] offset 578 value 174
+[BranchProfiles] [DumpBlockCounters] offset 579 value 174
+[BranchProfiles] [DumpBlockCounters] offset 696 value 62
+[BranchProfiles] [DumpBlockCounters] offset 701 value 112
+[BranchProfiles] [DumpBlockCounters] offset 733 value 110
+[BranchProfiles] [DumpBlockCounters] offset 772 value 174
+[BranchProfiles] [DumpBlockCounters] offset 784 value 232
+[BranchProfiles] [DumpBlockCounters] offset 806 value 58
+[BranchProfiles] [DumpBlockCounters] offset 836 value 0
+[BranchProfiles] [DumpBlockCounters] offset 900 value 58
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 10
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820848) - code(0x3820848) = (0) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 111
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820852) - code(0x3820848) = (10) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820858) - code(0x3820848) = (16) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 16 value 1559
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820de6) - code(0x3820d58) = (142) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 1 offset 142 value 809
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820dee) - code(0x3820d58) = (150) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 2 offset 150 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df3) - code(0x3820d58) = (155) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 3 offset 155 value 288
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df5) - code(0x3820d58) = (157) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 4 offset 157 value 701
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e54) - code(0x3820d58) = (252) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 5 offset 252 value 434
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e56) - code(0x3820d58) = (254) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 6 offset 254 value 267
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e79) - code(0x3820d58) = (289) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 7 offset 289 value 151
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e7b) - code(0x3820d58) = (291) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 12 counterId 8 offset 291 value 116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e89) - code(0x3820d58) = (305) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 13 counterId 9 offset 305 value 72
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e8b) - code(0x3820d58) = (307) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 14 counterId 10 offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 15
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 16
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 17 counterId 3 offset 74 value 90
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 18 counterId 3 offset 74 value 90
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382089f) - code(0x3820848) = (87) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 19 counterId 4 offset 87 value 90
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 20 counterId 5 offset 95 value 1559
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 21 counterId 5 offset 95 value 1559
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ac) - code(0x3820848) = (100) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 22 counterId 6 offset 100 value 1469
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208b1) - code(0x3820848) = (105) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 23 counterId 7 offset 105 value 90
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208bf) - code(0x3820848) = (119) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 24 counterId 8 offset 119 value 1559
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208e1) - code(0x3820848) = (153) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 25 counterId 10 offset 153 value 112
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ea) - code(0x3820848) = (162) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 26 counterId 11 offset 162 value 25
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820915) - code(0x3820848) = (205) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 27 counterId 12 offset 205 value 87
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 28 counterId 0 offset 0 value 573
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382093e) - code(0x3820848) = (246) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 29
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381db08) - code(0x381db08) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 30 counterId 0 offset 0 value 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820942) - code(0x3820848) = (250) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 32 counterId 0 offset 0 value 233
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 33
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 34
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382095f) - code(0x3820848) = (279) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 35 counterId 13 offset 279 value 86
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820987) - code(0x3820848) = (319) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 36 counterId 14 offset 319 value 87
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820999) - code(0x3820848) = (337) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 37 counterId 15 offset 337 value 84
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209bc) - code(0x3820848) = (372) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 38 counterId 16 offset 372 value 4
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 39 counterId 17 offset 384 value 88
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 40 counterId 17 offset 384 value 88
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209e0) - code(0x3820848) = (408) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 41 counterId 18 offset 408 value 30
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 42 counterId 0 offset 0 value 233
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a07) - code(0x3820848) = (447) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 44 counterId 0 offset 0 value 573
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a0c) - code(0x3820848) = (452) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 45
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 46 counterId 0 offset 0 value 308
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a14) - code(0x3820848) = (460) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 47
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a4e) - code(0x3820848) = (518) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 48 counterId 19 offset 518 value 30
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 49 counterId 20 offset 522 value 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 50 counterId 20 offset 522 value 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a85) - code(0x3820848) = (573) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 51
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a8b) - code(0x3820848) = (579) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 52 counterId 22 offset 579 value 174
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c218) - code(0x372c218) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 53 counterId 0 offset 0 value 192
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820aab) - code(0x3820848) = (611) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 54
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c048) - code(0x372c048) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 55 counterId 0 offset 0 value 182
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820abd) - code(0x3820848) = (629) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 56
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 57 counterId 0 offset 0 value 164
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820ad5) - code(0x3820848) = (653) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b00) - code(0x3820848) = (696) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 59 counterId 23 offset 696 value 62
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b05) - code(0x3820848) = (701) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 60 counterId 24 offset 701 value 112
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 61 counterId 0 offset 0 value 233
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 62
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 63
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b25) - code(0x3820848) = (733) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 64 counterId 25 offset 733 value 110
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 65 counterId 0 offset 0 value 573
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b47) - code(0x3820848) = (767) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 66
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 67 counterId 0 offset 0 value 308
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4b) - code(0x3820848) = (771) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 68
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 69 counterId 26 offset 772 value 174
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 70 counterId 26 offset 772 value 174
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b6e) - code(0x3820848) = (806) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 71 counterId 28 offset 806 value 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f7f38) - code(0x37f7f38) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 72 counterId 0 offset 0 value 48
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 73
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 74
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b8c) - code(0x3820848) = (836) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 75 counterId 29 offset 836 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 76 counterId 0 offset 0 value 164
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bac) - code(0x3820848) = (868) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 78 counterId 0 offset 0 value 164
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc4) - code(0x3820848) = (892) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 79
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 80 counterId 0 offset 0 value 308
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc8) - code(0x3820848) = (896) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 81
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bcc) - code(0x3820848) = (900) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 82 counterId 30 offset 900 value 58
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 60 NotFound 23 Total 83
+[BranchProfiles] [DumpBlockCounters] Statistics 31 counters for baselineScript 0x382f530
+[BranchProfiles] [DumpBlockCounters] offset 0 value 170
+[BranchProfiles] [DumpBlockCounters] offset 15 value 2385
+[BranchProfiles] [DumpBlockCounters] offset 16 value 2385
+[BranchProfiles] [DumpBlockCounters] offset 74 value 134
+[BranchProfiles] [DumpBlockCounters] offset 87 value 134
+[BranchProfiles] [DumpBlockCounters] offset 95 value 2385
+[BranchProfiles] [DumpBlockCounters] offset 100 value 2251
+[BranchProfiles] [DumpBlockCounters] offset 105 value 134
+[BranchProfiles] [DumpBlockCounters] offset 119 value 2385
+[BranchProfiles] [DumpBlockCounters] offset 131 value 2556
+[BranchProfiles] [DumpBlockCounters] offset 153 value 171
+[BranchProfiles] [DumpBlockCounters] offset 162 value 44
+[BranchProfiles] [DumpBlockCounters] offset 205 value 127
+[BranchProfiles] [DumpBlockCounters] offset 279 value 123
+[BranchProfiles] [DumpBlockCounters] offset 319 value 127
+[BranchProfiles] [DumpBlockCounters] offset 337 value 119
+[BranchProfiles] [DumpBlockCounters] offset 372 value 9
+[BranchProfiles] [DumpBlockCounters] offset 384 value 129
+[BranchProfiles] [DumpBlockCounters] offset 408 value 53
+[BranchProfiles] [DumpBlockCounters] offset 518 value 54
+[BranchProfiles] [DumpBlockCounters] offset 522 value 76
+[BranchProfiles] [DumpBlockCounters] offset 578 value 228
+[BranchProfiles] [DumpBlockCounters] offset 579 value 228
+[BranchProfiles] [DumpBlockCounters] offset 696 value 85
+[BranchProfiles] [DumpBlockCounters] offset 701 value 143
+[BranchProfiles] [DumpBlockCounters] offset 733 value 141
+[BranchProfiles] [DumpBlockCounters] offset 772 value 228
+[BranchProfiles] [DumpBlockCounters] offset 784 value 304
+[BranchProfiles] [DumpBlockCounters] offset 806 value 76
+[BranchProfiles] [DumpBlockCounters] offset 836 value 0
+[BranchProfiles] [DumpBlockCounters] offset 900 value 76
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 10
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820848) - code(0x3820848) = (0) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 170
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820852) - code(0x3820848) = (10) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820858) - code(0x3820848) = (16) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 16 value 2385
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820d58) - code(0x3820d58) = (0) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 0 offset 0 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820de6) - code(0x3820d58) = (142) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 1 offset 142 value 809
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820dee) - code(0x3820d58) = (150) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 2 offset 150 value 989
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df3) - code(0x3820d58) = (155) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 3 offset 155 value 288
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820df5) - code(0x3820d58) = (157) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 4 offset 157 value 701
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e54) - code(0x3820d58) = (252) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 9 counterId 5 offset 252 value 434
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e56) - code(0x3820d58) = (254) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 6 offset 254 value 267
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e79) - code(0x3820d58) = (289) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 7 offset 289 value 151
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e7b) - code(0x3820d58) = (291) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 12 counterId 8 offset 291 value 116
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e89) - code(0x3820d58) = (305) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 13 counterId 9 offset 305 value 72
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820e8b) - code(0x3820d58) = (307) numCounters 11 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 14 counterId 10 offset 307 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 15
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820884) - code(0x3820848) = (60) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 16
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 17 counterId 3 offset 74 value 134
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820892) - code(0x3820848) = (74) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 18 counterId 3 offset 74 value 134
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382089f) - code(0x3820848) = (87) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 19 counterId 4 offset 87 value 134
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 20 counterId 5 offset 95 value 2385
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208a7) - code(0x3820848) = (95) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 21 counterId 5 offset 95 value 2385
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ac) - code(0x3820848) = (100) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 22 counterId 6 offset 100 value 2251
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208b1) - code(0x3820848) = (105) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 23 counterId 7 offset 105 value 134
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208bf) - code(0x3820848) = (119) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 24 counterId 8 offset 119 value 2385
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208e1) - code(0x3820848) = (153) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 25 counterId 10 offset 153 value 171
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38208ea) - code(0x3820848) = (162) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 26 counterId 11 offset 162 value 44
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820915) - code(0x3820848) = (205) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 27 counterId 12 offset 205 value 127
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 28 counterId 0 offset 0 value 855
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382093e) - code(0x3820848) = (246) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 29
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381db08) - code(0x381db08) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 30 counterId 0 offset 0 value 117
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820942) - code(0x3820848) = (250) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 31
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 32 counterId 0 offset 0 value 327
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 33
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820958) - code(0x3820848) = (272) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 34
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x382095f) - code(0x3820848) = (279) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 35 counterId 13 offset 279 value 123
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820987) - code(0x3820848) = (319) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 36 counterId 14 offset 319 value 127
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820999) - code(0x3820848) = (337) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 37 counterId 15 offset 337 value 119
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209bc) - code(0x3820848) = (372) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 38 counterId 16 offset 372 value 9
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 39 counterId 17 offset 384 value 129
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209c8) - code(0x3820848) = (384) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 40 counterId 17 offset 384 value 129
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x38209e0) - code(0x3820848) = (408) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 41 counterId 18 offset 408 value 53
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 42 counterId 0 offset 0 value 327
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a07) - code(0x3820848) = (447) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 43
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 44 counterId 0 offset 0 value 855
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a0c) - code(0x3820848) = (452) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 45
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 46 counterId 0 offset 0 value 456
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a14) - code(0x3820848) = (460) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 47
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a4e) - code(0x3820848) = (518) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 48 counterId 19 offset 518 value 54
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 49 counterId 20 offset 522 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a52) - code(0x3820848) = (522) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 50 counterId 20 offset 522 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a85) - code(0x3820848) = (573) numCounters 31 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 51
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820a8b) - code(0x3820848) = (579) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 52 counterId 22 offset 579 value 228
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c218) - code(0x372c218) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 53 counterId 0 offset 0 value 246
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820aab) - code(0x3820848) = (611) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 54
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c048) - code(0x372c048) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 55 counterId 0 offset 0 value 236
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820abd) - code(0x3820848) = (629) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 56
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 57 counterId 0 offset 0 value 218
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820ad5) - code(0x3820848) = (653) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 58
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b00) - code(0x3820848) = (696) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 59 counterId 23 offset 696 value 85
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b05) - code(0x3820848) = (701) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 60 counterId 24 offset 701 value 143
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x372c0c8) - code(0x372c0c8) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 61 counterId 0 offset 0 value 327
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 62
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b17) - code(0x3820848) = (719) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 63
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b25) - code(0x3820848) = (733) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 64 counterId 25 offset 733 value 141
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 65 counterId 0 offset 0 value 855
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b47) - code(0x3820848) = (767) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 66
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 67 counterId 0 offset 0 value 456
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4b) - code(0x3820848) = (771) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 68
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 69 counterId 26 offset 772 value 228
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b4c) - code(0x3820848) = (772) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 70 counterId 26 offset 772 value 228
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b6e) - code(0x3820848) = (806) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 71 counterId 28 offset 806 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f7f38) - code(0x37f7f38) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 72 counterId 0 offset 0 value 66
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 73
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b80) - code(0x3820848) = (824) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 74
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820b8c) - code(0x3820848) = (836) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 75 counterId 29 offset 836 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 76 counterId 0 offset 0 value 218
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bac) - code(0x3820848) = (868) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x381f768) - code(0x381f768) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 78 counterId 0 offset 0 value 218
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc4) - code(0x3820848) = (892) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 79
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 80 counterId 0 offset 0 value 456
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bc8) - code(0x3820848) = (896) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 81
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3820bcc) - code(0x3820848) = (900) numCounters 31 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 82 counterId 30 offset 900 value 76
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 60 NotFound 23 Total 83
+[BranchProfiles] [DumpBlockCounters] Statistics 1 counters for baselineScript 0x382cf80
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x37f8298) - code(0x37f8298) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 1 NotFound 0 Total 1
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:283 (0x7f2bfa451e70)
+[BranchProfiles] [emitBlockCounter] op @ 0: bindgname (lineno: 284 column: 4)
+[BaselineScripts] Created BaselineScript 0x38c48a0 (raw 0x7f2bfbd18fa8) for 3d-raytrace.js:283
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script 3d-raytrace.js:283 (0x38c48a0) (lineno: 289 column: 16)
+[BranchProfiles] [DumpBlockCounters] Statistics 1 counters for baselineScript 0x3830380
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x380de68) - code(0x380de68) = (0) numCounters 1 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 1 NotFound 0 Total 1
+[BaselineScripts] Baseline compiling script 3d-raytrace.js:405 (0x7f2bfa46e6a0)
+[BranchProfiles] [emitBlockCounter] op @ 0: string (lineno: 407 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 31: loophead (lineno: 410 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 26: goto (lineno: 409 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 30: throw (lineno: 409 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 32: getlocal (lineno: 410 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 55: loophead (lineno: 412 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 50: goto (lineno: 411 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 54: unused49 (lineno: 411 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 56: getlocal (lineno: 412 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 99: loopentry (lineno: 411 column: 24)
+[BranchProfiles] [emitBlockCounter] op @ 113: getlocal (lineno: 414 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 138: loopentry (lineno: 409 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 152: getlocal (lineno: 416 column: 4)
+[BaselineScripts] Created BaselineScript 0x38c4e70 (raw 0x7f2bfbd19ab8) for 3d-raytrace.js:405
+[BranchProfiles] [BaselineCompiler] Statistics 9 counters emitted for script 3d-raytrace.js:405 (0x38c4e70) (lineno: 438 column: 13)

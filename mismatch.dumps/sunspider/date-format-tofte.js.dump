@@ -1,0 +1,262 @@
+[BaselineScripts] Baseline compiling script date-format-tofte.js:1 (0x7fc5dae512b8)
+[BranchProfiles] [emitBlockCounter] op @ 0: zero (lineno: 2 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 3 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 5: goto (lineno: 2 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 9: delname (lineno: 2 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: getarg (lineno: 3 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 27: true (lineno: 3 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 29: getlocal (lineno: 2 column: 38)
+[BranchProfiles] [emitBlockCounter] op @ 41: loopentry (lineno: 2 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 60: false (lineno: 5 column: 4)
+[BaselineScripts] Created BaselineScript 0x3652e90 (raw 0x7fc5dc6aca08) for date-format-tofte.js:1
+[BranchProfiles] [BaselineCompiler] Statistics 7 counters emitted for script date-format-tofte.js:1 (0x3652e90) (lineno: 5 column: 17)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:8 (0x7fc5dae511f0)
+[BranchProfiles] [emitBlockCounter] op @ 0: arguments (lineno: 8 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1419: getaliasedvar (lineno: 268 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1480: getaliasedvar (lineno: 272 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1532: loophead (lineno: 275 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 1527: goto (lineno: 274 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 1531: generator (lineno: 274 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1533: getaliasedvar (lineno: 275 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1563: getaliasedvar (lineno: 277 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 1601: callname (lineno: 279 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1646: getaliasedvar (lineno: 280 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 1705: getaliasedvar (lineno: 283 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 1729: loopentry (lineno: 274 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 1755: getaliasedvar (lineno: 286 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 1769: getaliasedvar (lineno: 287 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 1800: getaliasedvar (lineno: 289 column: 4)
+[BaselineScripts] Created BaselineScript 0x370d4a0 (raw 0x7fc5dc6ad370) for date-format-tofte.js:8
+[BranchProfiles] [BaselineCompiler] Statistics 13 counters emitted for script date-format-tofte.js:8 (0x370d4a0) (lineno: 289 column: 23)
+[BranchProfiles] [DumpBlockCounters] Statistics 7 counters for baselineScript 0x3652e90
+[BranchProfiles] [DumpBlockCounters] offset 0 value 45
+[BranchProfiles] [DumpBlockCounters] offset 10 value 934
+[BranchProfiles] [DumpBlockCounters] offset 11 value 934
+[BranchProfiles] [DumpBlockCounters] offset 27 value 23
+[BranchProfiles] [DumpBlockCounters] offset 29 value 911
+[BranchProfiles] [DumpBlockCounters] offset 41 value 957
+[BranchProfiles] [DumpBlockCounters] offset 60 value 23
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643978) - code(0x3643978) = (0) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 45
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364397d) - code(0x3643978) = (5) numCounters 7 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 1
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643983) - code(0x3643978) = (11) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 11 value 934
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643993) - code(0x3643978) = (27) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 3 offset 27 value 23
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643995) - code(0x3643978) = (29) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 4 offset 29 value 911
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36439b4) - code(0x3643978) = (60) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 6 offset 60 value 23
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 5 NotFound 1 Total 6
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51380)
+[BaselineScripts] Created BaselineScript 0x36fe710 (raw 0x7fc5dc6b14b0) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36fe710) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:231 (0x7fc5dae51448)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 237 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 19: name (lineno: 238 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 69: getaliasedvar (lineno: 242 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 90: getaliasedvar (lineno: 248 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 138: uint16 (lineno: 250 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 146: uint16 (lineno: 250 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 149: add (lineno: 250 column: 0)
+[BaselineScripts] Created BaselineScript 0x3701cc0 (raw 0x7fc5dc6b15f0) for date-format-tofte.js:231
+[BranchProfiles] [BaselineCompiler] Statistics 7 counters emitted for script date-format-tofte.js:231 (0x3701cc0) (lineno: 251 column: 17)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae516a0)
+[BaselineScripts] Created BaselineScript 0x37021e0 (raw 0x7fc5dc6b1cd0) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x37021e0) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:70 (0x7fc5dae51768)
+[BranchProfiles] [emitBlockCounter] op @ 0: name (lineno: 72 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 43: string (lineno: 73 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 74: getaliasedvar (lineno: 73 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 94: return (lineno: 73 column: 0)
+[BaselineScripts] Created BaselineScript 0x37087b0 (raw 0x7fc5dc6b1e10) for date-format-tofte.js:70
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:70 (0x37087b0) (lineno: 73 column: 44)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:1 (0x7fc5dae51128)
+[BranchProfiles] [emitBlockCounter] op @ 0: deffun (lineno: 1 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 85: loophead (lineno: 295 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 5 @ 80: goto (lineno: 294 column: 0)
+[BranchProfiles] [emitBlockCounter] op - 1 @ 84: callee (lineno: 294 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 86: bindgname (lineno: 295 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 211: loopentry (lineno: 294 column: 12)
+[BranchProfiles] [emitBlockCounter] op @ 227: stop (lineno: 297 column: 44)
+[BaselineScripts] Created BaselineScript 0x370c240 (raw 0x7fc5dc6b21b8) for date-format-tofte.js:1
+[BranchProfiles] [BaselineCompiler] Statistics 5 counters emitted for script date-format-tofte.js:1 (0x370c240) (lineno: 297 column: 44)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51510)
+[BaselineScripts] Created BaselineScript 0x370a1a0 (raw 0x7fc5dc6b2af8) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x370a1a0) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:134 (0x7fc5dae515d8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 136 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 28: string (lineno: 137 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 61: getaliasedvar (lineno: 138 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 83: return (lineno: 138 column: 0)
+[BaselineScripts] Created BaselineScript 0x36f7ad0 (raw 0x7fc5dc6b2c00) for date-format-tofte.js:134
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:134 (0x36f7ad0) (lineno: 138 column: 26)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51830)
+[BaselineScripts] Created BaselineScript 0x36f7570 (raw 0x7fc5dc6b2ec8) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36f7570) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:117 (0x7fc5dae518f8)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 119 column: 8)
+[BaselineScripts] Created BaselineScript 0x36f8090 (raw 0x7fc5dc692008) for date-format-tofte.js:117
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script date-format-tofte.js:117 (0x36f8090) (lineno: 119 column: 39)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae519c0)
+[BaselineScripts] Created BaselineScript 0x36f8300 (raw 0x7fc5dc6921a0) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36f8300) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:79 (0x7fc5dae51a88)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 81 column: 8)
+[BaselineScripts] Created BaselineScript 0x36f8920 (raw 0x7fc5dc6922a8) for date-format-tofte.js:79
+[BranchProfiles] [BaselineCompiler] Statistics 1 counters emitted for script date-format-tofte.js:79 (0x36f8920) (lineno: 81 column: 43)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51b50)
+[BaselineScripts] Created BaselineScript 0x36f8b90 (raw 0x7fc5dc692440) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36f8b90) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:83 (0x7fc5dae51c18)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 85 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 28: getaliasedvar (lineno: 85 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 56: getaliasedvar (lineno: 85 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 76: return (lineno: 85 column: 8)
+[BaselineScripts] Created BaselineScript 0x36f9b10 (raw 0x7fc5dc692548) for date-format-tofte.js:83
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:83 (0x36f9b10) (lineno: 85 column: 74)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51ce0)
+[BaselineScripts] Created BaselineScript 0x36f9740 (raw 0x7fc5dc6928a0) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36f9740) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:108 (0x7fc5dae51da8)
+[BranchProfiles] [emitBlockCounter] op @ 0: name (lineno: 110 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 43: string (lineno: 111 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 74: getaliasedvar (lineno: 111 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 94: return (lineno: 111 column: 0)
+[BaselineScripts] Created BaselineScript 0x36fae00 (raw 0x7fc5dc6929a8) for date-format-tofte.js:108
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:108 (0x36fae00) (lineno: 111 column: 50)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae51e70)
+[BaselineScripts] Created BaselineScript 0x36f9f40 (raw 0x7fc5dc692c90) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36f9f40) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:170 (0x7fc5dae51f38)
+[BranchProfiles] [emitBlockCounter] op @ 0: name (lineno: 172 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 43: string (lineno: 173 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 74: getaliasedvar (lineno: 173 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 94: return (lineno: 173 column: 0)
+[BaselineScripts] Created BaselineScript 0x36fbe00 (raw 0x7fc5dc692d98) for date-format-tofte.js:170
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:170 (0x36fbe00) (lineno: 173 column: 50)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:280 (0x7fc5dae6d060)
+[BaselineScripts] Created BaselineScript 0x36fb480 (raw 0x7fc5dc693080) for date-format-tofte.js:280
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script date-format-tofte.js:280 (0x36fb480) (lineno: 280 column: 3)
+[BaselineScripts] Baseline compiling script date-format-tofte.js:49 (0x7fc5dae6d128)
+[BranchProfiles] [emitBlockCounter] op @ 0: getaliasedvar (lineno: 51 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 28: string (lineno: 51 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 38: string (lineno: 51 column: 8)
+[BranchProfiles] [emitBlockCounter] op @ 43: return (lineno: 51 column: 8)
+[BaselineScripts] Created BaselineScript 0x36fc150 (raw 0x7fc5dc693188) for date-format-tofte.js:49
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script date-format-tofte.js:49 (0x36fc150) (lineno: 51 column: 49)
+[BranchProfiles] [DumpBlockCounters] Statistics 13 counters for baselineScript 0x370d4a0
+[BranchProfiles] [DumpBlockCounters] offset 0 value 76
+[BranchProfiles] [DumpBlockCounters] offset 1419 value 0
+[BranchProfiles] [DumpBlockCounters] offset 1480 value 76
+[BranchProfiles] [DumpBlockCounters] offset 1532 value 851
+[BranchProfiles] [DumpBlockCounters] offset 1533 value 851
+[BranchProfiles] [DumpBlockCounters] offset 1563 value 0
+[BranchProfiles] [DumpBlockCounters] offset 1601 value 851
+[BranchProfiles] [DumpBlockCounters] offset 1646 value 425
+[BranchProfiles] [DumpBlockCounters] offset 1705 value 851
+[BranchProfiles] [DumpBlockCounters] offset 1729 value 928
+[BranchProfiles] [DumpBlockCounters] offset 1755 value 77
+[BranchProfiles] [DumpBlockCounters] offset 1769 value 0
+[BranchProfiles] [DumpBlockCounters] offset 1800 value 77
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 2
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364e928) - code(0x364e928) = (0) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364e928) - code(0x364e928) = (0) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 0 offset 0 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364eeb3) - code(0x364e928) = (1419) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 1 offset 1419 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364eef0) - code(0x364e928) = (1480) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 2 offset 1480 value 76
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef1f) - code(0x364e928) = (1527) numCounters 13 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 4
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef25) - code(0x364e928) = (1533) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 4 offset 1533 value 851
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef43) - code(0x364e928) = (1563) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 5 offset 1563 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef69) - code(0x364e928) = (1601) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 6 offset 1601 value 851
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643978) - code(0x3643978) = (0) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 0 offset 0 value 46
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364397d) - code(0x3643978) = (5) numCounters 7 LOOPHEADER
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 9
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643983) - code(0x3643978) = (11) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 10 counterId 2 offset 11 value 949
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643993) - code(0x3643978) = (27) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 11 counterId 3 offset 27 value 24
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3643995) - code(0x3643978) = (29) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 12 counterId 4 offset 29 value 925
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36439b4) - code(0x3643978) = (60) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 13 counterId 6 offset 60 value 23
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef91) - code(0x364e928) = (1641) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 14
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef91) - code(0x364e928) = (1641) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterNotFound blockId 15
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364ef96) - code(0x364e928) = (1646) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 16 counterId 7 offset 1646 value 425
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364efd1) - code(0x364e928) = (1705) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 17 counterId 8 offset 1705 value 851
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364efd1) - code(0x364e928) = (1705) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 18 counterId 8 offset 1705 value 851
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364f003) - code(0x364e928) = (1755) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 19 counterId 10 offset 1755 value 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364f003) - code(0x364e928) = (1755) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 20 counterId 10 offset 1755 value 77
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364f011) - code(0x364e928) = (1769) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 21 counterId 11 offset 1769 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x364f030) - code(0x364e928) = (1800) numCounters 13 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 22 counterId 12 offset 1800 value 77
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 19 NotFound 4 Total 23
+[BranchProfiles] [DumpBlockCounters] Statistics 7 counters for baselineScript 0x3701cc0
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [DumpBlockCounters] offset 19 value 988
+[BranchProfiles] [DumpBlockCounters] offset 69 value 988
+[BranchProfiles] [DumpBlockCounters] offset 90 value 0
+[BranchProfiles] [DumpBlockCounters] offset 138 value 0
+[BranchProfiles] [DumpBlockCounters] offset 146 value 0
+[BranchProfiles] [DumpBlockCounters] offset 149 value 0
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3652658) - code(0x3652658) = (0) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3652658) - code(0x3652658) = (0) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x365266b) - code(0x3652658) = (19) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 1 offset 19 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x365269d) - code(0x3652658) = (69) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 2 offset 69 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36526b2) - code(0x3652658) = (90) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 4 counterId 3 offset 90 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36526b2) - code(0x3652658) = (90) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 5 counterId 3 offset 90 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36526e2) - code(0x3652658) = (138) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 6 counterId 4 offset 138 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36526ea) - code(0x3652658) = (146) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 7 counterId 5 offset 146 value 0
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x36526ed) - code(0x3652658) = (149) numCounters 7 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 8 counterId 6 offset 149 value 0
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 9 NotFound 0 Total 9
+[BranchProfiles] [DumpBlockCounters] Statistics 4 counters for baselineScript 0x37087b0
+[BranchProfiles] [DumpBlockCounters] offset 0 value 988
+[BranchProfiles] [DumpBlockCounters] offset 43 value 286
+[BranchProfiles] [DumpBlockCounters] offset 74 value 702
+[BranchProfiles] [DumpBlockCounters] offset 94 value 988
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation before
+[BranchProfiles] [isAsmJSCompilation] graph.numScripts() == 1
+[BranchProfiles] [AttachBranchProfiles] isAsmJSCompilation after
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3651fe8) - code(0x3651fe8) = (0) numCounters 4 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 0 counterId 0 offset 0 value 988
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3652013) - code(0x3651fe8) = (43) numCounters 4 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 1 counterId 1 offset 43 value 286
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3652032) - code(0x3651fe8) = (74) numCounters 4 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 2 counterId 2 offset 74 value 702
+[BranchProfiles] [AttachBranchProfiles] block->pc(0x3652046) - code(0x3651fe8) = (94) numCounters 4 
+[BranchProfiles] [AttachBranchProfiles] CounterFound blockId 3 counterId 3 offset 94 value 988
+[BranchProfiles] [AttachBranchProfiles] Statistics Found 4 NotFound 0 Total 4
