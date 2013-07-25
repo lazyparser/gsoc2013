@@ -1,0 +1,362 @@
+[BranchProfiles] [emitBlockCounter] op @ 12: pop (lineno: 165 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 25: pop (lineno: 165 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 33: not (lineno: 165 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 39: string (lineno: 165 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 45: getarg (lineno: 169 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 83: loophead (lineno: 171 column: 31)
+[BranchProfiles] [emitBlockCounter] op @ 84: getlocal (lineno: 171 column: 31)
+[BranchProfiles] [emitBlockCounter] op @ 126: loopentry (lineno: 171 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 140: callgname (lineno: 172 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 274: loophead (lineno: 182 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 275: getlocal (lineno: 182 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 309: loopentry (lineno: 182 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 322: zero (lineno: 183 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 332: loophead (lineno: 183 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 333: getlocal (lineno: 183 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 376: loopentry (lineno: 183 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 389: callgname (lineno: 186 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 468: loophead (lineno: 194 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 469: zero (lineno: 194 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 479: loophead (lineno: 194 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 480: getlocal (lineno: 194 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 517: loopentry (lineno: 194 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 530: zero (lineno: 195 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 540: loophead (lineno: 195 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 541: getlocal (lineno: 195 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 583: loopentry (lineno: 195 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 596: callgname (lineno: 197 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 632: getlocal (lineno: 200 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 640: getarg (lineno: 200 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 656: setlocal (lineno: 200 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 679: loophead (lineno: 204 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 680: getarg (lineno: 204 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 765: loopentry (lineno: 203 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 779: getlocal (lineno: 210 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 813: loopentry (lineno: 191 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 827: string (lineno: 214 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 846: loophead (lineno: 215 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 847: getlocal (lineno: 215 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 891: loopentry (lineno: 215 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 904: callgname (lineno: 216 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 40 counters emitted for script crypto-aes.js:164 (0x2c53b70) (lineno: 219 column: 45)
+[BranchProfiles] [emitBlockCounter] op @ 82: loophead (lineno: 92 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 83: newarray (lineno: 92 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 179: loopentry (lineno: 91 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 193: getlocal (lineno: 96 column: 7)
+[BranchProfiles] [emitBlockCounter] op @ 205: loophead (lineno: 97 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 206: getlocal (lineno: 97 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 237: loophead (lineno: 98 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 238: getlocal (lineno: 98 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 271: loopentry (lineno: 98 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 284: getlocal (lineno: 99 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 298: callgname (lineno: 100 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 337: loophead (lineno: 101 column: 30)
+[BranchProfiles] [emitBlockCounter] op @ 338: getlocal (lineno: 101 column: 30)
+[BranchProfiles] [emitBlockCounter] op @ 378: loopentry (lineno: 101 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 391: goto (lineno: 101 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 396: getlocal (lineno: 102 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 407: pop (lineno: 102 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 418: ifeq (lineno: 102 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 423: callgname (lineno: 103 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 441: zero (lineno: 105 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 451: loophead (lineno: 105 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 452: getlocal (lineno: 105 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 499: loopentry (lineno: 105 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 512: getlocal (lineno: 96 column: 32)
+[BranchProfiles] [emitBlockCounter] op @ 524: loopentry (lineno: 96 column: 17)
+[BranchProfiles] [emitBlockCounter] op @ 544: getlocal (lineno: 108 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 26 counters emitted for script crypto-aes.js:83 (0x2c55b50) (lineno: 108 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 112 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 11: getarg (lineno: 112 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 44: loopentry (lineno: 112 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 57: getarg (lineno: 113 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script crypto-aes.js:111 (0x2c43fc0) (lineno: 113 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 22: loophead (lineno: 118 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 23: getarg (lineno: 118 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 52: loopentry (lineno: 118 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 65: getarg (lineno: 119 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 4 counters emitted for script crypto-aes.js:116 (0x2c364a0) (lineno: 119 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 79: loophead (lineno: 18 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 80: getlocal (lineno: 18 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 134: loopentry (lineno: 18 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 151: callgname (lineno: 20 column: 2)
+[BranchProfiles] [emitBlockCounter] op @ 189: loophead (lineno: 23 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 190: callgname (lineno: 23 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 298: loopentry (lineno: 22 column: 20)
+[BranchProfiles] [emitBlockCounter] op @ 312: callgname (lineno: 29 column: 2)
+[BranchProfiles] [emitBlockCounter] op @ 417: loophead (lineno: 34 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 418: getlocal (lineno: 34 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 472: loopentry (lineno: 34 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 489: getlocal (lineno: 35 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 12 counters emitted for script crypto-aes.js:13 (0x2c57de0) (lineno: 35 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 77 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: zero (lineno: 77 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 21: loophead (lineno: 77 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 22: getarg (lineno: 77 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 67: loopentry (lineno: 77 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 81: getlocal (lineno: 76 column: 21)
+[BranchProfiles] [emitBlockCounter] op @ 93: loopentry (lineno: 76 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 106: getarg (lineno: 79 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 8 counters emitted for script crypto-aes.js:75 (0x2c4f820) (lineno: 79 column: 15)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 41 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: zero (lineno: 41 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 21: loophead (lineno: 41 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 22: getarg (lineno: 41 column: 29)
+[BranchProfiles] [emitBlockCounter] op @ 63: loopentry (lineno: 41 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 77: getlocal (lineno: 40 column: 21)
+[BranchProfiles] [emitBlockCounter] op @ 89: loopentry (lineno: 40 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 102: getarg (lineno: 43 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 8 counters emitted for script crypto-aes.js:39 (0x2c56f30) (lineno: 43 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 27: loophead (lineno: 50 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 28: zero (lineno: 50 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 38: loophead (lineno: 50 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 39: getlocal (lineno: 50 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 78: loopentry (lineno: 50 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 91: zero (lineno: 51 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 101: loophead (lineno: 51 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 102: getarg (lineno: 51 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 133: loopentry (lineno: 51 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 146: getlocal (lineno: 49 column: 21)
+[BranchProfiles] [emitBlockCounter] op @ 158: loopentry (lineno: 49 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 171: getarg (lineno: 53 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 12 counters emitted for script crypto-aes.js:47 (0x2c5a1d0) (lineno: 53 column: 11)
+[BranchProfiles] [emitBlockCounter] op @ 10: loophead (lineno: 59 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 11: getgname (lineno: 59 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 55: loophead (lineno: 62 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 56: getlocal (lineno: 62 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 101: getarg (lineno: 63 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 123: getarg (lineno: 63 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 136: setelem (lineno: 63 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 150: loopentry (lineno: 61 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 163: getarg (lineno: 66 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 343: loopentry (lineno: 58 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 356: getarg (lineno: 71 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 11 counters emitted for script crypto-aes.js:57 (0x2c5b060) (lineno: 71 column: 11)
+[BranchProfiles] [DumpBlockCounters] Statistics 26 counters for baselineScript 0x2c55b50
+[BranchProfiles] [DumpBlockCounters] offset 82 value 8
+[BranchProfiles] [DumpBlockCounters] offset 83 value 8
+[BranchProfiles] [DumpBlockCounters] offset 179 value 9
+[BranchProfiles] [DumpBlockCounters] offset 193 value 1
+[BranchProfiles] [DumpBlockCounters] offset 205 value 93
+[BranchProfiles] [DumpBlockCounters] offset 206 value 93
+[BranchProfiles] [DumpBlockCounters] offset 237 value 372
+[BranchProfiles] [DumpBlockCounters] offset 238 value 372
+[BranchProfiles] [DumpBlockCounters] offset 271 value 465
+[BranchProfiles] [DumpBlockCounters] offset 284 value 93
+[BranchProfiles] [DumpBlockCounters] offset 298 value 13
+[BranchProfiles] [DumpBlockCounters] offset 337 value 52
+[BranchProfiles] [DumpBlockCounters] offset 338 value 52
+[BranchProfiles] [DumpBlockCounters] offset 378 value 65
+[BranchProfiles] [DumpBlockCounters] offset 391 value 13
+[BranchProfiles] [DumpBlockCounters] offset 396 value 80
+[BranchProfiles] [DumpBlockCounters] offset 407 value 80
+[BranchProfiles] [DumpBlockCounters] offset 418 value 80
+[BranchProfiles] [DumpBlockCounters] offset 423 value 11
+[BranchProfiles] [DumpBlockCounters] offset 441 value 93
+[BranchProfiles] [DumpBlockCounters] offset 451 value 372
+[BranchProfiles] [DumpBlockCounters] offset 452 value 372
+[BranchProfiles] [DumpBlockCounters] offset 499 value 465
+[BranchProfiles] [DumpBlockCounters] offset 512 value 93
+[BranchProfiles] [DumpBlockCounters] offset 524 value 95
+[BranchProfiles] [DumpBlockCounters] offset 544 value 1
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script crypto-aes.js:279 (0x2c35b50) (lineno: 279 column: 97)
+[BranchProfiles] [DumpBlockCounters] Statistics 12 counters for baselineScript 0x2c5a1d0
+[BranchProfiles] [DumpBlockCounters] offset 27 value 86
+[BranchProfiles] [DumpBlockCounters] offset 28 value 86
+[BranchProfiles] [DumpBlockCounters] offset 38 value 344
+[BranchProfiles] [DumpBlockCounters] offset 39 value 344
+[BranchProfiles] [DumpBlockCounters] offset 78 value 430
+[BranchProfiles] [DumpBlockCounters] offset 91 value 86
+[BranchProfiles] [DumpBlockCounters] offset 101 value 345
+[BranchProfiles] [DumpBlockCounters] offset 102 value 345
+[BranchProfiles] [DumpBlockCounters] offset 133 value 432
+[BranchProfiles] [DumpBlockCounters] offset 146 value 87
+[BranchProfiles] [DumpBlockCounters] offset 158 value 115
+[BranchProfiles] [DumpBlockCounters] offset 171 value 29
+[BranchProfiles] [DumpBlockCounters] Statistics 8 counters for baselineScript 0x2c4f820
+[BranchProfiles] [DumpBlockCounters] offset 10 value 154
+[BranchProfiles] [DumpBlockCounters] offset 11 value 154
+[BranchProfiles] [DumpBlockCounters] offset 21 value 618
+[BranchProfiles] [DumpBlockCounters] offset 22 value 618
+[BranchProfiles] [DumpBlockCounters] offset 67 value 773
+[BranchProfiles] [DumpBlockCounters] offset 81 value 155
+[BranchProfiles] [DumpBlockCounters] offset 93 value 193
+[BranchProfiles] [DumpBlockCounters] offset 106 value 39
+[BranchProfiles] [DumpBlockCounters] Statistics 8 counters for baselineScript 0x2c56f30
+[BranchProfiles] [DumpBlockCounters] offset 10 value 154
+[BranchProfiles] [DumpBlockCounters] offset 11 value 154
+[BranchProfiles] [DumpBlockCounters] offset 21 value 618
+[BranchProfiles] [DumpBlockCounters] offset 22 value 618
+[BranchProfiles] [DumpBlockCounters] offset 63 value 773
+[BranchProfiles] [DumpBlockCounters] offset 77 value 155
+[BranchProfiles] [DumpBlockCounters] offset 89 value 193
+[BranchProfiles] [DumpBlockCounters] offset 102 value 39
+[BranchProfiles] [DumpBlockCounters] Statistics 11 counters for baselineScript 0x2c5b060
+[BranchProfiles] [DumpBlockCounters] offset 10 value 154
+[BranchProfiles] [DumpBlockCounters] offset 11 value 154
+[BranchProfiles] [DumpBlockCounters] offset 55 value 618
+[BranchProfiles] [DumpBlockCounters] offset 56 value 618
+[BranchProfiles] [DumpBlockCounters] offset 101 value 301
+[BranchProfiles] [DumpBlockCounters] offset 123 value 317
+[BranchProfiles] [DumpBlockCounters] offset 136 value 618
+[BranchProfiles] [DumpBlockCounters] offset 150 value 773
+[BranchProfiles] [DumpBlockCounters] offset 163 value 155
+[BranchProfiles] [DumpBlockCounters] offset 343 value 193
+[BranchProfiles] [DumpBlockCounters] offset 356 value 39
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script crypto-aes.js:278 (0x2c6c6c0) (lineno: 279 column: 101)
+[BranchProfiles] [DumpBlockCounters] Statistics 12 counters for baselineScript 0x2c57de0
+[BranchProfiles] [DumpBlockCounters] offset 79 value 327
+[BranchProfiles] [DumpBlockCounters] offset 80 value 327
+[BranchProfiles] [DumpBlockCounters] offset 134 value 348
+[BranchProfiles] [DumpBlockCounters] offset 151 value 21
+[BranchProfiles] [DumpBlockCounters] offset 189 value 273
+[BranchProfiles] [DumpBlockCounters] offset 190 value 273
+[BranchProfiles] [DumpBlockCounters] offset 298 value 294
+[BranchProfiles] [DumpBlockCounters] offset 312 value 21
+[BranchProfiles] [DumpBlockCounters] offset 417 value 336
+[BranchProfiles] [DumpBlockCounters] offset 418 value 336
+[BranchProfiles] [DumpBlockCounters] offset 472 value 357
+[BranchProfiles] [DumpBlockCounters] offset 489 value 21
+[BranchProfiles] [DumpBlockCounters] Statistics 40 counters for baselineScript 0x2c53b70
+[BranchProfiles] [DumpBlockCounters] offset 12 value 0
+[BranchProfiles] [DumpBlockCounters] offset 25 value 0
+[BranchProfiles] [DumpBlockCounters] offset 33 value 0
+[BranchProfiles] [DumpBlockCounters] offset 39 value 0
+[BranchProfiles] [DumpBlockCounters] offset 45 value 0
+[BranchProfiles] [DumpBlockCounters] offset 83 value 23
+[BranchProfiles] [DumpBlockCounters] offset 84 value 23
+[BranchProfiles] [DumpBlockCounters] offset 126 value 24
+[BranchProfiles] [DumpBlockCounters] offset 140 value 1
+[BranchProfiles] [DumpBlockCounters] offset 274 value 4
+[BranchProfiles] [DumpBlockCounters] offset 275 value 4
+[BranchProfiles] [DumpBlockCounters] offset 309 value 5
+[BranchProfiles] [DumpBlockCounters] offset 322 value 1
+[BranchProfiles] [DumpBlockCounters] offset 332 value 4
+[BranchProfiles] [DumpBlockCounters] offset 333 value 4
+[BranchProfiles] [DumpBlockCounters] offset 376 value 5
+[BranchProfiles] [DumpBlockCounters] offset 389 value 1
+[BranchProfiles] [DumpBlockCounters] offset 468 value 40
+[BranchProfiles] [DumpBlockCounters] offset 469 value 40
+[BranchProfiles] [DumpBlockCounters] offset 479 value 160
+[BranchProfiles] [DumpBlockCounters] offset 480 value 160
+[BranchProfiles] [DumpBlockCounters] offset 517 value 200
+[BranchProfiles] [DumpBlockCounters] offset 530 value 40
+[BranchProfiles] [DumpBlockCounters] offset 540 value 160
+[BranchProfiles] [DumpBlockCounters] offset 541 value 160
+[BranchProfiles] [DumpBlockCounters] offset 583 value 200
+[BranchProfiles] [DumpBlockCounters] offset 596 value 40
+[BranchProfiles] [DumpBlockCounters] offset 632 value 40
+[BranchProfiles] [DumpBlockCounters] offset 640 value 0
+[BranchProfiles] [DumpBlockCounters] offset 656 value 40
+[BranchProfiles] [DumpBlockCounters] offset 679 value 640
+[BranchProfiles] [DumpBlockCounters] offset 680 value 640
+[BranchProfiles] [DumpBlockCounters] offset 765 value 680
+[BranchProfiles] [DumpBlockCounters] offset 779 value 40
+[BranchProfiles] [DumpBlockCounters] offset 813 value 41
+[BranchProfiles] [DumpBlockCounters] offset 827 value 0
+[BranchProfiles] [DumpBlockCounters] offset 846 value 0
+[BranchProfiles] [DumpBlockCounters] offset 847 value 0
+[BranchProfiles] [DumpBlockCounters] offset 891 value 0
+[BranchProfiles] [DumpBlockCounters] offset 904 value 0
+[BranchProfiles] [emitBlockCounter] op @ 12: pop (lineno: 231 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 25: pop (lineno: 231 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 33: not (lineno: 231 column: 6)
+[BranchProfiles] [emitBlockCounter] op @ 39: string (lineno: 231 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 45: getarg (lineno: 233 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 83: loophead (lineno: 235 column: 31)
+[BranchProfiles] [emitBlockCounter] op @ 84: getlocal (lineno: 235 column: 31)
+[BranchProfiles] [emitBlockCounter] op @ 126: loopentry (lineno: 235 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 140: callgname (lineno: 236 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 318: loophead (lineno: 248 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 319: getlocal (lineno: 248 column: 26)
+[BranchProfiles] [emitBlockCounter] op @ 357: loopentry (lineno: 248 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 370: getgname (lineno: 250 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 405: loophead (lineno: 254 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 406: zero (lineno: 254 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 416: loophead (lineno: 254 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 417: getlocal (lineno: 254 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 456: loopentry (lineno: 254 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 469: zero (lineno: 255 column: 9)
+[BranchProfiles] [emitBlockCounter] op @ 479: loophead (lineno: 255 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 480: getlocal (lineno: 255 column: 28)
+[BranchProfiles] [emitBlockCounter] op @ 528: loopentry (lineno: 255 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 541: callgname (lineno: 257 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 608: loophead (lineno: 264 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 609: getarg (lineno: 264 column: 0)
+[BranchProfiles] [emitBlockCounter] op @ 690: loopentry (lineno: 262 column: 18)
+[BranchProfiles] [emitBlockCounter] op @ 713: getlocal (lineno: 270 column: 4)
+[BranchProfiles] [emitBlockCounter] op @ 738: loopentry (lineno: 252 column: 16)
+[BranchProfiles] [emitBlockCounter] op @ 757: getlocal (lineno: 273 column: 2)
+[BranchProfiles] [BaselineCompiler] Statistics 29 counters emitted for script crypto-aes.js:230 (0x2caadd0) (lineno: 273 column: 28)
+[BranchProfiles] [DumpBlockCounters] Statistics 26 counters for baselineScript 0x2c55b50
+[BranchProfiles] [DumpBlockCounters] offset 82 value 24
+[BranchProfiles] [DumpBlockCounters] offset 83 value 24
+[BranchProfiles] [DumpBlockCounters] offset 179 value 27
+[BranchProfiles] [DumpBlockCounters] offset 193 value 3
+[BranchProfiles] [DumpBlockCounters] offset 205 value 186
+[BranchProfiles] [DumpBlockCounters] offset 206 value 186
+[BranchProfiles] [DumpBlockCounters] offset 237 value 744
+[BranchProfiles] [DumpBlockCounters] offset 238 value 744
+[BranchProfiles] [DumpBlockCounters] offset 271 value 930
+[BranchProfiles] [DumpBlockCounters] offset 284 value 186
+[BranchProfiles] [DumpBlockCounters] offset 298 value 26
+[BranchProfiles] [DumpBlockCounters] offset 337 value 104
+[BranchProfiles] [DumpBlockCounters] offset 338 value 104
+[BranchProfiles] [DumpBlockCounters] offset 378 value 130
+[BranchProfiles] [DumpBlockCounters] offset 391 value 26
+[BranchProfiles] [DumpBlockCounters] offset 396 value 160
+[BranchProfiles] [DumpBlockCounters] offset 407 value 160
+[BranchProfiles] [DumpBlockCounters] offset 418 value 160
+[BranchProfiles] [DumpBlockCounters] offset 423 value 22
+[BranchProfiles] [DumpBlockCounters] offset 441 value 186
+[BranchProfiles] [DumpBlockCounters] offset 451 value 744
+[BranchProfiles] [DumpBlockCounters] offset 452 value 744
+[BranchProfiles] [DumpBlockCounters] offset 499 value 930
+[BranchProfiles] [DumpBlockCounters] offset 512 value 186
+[BranchProfiles] [DumpBlockCounters] offset 524 value 190
+[BranchProfiles] [DumpBlockCounters] offset 544 value 2
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script crypto-aes.js:283 (0x2c71310) (lineno: 283 column: 92)
+[BranchProfiles] [BaselineCompiler] Statistics 0 counters emitted for script crypto-aes.js:282 (0x2cabfd0) (lineno: 283 column: 96)
+[BranchProfiles] [DumpBlockCounters] Statistics 12 counters for baselineScript 0x2c57de0
+[BranchProfiles] [DumpBlockCounters] offset 79 value 695
+[BranchProfiles] [DumpBlockCounters] offset 80 value 695
+[BranchProfiles] [DumpBlockCounters] offset 134 value 739
+[BranchProfiles] [DumpBlockCounters] offset 151 value 44
+[BranchProfiles] [DumpBlockCounters] offset 189 value 572
+[BranchProfiles] [DumpBlockCounters] offset 190 value 572
+[BranchProfiles] [DumpBlockCounters] offset 298 value 616
+[BranchProfiles] [DumpBlockCounters] offset 312 value 44
+[BranchProfiles] [DumpBlockCounters] offset 417 value 704
+[BranchProfiles] [DumpBlockCounters] offset 418 value 704
+[BranchProfiles] [DumpBlockCounters] offset 472 value 748
+[BranchProfiles] [DumpBlockCounters] offset 489 value 44
+[BranchProfiles] [DumpBlockCounters] Statistics 29 counters for baselineScript 0x2caadd0
+[BranchProfiles] [DumpBlockCounters] offset 12 value 0
+[BranchProfiles] [DumpBlockCounters] offset 25 value 0
+[BranchProfiles] [DumpBlockCounters] offset 33 value 0
+[BranchProfiles] [DumpBlockCounters] offset 39 value 0
+[BranchProfiles] [DumpBlockCounters] offset 45 value 0
+[BranchProfiles] [DumpBlockCounters] offset 83 value 23
+[BranchProfiles] [DumpBlockCounters] offset 84 value 23
+[BranchProfiles] [DumpBlockCounters] offset 126 value 24
+[BranchProfiles] [DumpBlockCounters] offset 140 value 1
+[BranchProfiles] [DumpBlockCounters] offset 318 value 8
+[BranchProfiles] [DumpBlockCounters] offset 319 value 8
+[BranchProfiles] [DumpBlockCounters] offset 357 value 9
+[BranchProfiles] [DumpBlockCounters] offset 370 value 1
+[BranchProfiles] [DumpBlockCounters] offset 405 value 38
+[BranchProfiles] [DumpBlockCounters] offset 406 value 38
+[BranchProfiles] [DumpBlockCounters] offset 416 value 152
+[BranchProfiles] [DumpBlockCounters] offset 417 value 152
+[BranchProfiles] [DumpBlockCounters] offset 456 value 190
+[BranchProfiles] [DumpBlockCounters] offset 469 value 38
+[BranchProfiles] [DumpBlockCounters] offset 479 value 152
+[BranchProfiles] [DumpBlockCounters] offset 480 value 152
+[BranchProfiles] [DumpBlockCounters] offset 528 value 190
+[BranchProfiles] [DumpBlockCounters] offset 541 value 38
+[BranchProfiles] [DumpBlockCounters] offset 608 value 608
+[BranchProfiles] [DumpBlockCounters] offset 609 value 608
+[BranchProfiles] [DumpBlockCounters] offset 690 value 646
+[BranchProfiles] [DumpBlockCounters] offset 713 value 38
+[BranchProfiles] [DumpBlockCounters] offset 738 value 39
+[BranchProfiles] [DumpBlockCounters] offset 757 value 0
