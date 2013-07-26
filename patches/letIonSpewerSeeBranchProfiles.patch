@@ -1,0 +1,76 @@
+# HG changeset patch
+# Parent e99d0c1a209fb45fb5571817d3e2815d91ae1909
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/JSONSpewer.cpp b/js/src/ion/JSONSpewer.cpp
+--- a/js/src/ion/JSONSpewer.cpp
++++ b/js/src/ion/JSONSpewer.cpp
+@@ -291,16 +291,19 @@ JSONSpewer::spewMIR(MIRGraph *mir)
+     beginObjectProperty("mir");
+     beginListProperty("blocks");
+ 
+     for (MBasicBlockIterator block(mir->begin()); block != mir->end(); block++) {
+         beginObject();
+ 
+         integerProperty("number", block->id());
+ 
++        if(block->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", block->getBlockUseCount());
++
+         beginListProperty("attributes");
+         if (block->isLoopBackedge())
+             stringValue("backedge");
+         if (block->isLoopHeader())
+             stringValue("loopheader");
+         if (block->isSplitEdge())
+             stringValue("splitedge");
+         endList();
+@@ -366,16 +369,19 @@ JSONSpewer::spewLIR(MIRGraph *mir)
+     for (MBasicBlockIterator i(mir->begin()); i != mir->end(); i++) {
+         LBlock *block = i->lir();
+         if (!block)
+             continue;
+ 
+         beginObject();
+         integerProperty("number", i->id());
+ 
++        if (i->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", i->getBlockUseCount());
++
+         beginListProperty("instructions");
+         for (size_t p = 0; p < block->numPhis(); p++)
+             spewLIns(block->getPhi(p));
+         for (LInstructionIterator ins(block->begin()); ins != block->end(); ins++)
+             spewLIns(*ins);
+         endList();
+ 
+         endObject();
+@@ -392,19 +398,27 @@ JSONSpewer::spewIntervals(LinearScanAllo
+         return;
+ 
+     beginObjectProperty("intervals");
+     beginListProperty("blocks");
+ 
+     for (size_t bno = 0; bno < regalloc->graph.numBlocks(); bno++) {
+         beginObject();
+         integerProperty("number", bno);
++
++        LBlock *lir = regalloc->graph.getBlock(bno);
++        
++        // Currently we don't propagate blockUseCounts to LBlock,
++        // so we use the counter of the corresponding MBasicBlock instead.
++        MBasicBlock *mir = lir->mir();
++        if (mir && mir->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", mir->getBlockUseCount());
++
+         beginListProperty("vregs");
+ 
+-        LBlock *lir = regalloc->graph.getBlock(bno);
+         for (LInstructionIterator ins = lir->begin(); ins != lir->end(); ins++) {
+             for (size_t k = 0; k < ins->numDefs(); k++) {
+                 VirtualRegister *vreg = &regalloc->vregs[ins->getDef(k)->virtualRegister()];
+ 
+                 beginObject();
+                 integerProperty("vreg", vreg->id());
+                 beginListProperty("intervals");
+ 
