@@ -1,0 +1,15 @@
+Richards: 10905
+DeltaBlue: 8840
+Crypto: 9215
+RayTrace: 9591
+EarleyBoyer: 8195
+RegExp: 1327
+Splay: 6348
+NavierStokes: 11042
+PdfJS: 4399
+Mandreel: 2280
+Gameboy: 11392
+CodeLoad: 8858
+Box2D: 2999
+----
+Score (version 8): 6193
