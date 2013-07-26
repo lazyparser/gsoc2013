@@ -1,0 +1,26 @@
+# HG changeset patch
+# Parent a530e50d3ce6d8d1d736e6cadb0a1c933dcf7690
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp
++++ b/js/src/ion/BaselineCompiler.cpp
+@@ -210,17 +210,17 @@ BaselineCompiler::compile()
+     if (cx->zone()->needsBarrier())
+         baselineScript->toggleBarriers(true);
+ 
+     // All SPS instrumentation is emitted toggled off.  Toggle them on if needed.
+     if (cx->runtime()->spsProfiler.enabled())
+         baselineScript->toggleSPS(true);
+ 
+ //    if (js_IonOptions.baselineBranchProfiling)
+-//        baselineScript->toggleBlockCounters(true);
++        baselineScript->toggleBlockCounters(true);
+ 
+     return Method_Compiled;
+ }
+ 
+ bool
+ BaselineCompiler::emitPrologue()
+ {
+     masm.push(BaselineFrameReg);

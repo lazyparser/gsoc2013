@@ -1,0 +1,73 @@
+# HG changeset patch
+# Parent 22a9e2576295856978ee572652f054bc479eb998
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
+--- a/js/src/ion/BaselineCompiler.cpp
++++ b/js/src/ion/BaselineCompiler.cpp
+@@ -209,18 +209,18 @@ BaselineCompiler::compile()
+     // All barriers are emitted off-by-default, toggle them on if needed.
+     if (cx->zone()->needsBarrier())
+         baselineScript->toggleBarriers(true);
+ 
+     // All SPS instrumentation is emitted toggled off.  Toggle them on if needed.
+     if (cx->runtime()->spsProfiler.enabled())
+         baselineScript->toggleSPS(true);
+ 
+-    if (js_IonOptions.baselineBranchProfiling)
+-        baselineScript->toggleBlockCounters(true);
++//    if (js_IonOptions.baselineBranchProfiling)
++//        baselineScript->toggleBlockCounters(true);
+ 
+     return Method_Compiled;
+ }
+ 
+ bool
+ BaselineCompiler::emitPrologue()
+ {
+     masm.push(BaselineFrameReg);
+@@ -348,18 +348,18 @@ BaselineCompiler::emitIC(ICStub *stub, b
+         return false;
+ 
+     return true;
+ }
+ 
+ bool
+ BaselineCompiler::emitBlockCounter(jsbytecode *pc)
+ {
+-    if (!ionCompileable_ && !ionOSRCompileable_)
+-        return true;
++//    if (!ionCompileable_ && !ionOSRCompileable_)
++//        return true;
+ 
+     IonSpew(IonSpew_BranchProfiles, "[emitBlockCounter] op @ %d: %s",
+             int(pc - script->code), js_CodeName[JSOp(*pc)]);
+ 
+     BlockCounterEntry *entry = allocateBlockCounterEntry(pc - script->code);
+     if(!entry)
+         return false;
+ 
+@@ -669,21 +669,21 @@ BaselineCompiler::emitBody()
+             emittedOps = 0;
+         if (!addPCMappingEntry(addIndexEntry))
+             return Method_Error;
+ 
+         // Emit traps for breakpoints and step mode.
+         if (debugMode_ && !emitDebugTrap())
+             return Method_Error;
+ 
+-        if (js_IonOptions.baselineBranchProfiling) {
++        //if (js_IonOptions.baselineBranchProfiling) {
+             // Instrument all jump targets and the first opcode.
+             if ( (pc == script->code || info->jumpTarget ) && !emitBlockCounter(pc))
+                 return Method_Error;
+-        }
++        //}
+ 
+ 
+         switch (op) {
+           default:
+             IonSpew(IonSpew_BaselineAbort, "Unhandled op: %s", js_CodeName[op]);
+             return Method_CantCompile;
+ 
+ #define EMIT_OP(OP)                            \
