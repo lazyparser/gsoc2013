@@ -1,0 +1,30 @@
+var output = [
+{
+    "3d-cube": 54,
+    "3d-morph": 34,
+    "3d-raytrace": 45,
+    "access-binary-trees": 27,
+    "access-fannkuch": 64,
+    "access-nbody": 32,
+    "access-nsieve": 22,
+    "bitops-3bit-bits-in-byte": 14,
+    "bitops-bits-in-byte": 29,
+    "bitops-bitwise-and": 40,
+    "bitops-nsieve-bits": 31,
+    "controlflow-recursive": 16,
+    "crypto-aes": 54,
+    "crypto-md5": 21,
+    "crypto-sha1": 16,
+    "date-format-tofte": 54,
+    "date-format-xparb": 29,
+    "math-cordic": 54,
+    "math-partial-sums": 46,
+    "math-spectral-norm": 18,
+    "regexp-dna": 42,
+    "string-base64": 21,
+    "string-fasta": 51,
+    "string-tagcloud": 55,
+    "string-unpack-code": 51,
+    "string-validate-input": 28
+}
+];
