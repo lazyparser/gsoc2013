@@ -1,0 +1,31 @@
+===============================================
+RESULTS (means and 95% confidence intervals)
+-----------------------------------------------
+Total:                        40201.1ms +/- 1.1%
+-----------------------------------------------
+
+  ai:                          3047.8ms +/- 3.1%
+    astar:                     3047.8ms +/- 3.1%
+
+  audio:                       8923.8ms +/- 0.8%
+    beat-detection:            1967.8ms +/- 0.6%
+    dft:                       3103.4ms +/- 1.4%
+    fft:                       1655.6ms +/- 1.6%
+    oscillator:                2197.0ms +/- 0.9%
+
+  imaging:                    24921.5ms +/- 1.4%
+    gaussian-blur:            19950.3ms +/- 1.8%
+    darkroom:                  2083.3ms +/- 0.5%
+    desaturate:                2887.9ms +/- 0.8%
+
+  json:                         255.4ms +/- 0.7%
+    parse-financial:            121.8ms +/- 0.5%
+    stringify-tinderbox:        133.6ms +/- 1.1%
+
+  stanford:                    3052.6ms +/- 1.2%
+    crypto-aes:                 753.7ms +/- 1.1%
+    crypto-ccm:                 503.5ms +/- 1.7%
+    crypto-pbkdf2:             1378.8ms +/- 2.8%
+    crypto-sha256-iterative:    416.6ms +/- 1.6%
+
+Results are located at kraken-1.1-results/sunspider-results-2013-07-25-11.42.47.js
