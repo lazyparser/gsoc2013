@@ -1,0 +1,51 @@
+============================================
+RESULTS
+--------------------------------------------
+Total:                  948.0ms
+--------------------------------------------
+
+  3d:                   133.0ms
+    cube:                54.0ms
+    morph:               34.0ms
+    raytrace:            45.0ms
+
+  access:               145.0ms
+    binary-trees:        27.0ms
+    fannkuch:            64.0ms
+    nbody:               32.0ms
+    nsieve:              22.0ms
+
+  bitops:               114.0ms
+    3bit-bits-in-byte:   14.0ms
+    bits-in-byte:        29.0ms
+    bitwise-and:         40.0ms
+    nsieve-bits:         31.0ms
+
+  controlflow:           16.0ms
+    recursive:           16.0ms
+
+  crypto:                91.0ms
+    aes:                 54.0ms
+    md5:                 21.0ms
+    sha1:                16.0ms
+
+  date:                  83.0ms
+    format-tofte:        54.0ms
+    format-xparb:        29.0ms
+
+  math:                 118.0ms
+    cordic:              54.0ms
+    partial-sums:        46.0ms
+    spectral-norm:       18.0ms
+
+  regexp:                42.0ms
+    dna:                 42.0ms
+
+  string:               206.0ms
+    base64:              21.0ms
+    fasta:               51.0ms
+    tagcloud:            55.0ms
+    unpack-code:         51.0ms
+    validate-input:      28.0ms
+
+Results are located at sunspider-1.0-results/sunspider-results-2013-07-25-11.29.11.js
