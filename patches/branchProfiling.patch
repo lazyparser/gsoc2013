@@ -1,12 +1,11 @@
 # HG changeset patch
-# Parent 308e3cf5ba75fdf8ed3bdd3dc766410b708b98ef
+# Parent 954c3d0259e7adc17f4dd8b49e3d82bdd52099c8
 # User Wei Wu <lazyparser@gmail.com>
-Bug 877878 - Instrument Baseline generated code to collect branch profiles. r=nbp
 
 diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
 --- a/js/src/ion/BaselineCompiler.cpp
 +++ b/js/src/ion/BaselineCompiler.cpp
-@@ -144,17 +144,18 @@ BaselineCompiler::compile()
+@@ -150,17 +150,18 @@ BaselineCompiler::compile()
  
      prologueOffset_.fixup(&masm);
      spsPushToggleOffset_.fixup(&masm);
@@ -26,7 +25,7 @@ diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
      script->setBaselineScript(baselineScript);
  
      IonSpew(IonSpew_BaselineScripts, "Created BaselineScript %p (raw %p) for %s:%d",
-@@ -180,24 +181,47 @@ BaselineCompiler::compile()
+@@ -186,24 +187,47 @@ BaselineCompiler::compile()
          label.fixup(&masm);
          size_t icEntry = icLoadLabels_[i].icEntry;
          ICEntry *entryAddr = &(baselineScript->icEntry(icEntry));
@@ -36,7 +35,7 @@ diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
      }
  
 +    IonSpew(IonSpew_BranchProfiles,
-+            "[BaselineCompiler] Statistics %d counters emitted for script %s:%d (%p)",
++            "BaselineCompiler Statistics %d counters emitted for script %s:%d (%p)",
 +            blockCounterEntries_.length(), script->filename(),
 +            script->lineno, script->baselineScript());
 +
@@ -74,7 +73,7 @@ diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
  {
      masm.push(BaselineFrameReg);
      masm.mov(BaselineStackReg, BaselineFrameReg);
-@@ -321,16 +345,46 @@ BaselineCompiler::emitIC(ICStub *stub, b
+@@ -318,16 +342,46 @@ BaselineCompiler::emitIC(ICStub *stub, b
      EmitCallIC(&patchOffset, masm);
      entry->setReturnOffset(masm.currentOffset());
      if (!addICLoadLabel(patchOffset))
@@ -121,7 +120,7 @@ diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
  {
      if (!debugMode_)
          return true;
-@@ -615,16 +669,23 @@ BaselineCompiler::emitBody()
+@@ -612,16 +666,23 @@ BaselineCompiler::emitBody()
              emittedOps = 0;
          if (!addPCMappingEntry(addIndexEntry))
              return Method_Error;
@@ -132,7 +131,7 @@ diff --git a/js/src/ion/BaselineCompiler.cpp b/js/src/ion/BaselineCompiler.cpp
  
 +        if (js_IonOptions.baselineBranchProfiling) {
 +            // Instrument all jump targets and the first opcode.
-+            if ( (pc == script->code || info->jumpTarget ) && !emitBlockCounter(pc))
++            if ((pc == script->code || info->jumpTarget) && !emitBlockCounter(pc))
 +                return Method_Error;
 +        }
 +
@@ -170,7 +169,7 @@ diff --git a/js/src/ion/BaselineCompiler.h b/js/src/ion/BaselineCompiler.h
 diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
 --- a/js/src/ion/BaselineJIT.cpp
 +++ b/js/src/ion/BaselineJIT.cpp
-@@ -329,31 +329,35 @@ ion::CanEnterBaselineMethod(JSContext *c
+@@ -325,31 +325,35 @@ ion::CanEnterBaselineMethod(JSContext *c
  };
  
  // Be safe, align IC entry list to 8 in all cases.
@@ -208,7 +207,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
      BaselineScript *script = reinterpret_cast<BaselineScript *>(buffer);
      new (script) BaselineScript(prologueOffset, spsPushToggleOffset);
  
-@@ -366,16 +370,20 @@ BaselineScript::New(JSContext *cx, uint3
+@@ -362,16 +366,20 @@ BaselineScript::New(JSContext *cx, uint3
      script->pcMappingIndexOffset_ = offsetCursor;
      script->pcMappingIndexEntries_ = pcMappingIndexEntries;
      offsetCursor += paddedPCMappingIndexEntriesSize;
@@ -218,7 +217,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
      offsetCursor += paddedPCMappingSize;
  
 +    script->blockCounterOffset_ = offsetCursor;
-+    script->blockCounters_ = blockCounters;
++    script->blockCountersEntries_ = blockCounters;
 +    offsetCursor += paddedBlockCounterSize;
 +
      return script;
@@ -229,7 +228,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
  {
      MarkIonCode(trc, &method_, "baseline-method");
  
-@@ -391,16 +399,32 @@ BaselineScript::trace(JSTracer *trc)
+@@ -387,16 +395,32 @@ BaselineScript::trace(JSTracer *trc)
  
  void
  BaselineScript::Trace(JSTracer *trc, BaselineScript *script)
@@ -262,7 +261,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
  ICEntry &
  BaselineScript::icEntry(size_t index)
  {
-@@ -410,16 +434,23 @@ BaselineScript::icEntry(size_t index)
+@@ -406,16 +430,23 @@ BaselineScript::icEntry(size_t index)
  
  PCMappingIndexEntry &
  BaselineScript::pcMappingIndexEntry(size_t index)
@@ -286,7 +285,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
      uint8_t *dataStart = pcMappingData() + entry.bufferOffset;
      uint8_t *dataEnd = (indexEntry == numPCMappingIndexEntries() - 1)
          ? pcMappingData() + pcMappingSize_
-@@ -566,16 +597,25 @@ BaselineScript::copyICEntries(HandleScri
+@@ -563,16 +594,25 @@ BaselineScript::copyICEntries(HandleScri
          if (realEntry.firstStub()->isTableSwitch()) {
              ICTableSwitch *stub = realEntry.firstStub()->toTableSwitch();
              stub->fixupJumpTable(script, this);
@@ -312,7 +311,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
  void
  BaselineScript::copyPCMappingEntries(const CompactBufferWriter &entries)
  {
-@@ -750,16 +790,29 @@ BaselineScript::toggleSPS(bool enable)
+@@ -749,16 +789,29 @@ BaselineScript::toggleSPS(bool enable)
          Assembler::ToggleToCmp(pushToggleLocation);
      else
          Assembler::ToggleToJmp(pushToggleLocation);
@@ -325,7 +324,7 @@ diff --git a/js/src/ion/BaselineJIT.cpp b/js/src/ion/BaselineJIT.cpp
 +void
 +BaselineScript::toggleBlockCounters(bool enable)
 +{
-+    for (size_t i = 0; i < blockCounters_; i++) {
++    for (size_t i = 0; i < blockCountersEntries_; i++) {
 +        CodeLocationLabel counterToggleLocation(method_, blockCounterEntry(i).toggleOffset);
 +        if (enable)
 +            Assembler::ToggleToCmp(counterToggleLocation);
@@ -386,7 +385,7 @@ diff --git a/js/src/ion/BaselineJIT.h b/js/src/ion/BaselineJIT.h
      uint32_t pcMappingSize_;
  
 +    uint32_t blockCounterOffset_;
-+    uint32_t blockCounters_;
++    uint32_t blockCountersEntries_;
 +
    public:
      // Do not call directly, use BaselineScript::New. This is public for cx->new_.
@@ -445,7 +444,7 @@ diff --git a/js/src/ion/BaselineJIT.h b/js/src/ion/BaselineJIT.h
      }
  
 +    size_t numBlockCounters() const {
-+        return blockCounters_;
++        return blockCountersEntries_;
 +    }
 +
      void copyPCMappingIndexEntries(const PCMappingIndexEntry *entries);
@@ -466,9 +465,9 @@ diff --git a/js/src/ion/BaselineJIT.h b/js/src/ion/BaselineJIT.h
          return offsetof(BaselineScript, flags_);
      }
 +
-+    static size_t offsetOfBlockCounterOffset(){
-+        return offsetof(BaselineScript, blockCounterOffset_);
-+    }
++//    static size_t offsetOfBlockCounterOffset(){
++//        return offsetof(BaselineScript, blockCounterOffset_);
++//    }
 +
 +    void toggleBlockCounters(bool enable);
  };
@@ -482,7 +481,7 @@ diff --git a/js/src/ion/BaselineJIT.h b/js/src/ion/BaselineJIT.h
 diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 --- a/js/src/ion/Ion.cpp
 +++ b/js/src/ion/Ion.cpp
-@@ -970,16 +970,24 @@ OptimizeMIR(MIRGenerator *mir)
+@@ -955,16 +955,26 @@ OptimizeMIR(MIRGenerator *mir)
      if (!RenumberBlocks(graph))
          return false;
      IonSpewPass("Renumber Blocks");
@@ -491,13 +490,15 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
      if (mir->shouldCancel("Renumber Blocks"))
          return false;
  
-+    if (js_IonOptions.baselineBranchProfiling && !AttachBranchProfiles(graph))
-+        return false;
-+    IonSpewPass("Attach Branch Profiles");
-+    AssertGraphCoherency(graph);
++    if (js_IonOptions.baselineBranchProfiling) {
++        if (!AttachBranchProfiles(graph))
++            return false;
++        IonSpewPass("Attach Branch Profiles");
++        AssertGraphCoherency(graph);
 +
-+    if (mir->shouldCancel("Attach Branch Profiles"))
-+        return false;
++        if (mir->shouldCancel("Attach Branch Profiles"))
++            return false;
++    }
 +
      if (!BuildDominatorTree(graph))
          return false;
@@ -507,7 +508,7 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
          return false;
  
      // This must occur before any code elimination.
-@@ -1359,16 +1367,21 @@ IonCompile(JSContext *cx, JSScript *scri
+@@ -1344,16 +1354,21 @@ IonCompile(JSContext *cx, JSScript *scri
  {
  #if JS_TRACE_LOGGING
      AutoTraceLog logger(TraceLogging::defaultLogger(),
@@ -565,7 +566,7 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
          eagerCompilation(false),
 -        usesBeforeCompileParallel(1)
 +        usesBeforeCompileParallel(1),
-+        baselineBranchProfiling(true)
++        baselineBranchProfiling(false)
      {
      }
  
@@ -577,16 +578,16 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 --- a/js/src/ion/IonAnalysis.cpp
 +++ b/js/src/ion/IonAnalysis.cpp
-@@ -6,16 +6,17 @@
+@@ -4,16 +4,17 @@
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
- #include "jsanalyze.h"
- 
- #include "ion/IonBuilder.h"
- #include "ion/MIRGraph.h"
- #include "ion/Ion.h"
- #include "ion/IonAnalysis.h"
- #include "ion/LIR.h"
-+#include "ion/BaselineJIT.h"
+ #include "IonBuilder.h"
+ #include "MIRGraph.h"
+ #include "Ion.h"
+ #include "IonAnalysis.h"
+ #include "LIR.h"
++#include "BaselineJIT.h"
  
  using namespace js;
  using namespace js::ion;
@@ -595,7 +596,7 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
  // nor its predecessor's only successor. Critical edges must be split to
  // prevent copy-insertion and code motion from affecting other edges.
  bool
-@@ -36,16 +37,69 @@ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -34,16 +35,70 @@ ion::SplitCriticalEdges(MIRGraph &graph)
              split->end(MGoto::New(target));
  
              block->replaceSuccessor(i, split);
@@ -612,7 +613,8 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +bool
 +ion::AttachBranchProfiles(MIRGraph &graph)
 +{
-+    // Skip AsmJs MIRGraphs.
++    // Skip AsmJS optimization as OdinMonkey is an ahead of time compiler
++    // and we do not have any profiled information.
 +    if (isAsmJSCompilation(graph))
 +        return true;
 +
@@ -627,29 +629,29 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +        jsbytecode *pc = block->pc();
 +
 +        // Not all blocks have a pc, only blocks which have a resume point.
-+        if (!pc)
-+            continue;
++//        if (!pc)
++//            continue;
++        JS_ASSERT(pc != NULL);
 +
 +        // In baseline compiler we instrument 'JSOP_LOOPHEAD', while IonBuilder
 +        // might assign the pc of previous opcode (JSOP_NOP or JSOP_GOTO)
 +        // to corresponding MBasicBlock. These mismatch can be corrected
 +        // by adding the length of the previous opcode.
-+        int loopHeaderOffset = 0;
-+        JSOp op = JSOp(*pc);
 +        if (block->isLoopHeader()) {
++            JSOp op = JSOp(*pc);
 +            if(op == JSOP_NOP || op == JSOP_GOTO)
-+                loopHeaderOffset = GetBytecodeLength(pc);
-+            else
-+                JS_ASSERT(op == JSOP_LOOPHEAD);
++                pc += GetBytecodeLength(pc);
++            JS_ASSERT(JSOp(*pc) == JSOP_LOOPHEAD);
 +        }
 +
 +        // Since the value of numCounters is usually less than 10,
 +        // the linear search algorithm is fast enough.
 +        // We can switch to binary search if necessary.
 +        size_t numCounters = blscript->numBlockCounters();
++        size_t pcOffset = pc - code;
 +        for (size_t i = 0; i < numCounters; i++) {
 +            BlockCounterEntry entry = blscript->blockCounterEntry(i);
-+            if (entry.pcOffset + code == pc + loopHeaderOffset) {
++            if (entry.pcOffset == pcOffset) {
 +                block->setBlockUseCount(entry.counter);
 +                break;
 +            }
@@ -694,7 +696,7 @@ diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
 diff --git a/js/src/ion/IonSpewer.cpp b/js/src/ion/IonSpewer.cpp
 --- a/js/src/ion/IonSpewer.cpp
 +++ b/js/src/ion/IonSpewer.cpp
-@@ -239,16 +239,18 @@ ion::CheckLogging()
+@@ -241,16 +241,18 @@ ion::CheckLogging()
              "  bailouts   Bailouts\n"
              "  caches     Inline caches\n"
              "  osi        Invalidation\n"
@@ -713,7 +715,7 @@ diff --git a/js/src/ion/IonSpewer.cpp b/js/src/ion/IonSpewer.cpp
              "  bl-ic      Baseline inline-cache messages\n"
              "  bl-ic-fb   Baseline IC fallback stub messages\n"
              "  bl-osr     Baseline IC OSR messages\n"
-@@ -292,16 +294,18 @@ ion::CheckLogging()
+@@ -294,16 +296,18 @@ ion::CheckLogging()
      if (ContainsFlag(env, "pools"))
          EnableChannel(IonSpew_Pools);
      if (ContainsFlag(env, "cacheflush"))
@@ -757,7 +759,7 @@ diff --git a/js/src/ion/IonSpewer.h b/js/src/ion/IonSpewer.h
 diff --git a/js/src/ion/MIRGraph.cpp b/js/src/ion/MIRGraph.cpp
 --- a/js/src/ion/MIRGraph.cpp
 +++ b/js/src/ion/MIRGraph.cpp
-@@ -247,17 +247,19 @@ MBasicBlock::MBasicBlock(MIRGraph &graph
+@@ -239,17 +239,19 @@ MBasicBlock::MBasicBlock(MIRGraph &graph
      successorWithPhis_(NULL),
      positionInPhiSuccessor_(0),
      kind_(kind),
@@ -770,18 +772,18 @@ diff --git a/js/src/ion/MIRGraph.cpp b/js/src/ion/MIRGraph.cpp
 +    trackedPc_(pc),
 +    blockUseCount_(0),
 +    blockUseCountAvailable_(false)
- #if defined (JS_ION_PERF)
-     , lineno_(0u),
-     columnIndex_(0u)
- #endif
  {
  }
  
  bool
+ MBasicBlock::init()
+ {
+     return slots_.init(info_.nslots());
+ }
 diff --git a/js/src/ion/MIRGraph.h b/js/src/ion/MIRGraph.h
 --- a/js/src/ion/MIRGraph.h
 +++ b/js/src/ion/MIRGraph.h
-@@ -476,16 +476,38 @@ class MBasicBlock : public TempObject, p
+@@ -475,16 +475,30 @@ class MBasicBlock : public TempObject, p
      void updateTrackedPc(jsbytecode *pc) {
          trackedPc_ = pc;
      }
@@ -804,14 +806,6 @@ diff --git a/js/src/ion/MIRGraph.h b/js/src/ion/MIRGraph.h
 +        return blockUseCount_;
 +    }
 +
-+    bool isWorthFiltered() {
-+        uint32_t scriptUseCount = info_.script()->getUseCount();
-+        // TODO: Decide whether this block is worth to be filtered out.
-+        if (isBlockUseCountAvailable() && getBlockUseCount() < scriptUseCount / 10)
-+            return true;
-+        return false;
-+    }
-+
    private:
      MIRGraph &graph_;
      CompileInfo &info_; // Each block originates from a particular script.
@@ -820,7 +814,7 @@ diff --git a/js/src/ion/MIRGraph.h b/js/src/ion/MIRGraph.h
      InlineForwardList<MPhi> phis_;
      InlineForwardList<MResumePoint> resumePoints_;
      FixedList<MDefinition *> slots_;
-@@ -496,16 +518,18 @@ class MBasicBlock : public TempObject, p
+@@ -495,16 +509,18 @@ class MBasicBlock : public TempObject, p
      uint32_t domIndex_; // Index in the dominator tree.
      LBlock *lir_;
      MStart *start_;
@@ -917,7 +911,7 @@ diff --git a/js/src/ion/shared/BaselineCompiler-shared.h b/js/src/ion/shared/Bas
 diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
 --- a/js/src/shell/js.cpp
 +++ b/js/src/shell/js.cpp
-@@ -5096,16 +5096,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
+@@ -5038,16 +5038,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
  
      useCount = op->getIntOption("baseline-uses-before-compile");
      if (useCount >= 0)
@@ -943,17 +937,17 @@ diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
          else if (strcmp(str, "stupid") == 0)
              ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Stupid;
          else
-@@ -5352,16 +5361,18 @@ main(int argc, char **argv, char **envp)
+@@ -5288,16 +5297,18 @@ main(int argc, char **argv, char **envp)
          || !op.addIntOption('\0', "ion-uses-before-compile", "COUNT",
                              "Wait for COUNT calls or iterations before compiling "
-                             "(default: 1000)", -1)
+                             "(default: 10240)", -1)
          || !op.addStringOption('\0', "ion-regalloc", "[mode]",
                                 "Specify Ion register allocation:\n"
                                 "  lsra: Linear Scan register allocation (default)\n"
                                 "  backtracking: Priority based backtracking register allocation\n"
                                 "  stupid: Simple block local register allocation")
 +        || !op.addStringOption('\0', "branch-profiling", "on/off",
-+                               "Profile baseline generated codes (default: on, off to disable)")
++                               "Profile baseline generated codes (default: off, on to disable)")
          || !op.addBoolOption('\0', "ion-eager", "Always ion-compile methods (implies --baseline-eager)")
  #ifdef JS_THREADSAFE
          || !op.addStringOption('\0', "ion-parallel-compile", "on/off",
