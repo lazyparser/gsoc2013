@@ -1,11 +1,12 @@
 # HG changeset patch
-# Parent e99d0c1a209fb45fb5571817d3e2815d91ae1909
+# Parent 3c4781bc1ee9bfa228ed974b61eafe0229d25e9d
 # User Wei Wu <lazyparser@gmail.com>
+Bug 896783 - Make IonSpewer and IonGraph output the branch profiling data for each MBasicBlock. r=nbp
 
 diff --git a/js/src/ion/JSONSpewer.cpp b/js/src/ion/JSONSpewer.cpp
 --- a/js/src/ion/JSONSpewer.cpp
 +++ b/js/src/ion/JSONSpewer.cpp
-@@ -291,16 +291,19 @@ JSONSpewer::spewMIR(MIRGraph *mir)
+@@ -292,16 +292,19 @@ JSONSpewer::spewMIR(MIRGraph *mir)
      beginObjectProperty("mir");
      beginListProperty("blocks");
  
@@ -25,7 +26,7 @@ diff --git a/js/src/ion/JSONSpewer.cpp b/js/src/ion/JSONSpewer.cpp
          if (block->isSplitEdge())
              stringValue("splitedge");
          endList();
-@@ -366,16 +369,19 @@ JSONSpewer::spewLIR(MIRGraph *mir)
+@@ -367,16 +370,19 @@ JSONSpewer::spewLIR(MIRGraph *mir)
      for (MBasicBlockIterator i(mir->begin()); i != mir->end(); i++) {
          LBlock *block = i->lir();
          if (!block)
@@ -45,7 +46,7 @@ diff --git a/js/src/ion/JSONSpewer.cpp b/js/src/ion/JSONSpewer.cpp
          endList();
  
          endObject();
-@@ -392,19 +398,27 @@ JSONSpewer::spewIntervals(LinearScanAllo
+@@ -393,19 +399,27 @@ JSONSpewer::spewIntervals(LinearScanAllo
          return;
  
      beginObjectProperty("intervals");
@@ -56,7 +57,7 @@ diff --git a/js/src/ion/JSONSpewer.cpp b/js/src/ion/JSONSpewer.cpp
          integerProperty("number", bno);
 +
 +        LBlock *lir = regalloc->graph.getBlock(bno);
-+        
++
 +        // Currently we don't propagate blockUseCounts to LBlock,
 +        // so we use the counter of the corresponding MBasicBlock instead.
 +        MBasicBlock *mir = lir->mir();
