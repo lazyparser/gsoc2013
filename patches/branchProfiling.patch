@@ -487,7 +487,7 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
      if (mir->shouldCancel("Renumber Blocks"))
          return false;
  
-+    if (js_IonOptions.baselineBranchProfiling) {
++    if (js_IonOptions.baselineBranchProfiling && !mir->compilingAsmJS()) {
 +        if (!AttachBranchProfiles(graph))
 +            return false;
 +        IonSpewPass("Attach Branch Profiles");
@@ -593,7 +593,7 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
  // nor its predecessor's only successor. Critical edges must be split to
  // prevent copy-insertion and code motion from affecting other edges.
  bool
-@@ -38,16 +39,71 @@ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -38,16 +39,70 @@ ion::SplitCriticalEdges(MIRGraph &graph)
  
              block->replaceSuccessor(i, split);
              target->replacePredecessor(*block, split);
@@ -611,10 +611,9 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +bool
 +ion::AttachBranchProfiles(MIRGraph &graph)
 +{
-+    // Skip AsmJS optimization as OdinMonkey is an ahead of time compiler
++    // Forbid AsmJS optimization as OdinMonkey is an ahead of time compiler
 +    // and we do not have any profiled information.
-+    if (isAsmJSCompilation(graph))
-+        return true;
++    JS_ASSERT(!isAsmJSCompilation(graph));
 +
 +    for (MBasicBlockIterator block(graph.begin()); block != graph.end(); block++) {
 +        CompileInfo &info = block->info();
