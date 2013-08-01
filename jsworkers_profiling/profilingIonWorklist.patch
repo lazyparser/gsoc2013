@@ -1,0 +1,229 @@
+# HG changeset patch
+# Parent 32c3ccd8946c1f7dda021bff19765dc8ce270053
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/jsworkers.cpp b/js/src/jsworkers.cpp
+--- a/js/src/jsworkers.cpp
++++ b/js/src/jsworkers.cpp
+@@ -4,29 +4,32 @@
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ #include "jsworkers.h"
+ 
+ #include "mozilla/DebugOnly.h"
+ 
+ #include "prmjtime.h"
++#include <stdio.h>
+ 
+ #ifdef JS_PARALLEL_COMPILATION
+ # include "ion/AsmJS.h"
+ # include "ion/IonBuilder.h"
+ # include "ion/ExecutionModeInlines.h"
+ #endif
+ 
+ using namespace js;
+ 
+ using mozilla::DebugOnly;
+ 
+ #ifdef JS_PARALLEL_COMPILATION
+ 
++FILE* dumpFile;
++
+ bool
+ js::EnsureParallelCompilationInitialized(JSRuntime *rt)
+ {
+     if (rt->workerThreadState)
+         return true;
+ 
+     rt->workerThreadState = rt->new_<WorkerThreadState>();
+     if (!rt->workerThreadState)
+@@ -56,16 +59,20 @@ js::StartOffThreadAsmJSCompile(JSContext
+ 
+     // Don't append this task if another failed.
+     if (state.asmJSWorkerFailed())
+         return false;
+ 
+     if (!state.asmJSWorklist.append(asmData))
+         return false;
+ 
++    // FIXME: is %ld the right format for int64_t?
++    fprintf(dumpFile, "[asmjsWorklist] %lld %zu APPEND\n",
++            (long long)PRMJ_Now(),
++            state.asmJSWorklist.length());
+     state.notify(WorkerThreadState::WORKER);
+     return true;
+ }
+ 
+ bool
+ js::StartOffThreadIonCompile(JSContext *cx, ion::IonBuilder *builder)
+ {
+     JSRuntime *rt = cx->runtime();
+@@ -75,16 +82,21 @@ js::StartOffThreadIonCompile(JSContext *
+     WorkerThreadState &state = *cx->runtime()->workerThreadState;
+     JS_ASSERT(state.numThreads);
+ 
+     AutoLockWorkerThreadState lock(rt);
+ 
+     if (!state.ionWorklist.append(builder))
+         return false;
+ 
++    // FIXME: is %ld the right format for int64_t?
++    fprintf(dumpFile, "[ionWorklist] %lld %zu APPEND\n",
++            (long long)PRMJ_Now(),
++            state.ionWorklist.length());
++
+     state.notify(WorkerThreadState::WORKER);
+     return true;
+ }
+ 
+ /*
+  * Move an IonBuilder for which compilation has either finished, failed, or
+  * been cancelled into the Ion compartment's finished compilations list.
+  * All off thread compilations which are started must eventually be finished.
+@@ -123,16 +135,20 @@ js::CancelOffThreadIonCompile(JSCompartm
+ 
+     /* Cancel any pending entries for which processing hasn't started. */
+     for (size_t i = 0; i < state.ionWorklist.length(); i++) {
+         ion::IonBuilder *builder = state.ionWorklist[i];
+         if (CompiledScriptMatches(compartment, script, builder->script())) {
+             FinishOffThreadIonCompile(builder);
+             state.ionWorklist[i--] = state.ionWorklist.back();
+             state.ionWorklist.popBack();
++
++            fprintf(dumpFile, "[ionWorklist] %lld %zu CANCEL\n",
++                    (long long)PRMJ_Now(),
++                    state.ionWorklist.length());
+         }
+     }
+ 
+     /* Wait for in progress entries to finish up. */
+     for (size_t i = 0; i < state.numThreads; i++) {
+         const WorkerThread &helper = state.threads[i];
+         while (helper.ionBuilder &&
+                CompiledScriptMatches(compartment, script, helper.ionBuilder->script()))
+@@ -194,16 +210,18 @@ WorkerThreadState::init(JSRuntime *rt)
+                 threads[j].destroy();
+             js_delete(threads);
+             threads = NULL;
+             numThreads = 0;
+             return false;
+         }
+     }
+ 
++    dumpFile = fopen("/tmp/profileJsworkers.dump", "a+");
++
+     resetAsmJSFailureState();
+     return true;
+ }
+ 
+ WorkerThreadState::~WorkerThreadState()
+ {
+     /*
+      * Join created threads first, which needs locks and condition variables
+@@ -339,16 +357,24 @@ WorkerThread::handleAsmJSWorkload(Worker
+ {
+     JS_ASSERT(state.isLocked());
+     JS_ASSERT(state.canStartAsmJSCompile());
+     JS_ASSERT(!ionBuilder && !asmData);
+ 
+     asmData = state.asmJSWorklist.popCopy();
+     bool success = false;
+ 
++    fprintf(dumpFile, "[asmjsWorklist] %lld %zu POP\n",
++            (long long)PRMJ_Now(),
++            state.asmJSWorklist.length());
++
++    fprintf(dumpFile, "[asmjsWorkerThread] %lld %zu BEGIN\n",
++            (long long)PRMJ_Now(),
++            state.asmJSWorklist.length());
++
+     state.unlock();
+     do {
+         ion::IonContext icx(asmData->mir->compartment, &asmData->mir->temp());
+ 
+         int64_t before = PRMJ_Now();
+ 
+         if (!OptimizeMIR(asmData->mir))
+             break;
+@@ -371,42 +397,58 @@ WorkerThread::handleAsmJSWorkload(Worker
+         state.notify(WorkerThreadState::MAIN);
+         return;
+     }
+ 
+     // On success, move work to the finished list.
+     state.asmJSFinishedList.append(asmData);
+     asmData = NULL;
+ 
++    fprintf(dumpFile, "[asmjsWorkerThread] %lld %zu FINISH\n",
++            (long long)PRMJ_Now(),
++            state.asmJSWorklist.length());
++
+     // Notify the main thread in case it's blocked waiting for a LifoAlloc.
+     state.notify(WorkerThreadState::MAIN);
+ }
+ 
+ void
+ WorkerThread::handleIonWorkload(WorkerThreadState &state)
+ {
+     JS_ASSERT(state.isLocked());
+     JS_ASSERT(state.canStartIonCompile());
+     JS_ASSERT(!ionBuilder && !asmData);
+ 
+     ionBuilder = state.ionWorklist.popCopy();
+ 
++    fprintf(dumpFile, "[ionWorklist] %lld %zu POP\n",
++            (long long)PRMJ_Now(),
++            state.ionWorklist.length());
++
+     DebugOnly<ion::ExecutionMode> executionMode = ionBuilder->info().executionMode();
+     JS_ASSERT(GetIonScript(ionBuilder->script(), executionMode) == ION_COMPILING_SCRIPT);
+ 
++    fprintf(dumpFile, "[ionWorkerThread] %lld %zu BEGIN\n",
++            (long long)PRMJ_Now(),
++            state.ionWorklist.length());
++
+     state.unlock();
+     {
+         ion::IonContext ictx(ionBuilder->script()->compartment(), &ionBuilder->temp());
+         ionBuilder->setBackgroundCodegen(ion::CompileBackEnd(ionBuilder));
+     }
+     state.lock();
+ 
+     FinishOffThreadIonCompile(ionBuilder);
+     ionBuilder = NULL;
+ 
++    fprintf(dumpFile, "[ionWorkerThread] %lld %zu FINISH\n",
++            (long long)PRMJ_Now(),
++            state.ionWorklist.length());
++
+     // Notify the main thread in case it is waiting for the compilation to finish.
+     state.notify(WorkerThreadState::MAIN);
+ 
+     // Ping the main thread so that the compiled code can be incorporated
+     // at the next operation callback.
+     runtime->triggerOperationCallback();
+ }
+ 
+diff --git a/modules/libpref/src/init/all.js b/modules/libpref/src/init/all.js
+--- a/modules/libpref/src/init/all.js
++++ b/modules/libpref/src/init/all.js
+@@ -442,17 +442,17 @@ pref("toolkit.identity.enabled", false);
+ pref("toolkit.identity.debug", false);
+ 
+ // Enable deprecation warnings.
+ pref("devtools.errorconsole.deprecation_warnings", true);
+ 
+ // Disable remote debugging protocol logging
+ pref("devtools.debugger.log", false);
+ // Disable remote debugging connections
+-pref("devtools.debugger.remote-enabled", false);
++pref("devtools.debugger.remote-enabled", true);
+ pref("devtools.debugger.remote-port", 6000);
+ // Force debugger server binding on the loopback interface
+ pref("devtools.debugger.force-local", true);
+ 
+ // view source
+ pref("view_source.syntax_highlight", true);
+ pref("view_source.wrap_long_lines", false);
+ pref("view_source.editor.external", false);
