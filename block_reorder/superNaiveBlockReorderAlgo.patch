@@ -1,0 +1,156 @@
+# HG changeset patch
+# Parent 0842373662257147b9ded9718618ff83f970e299
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp
++++ b/js/src/ion/Ion.cpp
+@@ -1146,16 +1146,26 @@ OptimizeMIR(MIRGenerator *mir)
+     if (!EliminateDeadCode(mir, graph))
+         return false;
+     IonSpewPass("DCE");
+     AssertExtendedGraphCoherency(graph);
+ 
+     if (mir->shouldCancel("DCE"))
+         return false;
+ 
++    if (js_IonOptions.baselineBranchProfiling && !mir->compilingAsmJS()) {
++        if (!ReorderBlocksUsingSuperNaiveAlgorithm(graph))
++            return false;
++        IonSpewPass("ReorderBlocksWithSuperNaiveAlgo");
++        AssertGraphCoherency(graph);
++
++        if (mir->shouldCancel("ReorderBlocksWithSuperNaiveAlgo"))
++            return false;
++    }
++
+     // Passes after this point must not move instructions; these analyses
+     // depend on knowing the final order in which instructions will execute.
+ 
+     if (js_IonOptions.edgeCaseAnalysis) {
+         EdgeCaseAnalysis edgeCaseAnalysis(mir, graph);
+         if (!edgeCaseAnalysis.analyzeLate())
+             return false;
+         IonSpewPass("Edge Case Analysis (Late)");
+diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
+--- a/js/src/ion/Ion.h
++++ b/js/src/ion/Ion.h
+@@ -214,17 +214,17 @@ struct IonOptions
+         maxInlineDepth(3),
+         smallFunctionMaxInlineDepth(10),
+         smallFunctionMaxBytecodeLength(100),
+         polyInlineMax(4),
+         inlineMaxTotalBytecodeLength(1000),
+         inlineUseCountRatio(128),
+         eagerCompilation(false),
+         usesBeforeCompilePar(1),
+-        baselineBranchProfiling(false)
++        baselineBranchProfiling(true)
+     {
+     }
+ 
+     uint32_t usesBeforeInlining() {
+         return usesBeforeCompile * usesBeforeInliningFactor;
+     }
+ };
+ 
+diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
+--- a/js/src/ion/IonAnalysis.cpp
++++ b/js/src/ion/IonAnalysis.cpp
+@@ -9,16 +9,18 @@
+ #include "jsanalyze.h"
+ 
+ #include "ion/Ion.h"
+ #include "ion/IonBuilder.h"
+ #include "ion/LIR.h"
+ #include "ion/MIRGraph.h"
+ #include "ion/BaselineJIT.h"
+ 
++#include "ion/IonSpewer.h"
++
+ using namespace js;
+ using namespace js::ion;
+ 
+ // A critical edge is an edge which is neither its successor's only predecessor
+ // nor its predecessor's only successor. Critical edges must be split to
+ // prevent copy-insertion and code motion from affecting other edges.
+ bool
+ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -93,16 +95,54 @@ ion::AttachBranchProfiles(MIRGraph &grap
+                 block->setBlockUseCount(entry.counter);
+                 break;
+             }
+         }
+     }
+     return true;
+ }
+ 
++bool
++ion::ReorderBlocksUsingSuperNaiveAlgorithm(MIRGraph &graph)
++{
++    js::Vector<MBasicBlock*, 0, SystemAllocPolicy> blocksToBeMoved;
++#ifdef DEBUG
++    for (MBasicBlockIterator iter(graph.begin()); iter != graph.end(); iter++) {
++        IonSpew(IonSpew_BranchProfiles, "superNaive Before, MBB: block %d counter %d",
++                iter->id(), iter->getBlockUseCount());
++    }
++#endif
++    for (MBasicBlockIterator iter(graph.begin()); iter != graph.end(); iter++) {
++        if (iter->isBlockUseCountAvailable() && iter->getBlockUseCount() == 0) {
++            MBasicBlock *block = *iter;
++            // Bypass JS_ASSERT(block->id()) failure
++            if (block->id())
++                blocksToBeMoved.append(block);
++        }
++    }
++    while (blocksToBeMoved.length()) {
++        graph.moveBlockToEnd(blocksToBeMoved.popCopy());
++    }
++#ifdef DEBUG
++    for (MBasicBlockIterator iter(graph.begin()); iter != graph.end(); iter++) {
++        IonSpew(IonSpew_BranchProfiles, "superNaive After, MBB: block %d counter %d",
++                iter->id(), iter->getBlockUseCount());
++    }
++    for (PostorderIterator iter(graph.poBegin()); iter != graph.poEnd(); iter++) {
++        IonSpew(IonSpew_BranchProfiles, "superNaive After, RPO: block %d counter %d",
++                iter->id(), iter->getBlockUseCount());
++    }
++    for (ReversePostorderIterator iter(graph.rpoBegin()); iter != graph.rpoEnd(); iter++) {
++        IonSpew(IonSpew_BranchProfiles, "superNaive After, RPO: block %d counter %d",
++                iter->id(), iter->getBlockUseCount());
++    }
++#endif
++    return true;
++}
++
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
+diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
+--- a/js/src/ion/IonAnalysis.h
++++ b/js/src/ion/IonAnalysis.h
+@@ -20,16 +20,19 @@ class MIRGraph;
+ 
+ bool
+ SplitCriticalEdges(MIRGraph &graph);
+ 
+ bool
+ AttachBranchProfiles(MIRGraph &graph);
+ 
+ bool
++ReorderBlocksUsingSuperNaiveAlgorithm(MIRGraph &graph);
++
++bool
+ isAsmJSCompilation(MIRGraph &graph);
+ 
+ enum Observability {
+     ConservativeObservability,
+     AggressiveObservability
+ };
+ 
+ bool
