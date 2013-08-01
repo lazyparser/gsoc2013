@@ -1,0 +1,195 @@
+# HG changeset patch
+# Parent 35c691c04400fd385cedd3d02133eabafe6c0f27
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp
++++ b/js/src/ion/Ion.cpp
+@@ -973,34 +973,43 @@ OptimizeMIR(MIRGenerator *mir)
+     if (!SplitCriticalEdges(graph))
+         return false;
+     IonSpewPass("Split Critical Edges");
+     AssertGraphCoherency(graph);
+ 
+     if (mir->shouldCancel("Split Critical Edges"))
+         return false;
+ 
+-    if (!RenumberBlocks(graph))
+-        return false;
+-    IonSpewPass("Renumber Blocks");
+-    AssertGraphCoherency(graph);
+-
+-    if (mir->shouldCancel("Renumber Blocks"))
+-        return false;
+-
+     if (js_IonOptions.baselineBranchProfiling && !mir->compilingAsmJS()) {
+         if (!AttachBranchProfiles(graph))
+             return false;
+         IonSpewPass("Attach Branch Profiles");
+         AssertGraphCoherency(graph);
+ 
+         if (mir->shouldCancel("Attach Branch Profiles"))
+             return false;
++
++        if (!ReorderBlocksUsingBlockProfiles(graph))
++            return false;
++
++        IonSpewPass("Reorder Blocks");
++        AssertGraphCoherency(graph);
++
++        if (mir->shouldCancel("Reorder Blocks"))
++            return false;
+     }
+ 
++    if (!RenumberBlocks(graph))
++        return false;
++    IonSpewPass("Renumber Blocks");
++    AssertGraphCoherency(graph);
++
++    if (mir->shouldCancel("Renumber Blocks"))
++        return false;
++
+     if (!BuildDominatorTree(graph))
+         return false;
+     // No spew: graph not changed.
+ 
+     if (mir->shouldCancel("Dominator Tree"))
+         return false;
+ 
+     // This must occur before any code elimination.
+diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
+--- a/js/src/ion/IonAnalysis.cpp
++++ b/js/src/ion/IonAnalysis.cpp
+@@ -93,16 +93,84 @@ ion::AttachBranchProfiles(MIRGraph &grap
+                 block->setBlockUseCount(entry.counter);
+                 break;
+             }
+         }
+     }
+     return true;
+ }
+ 
++static void
++ion::SortByBlockUseCount(InlineList<MBasicBlock> &pending, MBasicBlockIterator from)
++{
++    MBasicBlockIterator end = pending.end();
++    for (MBasicBlockIterator curr(from); curr != end; curr++) {
++        MBasicBlock *block = *curr;
++        if (block->isBlockUseCountAvailable() && block->getBlockUseCount() == 0) {
++            pending.remove(block);
++            pending.pushBack(block);
++        }
++    }
++
++}
++
++bool
++ion::ReorderBlocksUsingBlockProfiles(MIRGraph &graph)
++{
++    mozilla::DebugOnly<size_t> numBlocks = graph.numBlocks();
++
++    InlineList<MBasicBlock> pending;
++    MBasicBlock *entry = graph.entryBlock();
++    MBasicBlock *osr = graph.osrBlock();
++    graph.clearBlockList();
++
++    pending.pushBack(entry);
++    entry->mark();
++
++    while (!pending.empty()) {
++        MBasicBlock *block = pending.peekBack();
++        bool needSort = false;
++
++        for (size_t i = 0; i < block-> numSuccessors(); i++) {
++            MBasicBlock *succ = block->getSuccessor(i);
++            if (succ->isMarked())
++                continue;
++            pending.pushBack(succ);
++            succ->mark();
++            if (succ->isBlockUseCountAvailable() && succ->getBlockUseCount() == 0)
++                needSort = true;
++        }
++
++        if (block != pending.peekBack()) {
++            if (needSort) {
++                MBasicBlockIterator start = pending.begin(block);
++                //start++;
++                SortByBlockUseCount(pending, start);
++            }
++            continue;
++        }
++
++        pending.popBack();
++        graph.addBlock(block);
++        graph.moveBlockToBegin(block);
++    }
++
++    if (osr) {
++        graph.addBlock(osr);
++        graph.moveBlockToBegin(osr);
++        graph.moveBlockToBegin(entry);
++    }
++
++    graph.unmarkBlocks();
++
++    JS_ASSERT(graph.numBlocks() == numBlocks);
++
++    return true;
++}
++
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
+diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
+--- a/js/src/ion/IonAnalysis.h
++++ b/js/src/ion/IonAnalysis.h
+@@ -22,16 +22,19 @@ bool
+ SplitCriticalEdges(MIRGraph &graph);
+ 
+ bool
+ AttachBranchProfiles(MIRGraph &graph);
+ 
+ bool
+ isAsmJSCompilation(MIRGraph &graph);
+ 
++bool
++ReorderBlocksUsingBlockProfiles(MIRGraph &graph);
++
+ enum Observability {
+     ConservativeObservability,
+     AggressiveObservability
+ };
+ 
+ bool
+ EliminatePhis(MIRGenerator *mir, MIRGraph &graph, Observability observe);
+ 
+diff --git a/js/src/ion/MIRGraph.h b/js/src/ion/MIRGraph.h
+--- a/js/src/ion/MIRGraph.h
++++ b/js/src/ion/MIRGraph.h
+@@ -635,16 +635,21 @@ class MIRGraph
+     }
+     void removeBlocksAfter(MBasicBlock *block);
+     void removeBlock(MBasicBlock *block);
+     void moveBlockToEnd(MBasicBlock *block) {
+         JS_ASSERT(block->id());
+         blocks_.remove(block);
+         blocks_.pushBack(block);
+     }
++    void moveBlockToBegin(MBasicBlock *block) {
++        JS_ASSERT(block->id());
++        blocks_.remove(block);
++        blocks_.pushFront(block);
++    }
+     size_t numBlocks() const {
+         return numBlocks_;
+     }
+     uint32_t numBlockIds() const {
+         return blockIdGen_;
+     }
+     void allocDefinitionId(MDefinition *ins) {
+         // This intentionally starts above 0. The id 0 is in places used to
