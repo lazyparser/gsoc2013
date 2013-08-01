@@ -1,0 +1,29 @@
+# HG changeset patch
+# Parent 0842373662257147b9ded9718618ff83f970e299
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp
++++ b/js/src/ion/Ion.cpp
+@@ -2309,16 +2309,21 @@ ion::ForbidCompilation(JSContext *cx, JS
+ void
+ ion::ForbidCompilation(JSContext *cx, JSScript *script, ExecutionMode mode)
+ {
+     IonSpew(IonSpew_Abort, "Disabling Ion mode %d compilation of script %s:%d",
+             mode, script->filename(), script->lineno);
+ 
+     CancelOffThreadIonCompile(cx->compartment(), script);
+ 
++    if (js_IonOptions.baselineBranchProfiling) {
++        if (script->hasBaselineScript())
++            script->baselineScript()->toggleBlockCounters(false);
++    }
++
+     switch (mode) {
+       case SequentialExecution:
+         if (script->hasIonScript()) {
+             // It is only safe to modify script->ion if the script is not currently
+             // running, because IonFrameIterator needs to tell what ionScript to
+             // use (either the one on the JSScript, or the one hidden in the
+             // breadcrumbs Invalidation() leaves). Therefore, if invalidation
+             // fails, we cannot disable the script.
