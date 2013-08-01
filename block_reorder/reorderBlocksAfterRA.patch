@@ -1,0 +1,136 @@
+# HG changeset patch
+# Parent 0842373662257147b9ded9718618ff83f970e299
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
+--- a/js/src/ion/Ion.cpp
++++ b/js/src/ion/Ion.cpp
+@@ -1270,16 +1270,22 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+         return NULL;
+ 
+     if (mir->compilingAsmJS()) {
+         if (!codegen->generateAsmJS()) {
+             js_delete(codegen);
+             return NULL;
+         }
+     } else {
++        if (js_IonOptions.baselineBranchProfiling &&
++                !ReorderBlocksUsingNaiveAlgo(mir, lir))
++        {
++            js_delete(codegen);
++            return NULL;
++        }
+         if (!codegen->generate()) {
+             js_delete(codegen);
+             return NULL;
+         }
+     }
+ 
+     return codegen;
+ }
+diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
+--- a/js/src/ion/Ion.h
++++ b/js/src/ion/Ion.h
+@@ -214,17 +214,17 @@ struct IonOptions
+         maxInlineDepth(3),
+         smallFunctionMaxInlineDepth(10),
+         smallFunctionMaxBytecodeLength(100),
+         polyInlineMax(4),
+         inlineMaxTotalBytecodeLength(1000),
+         inlineUseCountRatio(128),
+         eagerCompilation(false),
+         usesBeforeCompilePar(1),
+-        baselineBranchProfiling(false)
++        baselineBranchProfiling(true)
+     {
+     }
+ 
+     uint32_t usesBeforeInlining() {
+         return usesBeforeCompile * usesBeforeInliningFactor;
+     }
+ };
+ 
+diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
+--- a/js/src/ion/IonAnalysis.cpp
++++ b/js/src/ion/IonAnalysis.cpp
+@@ -9,16 +9,18 @@
+ #include "jsanalyze.h"
+ 
+ #include "ion/Ion.h"
+ #include "ion/IonBuilder.h"
+ #include "ion/LIR.h"
+ #include "ion/MIRGraph.h"
+ #include "ion/BaselineJIT.h"
+ 
++#include "ion/IonSpewer.h"
++
+ using namespace js;
+ using namespace js::ion;
+ 
+ // A critical edge is an edge which is neither its successor's only predecessor
+ // nor its predecessor's only successor. Critical edges must be split to
+ // prevent copy-insertion and code motion from affecting other edges.
+ bool
+ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -93,16 +95,38 @@ ion::AttachBranchProfiles(MIRGraph &grap
+                 block->setBlockUseCount(entry.counter);
+                 break;
+             }
+         }
+     }
+     return true;
+ }
+ 
++bool
++ion::ReorderBlocksUsingNaiveAlgo(MIRGenerator *mir, LIRGraph *lir)
++{
++    js::Vector<LBlock *, 0, SystemAllocPolicy> blocks;
++    for (size_t i = 0; i < lir->numBlocks(); i++) {
++        LBlock *lblock = lir->getBlock(i);
++        MBasicBlock *mblock = lblock->mir();
++        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
++            IonSpew(IonSpew_BranchProfiles, "Remove LBlock %d (%p) from LIRGraph", i, lblock);
++            blocks.append(lblock);
++            lir->removeBlock(i);
++        }
++    }
++
++    for (size_t i = 0; i < blocks.length(); i++) {
++        LBlock *lblock = blocks.popCopy();
++        lir->addBlock(lblock);
++        IonSpew(IonSpew_BranchProfiles, "Adding LBlock %d (%p) from LIRGraph", i, lblock);
++    }
++    return true;
++}
++
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
+diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
+--- a/js/src/ion/IonAnalysis.h
++++ b/js/src/ion/IonAnalysis.h
+@@ -20,16 +20,19 @@ class MIRGraph;
+ 
+ bool
+ SplitCriticalEdges(MIRGraph &graph);
+ 
+ bool
+ AttachBranchProfiles(MIRGraph &graph);
+ 
+ bool
++ReorderBlocksUsingNaiveAlgo(MIRGenerator *mir, LIRGraph *lir);
++
++bool
+ isAsmJSCompilation(MIRGraph &graph);
+ 
+ enum Observability {
+     ConservativeObservability,
+     AggressiveObservability
+ };
+ 
+ bool
