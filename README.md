@@ -11,6 +11,8 @@ All comments are welcome!
 
 [Bug 877878 - Instrument Baseline generated code to collect branch profiles](https://bugzilla.mozilla.org/show_bug.cgi?id=877878)
 
+[Bug 901221 - IonMonkey: Reorder LIR blocks based on branch profiling data](https://bugzilla.mozilla.org/show_bug.cgi?id=901221)
+
 ### Reports
 
 [Benefit Analysis](https://github.com/lazyparser/gsoc2013/blob/master/benefit_analysis.md)
@@ -28,3 +30,5 @@ All comments are welcome!
 [Weekly Report: 5th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport05.md)
 
 [Weekly Report: 6th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport06.md)
+
+[Weekly Report: 7th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport07.md) TBD.
