@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent 0842373662257147b9ded9718618ff83f970e299
+# Parent 4e130f5d5729a163d6eb9660adee521c6b287aa9
 # User Wei Wu <lazyparser@gmail.com>
 
 diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 --- a/js/src/ion/Ion.cpp
 +++ b/js/src/ion/Ion.cpp
-@@ -1270,16 +1270,22 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1270,16 +1270,23 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -14,11 +14,12 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
              return NULL;
          }
      } else {
-+        if (js_IonOptions.baselineBranchProfiling &&
-+                !ReorderBlocksUsingNaiveAlgo(mir, lir))
-+        {
-+            js_delete(codegen);
-+            return NULL;
++        if (js_IonOptions.baselineBranchProfiling) {
++            if (!lir->reorderBlocks()) {
++                IonSpew(IonSpew_BranchProfiles, "lir->reorderBlocks() FAIL!!");
++                js_delete(codegen);
++                return NULL;
++            }
 +        }
          if (!codegen->generate()) {
              js_delete(codegen);
@@ -50,87 +51,95 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
      }
  };
  
-diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
---- a/js/src/ion/IonAnalysis.cpp
-+++ b/js/src/ion/IonAnalysis.cpp
-@@ -9,16 +9,18 @@
- #include "jsanalyze.h"
+diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
+--- a/js/src/ion/LIR.cpp
++++ b/js/src/ion/LIR.cpp
+@@ -45,16 +45,66 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+ }
  
- #include "ion/Ion.h"
- #include "ion/IonBuilder.h"
- #include "ion/LIR.h"
- #include "ion/MIRGraph.h"
- #include "ion/BaselineJIT.h"
- 
-+#include "ion/IonSpewer.h"
-+
- using namespace js;
- using namespace js::ion;
- 
- // A critical edge is an edge which is neither its successor's only predecessor
- // nor its predecessor's only successor. Critical edges must be split to
- // prevent copy-insertion and code motion from affecting other edges.
- bool
- ion::SplitCriticalEdges(MIRGraph &graph)
-@@ -93,16 +95,38 @@ ion::AttachBranchProfiles(MIRGraph &grap
-                 block->setBlockUseCount(entry.counter);
-                 break;
-             }
-         }
-     }
-     return true;
+ void
+ LIRGraph::removeBlock(size_t i)
+ {
+     blocks_.erase(blocks_.begin() + i);
  }
  
 +bool
-+ion::ReorderBlocksUsingNaiveAlgo(MIRGenerator *mir, LIRGraph *lir)
++LIRGraph::reorderBlocks()
 +{
-+    js::Vector<LBlock *, 0, SystemAllocPolicy> blocks;
-+    for (size_t i = 0; i < lir->numBlocks(); i++) {
-+        LBlock *lblock = lir->getBlock(i);
++    Vector<LBlock *, 12, SystemAllocPolicy> usedBlocks;
++    Vector<LBlock *, 4, SystemAllocPolicy> unusedBlocks;
++
++#ifdef DEBUG
++    for (size_t i = 0; i < numBlocks(); i++) {
++        IonSpew(IonSpew_BranchProfiles, "Dump LBlocks Before Reordering: id(%d) addr(%p)", i, getBlock(i));
++    }
++#endif
++
++    // Do not pop the first block (entry block).
++    while (blocks_.length() > 1) {
++        LBlock *lblock = blocks_.popCopy();
++        JS_ASSERT(lblock);
 +        MBasicBlock *mblock = lblock->mir();
++        JS_ASSERT(mblock);
 +        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
-+            IonSpew(IonSpew_BranchProfiles, "Remove LBlock %d (%p) from LIRGraph", i, lblock);
-+            blocks.append(lblock);
-+            lir->removeBlock(i);
++            IonSpew(IonSpew_BranchProfiles, "Move LBlock (%p) to end", lblock);
++            if (!unusedBlocks.append(lblock))
++                return false;
++        } else {
++            IonSpew(IonSpew_BranchProfiles, "Keep LBlock (%p) in place", lblock);
++            if (!usedBlocks.append(lblock))
++                return false;
 +        }
 +    }
 +
-+    for (size_t i = 0; i < blocks.length(); i++) {
-+        LBlock *lblock = blocks.popCopy();
-+        lir->addBlock(lblock);
-+        IonSpew(IonSpew_BranchProfiles, "Adding LBlock %d (%p) from LIRGraph", i, lblock);
++    while (usedBlocks.length()) {
++        if (!blocks_.append(usedBlocks.popCopy()))
++            return false;
 +    }
++    //if (blocks_.appendAll(usedBlocks))
++
++    while (unusedBlocks.length()) {
++        if (!blocks_.append(unusedBlocks.popCopy()))
++            return false;
++    }
++
++#ifdef DEBUG
++    for (size_t i = 0; i < numBlocks(); i++) {
++        IonSpew(IonSpew_BranchProfiles,
++                "Dump LBlocks After Reordering: id(%d) addr(%p) mblock id(%d)",
++                i, getBlock(i), getBlock(i)->mir()->id());
++    }
++#endif
++
 +    return true;
 +}
+ Label *
+ LBlock::label()
+ {
+     return begin()->toLabel()->label();
+ }
+ 
+ uint32_t
+ LBlock::firstId()
+diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
+--- a/js/src/ion/LIR.h
++++ b/js/src/ion/LIR.h
+@@ -1420,16 +1420,18 @@ class LIRGraph
+     }
+     size_t numSafepoints() const {
+         return safepoints_.length();
+     }
+     LInstruction *getSafepoint(size_t i) const {
+         return safepoints_[i];
+     }
+     void removeBlock(size_t i);
 +
- // Operands to a resume point which are dead at the point of the resume can be
- // replaced with undefined values. This analysis supports limited detection of
- // dead operands, pruning those which are defined in the resume point's basic
- // block and have no uses outside the block or at points later than the resume
- // point.
- //
- // This is intended to ensure that extra resume points within a basic block
- // will not artificially extend the lifetimes of any SSA values. This could
-diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
---- a/js/src/ion/IonAnalysis.h
-+++ b/js/src/ion/IonAnalysis.h
-@@ -20,16 +20,19 @@ class MIRGraph;
- 
- bool
- SplitCriticalEdges(MIRGraph &graph);
- 
- bool
- AttachBranchProfiles(MIRGraph &graph);
- 
- bool
-+ReorderBlocksUsingNaiveAlgo(MIRGenerator *mir, LIRGraph *lir);
-+
-+bool
- isAsmJSCompilation(MIRGraph &graph);
- 
- enum Observability {
-     ConservativeObservability,
-     AggressiveObservability
++    bool reorderBlocks();
  };
  
- bool
+ LAllocation::LAllocation(const AnyRegister &reg)
+ {
+     if (reg.isFloat())
+         *this = LFloatReg(reg.fpu());
+     else
+         *this = LGeneralReg(reg.gpr());
