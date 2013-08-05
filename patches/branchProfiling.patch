@@ -527,6 +527,26 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
          return AbortReason_Alloc;
  
      ScopedJSDeletePtr<LifoAlloc> autoDelete(alloc);
+@@ -2306,16 +2321,19 @@ ion::ForbidCompilation(JSContext *cx, JS
+             // running, because IonFrameIterator needs to tell what ionScript to
+             // use (either the one on the JSScript, or the one hidden in the
+             // breadcrumbs Invalidation() leaves). Therefore, if invalidation
+             // fails, we cannot disable the script.
+             if (!Invalidate(cx, script, mode, false))
+                 return;
+         }
+ 
++        if (js_IonOptions.baselineBranchProfiling && script->hasBaselineScript())
++                script->baselineScript()->toggleBlockCounters(false);
++
+         script->setIonScript(ION_DISABLED_SCRIPT);
+         return;
+ 
+       case ParallelExecution:
+         if (script->hasParallelIonScript()) {
+             if (!Invalidate(cx, script, mode, false))
+                 return;
+         }
 diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 --- a/js/src/ion/Ion.h
 +++ b/js/src/ion/Ion.h
