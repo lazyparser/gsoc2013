@@ -3,7 +3,7 @@ Weekly Report (2013-7-29 - 2013-8-4)
 
 What I have done:
 -----------------
-MidTerm evalution.
+MidTerm evaluation.
 
 
 Deliverables:
