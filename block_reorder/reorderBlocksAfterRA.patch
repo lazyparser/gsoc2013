@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent 4e130f5d5729a163d6eb9660adee521c6b287aa9
+# Parent aa8de5cbf6efd6ac29409f832b92ff83a981f858
 # User Wei Wu <lazyparser@gmail.com>
 
 diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 --- a/js/src/ion/Ion.cpp
 +++ b/js/src/ion/Ion.cpp
-@@ -1270,16 +1270,23 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1270,16 +1270,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -15,12 +15,13 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
          }
      } else {
 +        if (js_IonOptions.baselineBranchProfiling) {
-+            if (!lir->reorderBlocks()) {
++            if (!lir->moveUnlikelyBlocks()) {
 +                IonSpew(IonSpew_BranchProfiles, "lir->reorderBlocks() FAIL!!");
 +                js_delete(codegen);
 +                return NULL;
 +            }
 +        }
++
          if (!codegen->generate()) {
              js_delete(codegen);
              return NULL;
@@ -32,7 +33,7 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 --- a/js/src/ion/Ion.h
 +++ b/js/src/ion/Ion.h
-@@ -214,17 +214,17 @@ struct IonOptions
+@@ -214,17 +214,19 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
@@ -42,6 +43,8 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
          eagerCompilation(false),
          usesBeforeCompilePar(1),
 -        baselineBranchProfiling(false)
++        // this moditification is for test only.
++        // it will not be included in the final patch.
 +        baselineBranchProfiling(true)
      {
      }
@@ -54,7 +57,26 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 --- a/js/src/ion/LIR.cpp
 +++ b/js/src/ion/LIR.cpp
-@@ -45,16 +45,66 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+@@ -8,16 +8,18 @@
+ 
+ #include "jsprf.h"
+ 
+ #include "ion/IonSpewer.h"
+ #include "ion/MIR.h"
+ #include "ion/MIRGraph.h"
+ #include "ion/shared/CodeGenerator-shared.h"
+ 
++#include "mozilla/DebugOnly.h"
++
+ using namespace js;
+ using namespace js::ion;
+ 
+ LIRGraph::LIRGraph(MIRGraph *mir)
+   : numVirtualRegisters_(0),
+     numInstructions_(1), // First id is 1.
+     localSlotCount_(0),
+     argumentSlotCount_(0),
+@@ -45,16 +47,66 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -64,10 +86,10 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
  }
  
 +bool
-+LIRGraph::reorderBlocks()
++LIRGraph::moveUnlikelyBlocks()
 +{
-+    Vector<LBlock *, 12, SystemAllocPolicy> usedBlocks;
-+    Vector<LBlock *, 4, SystemAllocPolicy> unusedBlocks;
++    Vector<LBlock *, 12, SystemAllocPolicy> likelyBlocks;
++    Vector<LBlock *, 4, SystemAllocPolicy> unlikelyBlocks;
 +
 +#ifdef DEBUG
 +    for (size_t i = 0; i < numBlocks(); i++) {
@@ -75,33 +97,33 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 +    }
 +#endif
 +
-+    // Do not pop the first block (entry block).
-+    while (blocks_.length() > 1) {
-+        LBlock *lblock = blocks_.popCopy();
++    // The entry block must remain in the first place.
++    likelyBlocks.append(blocks_[0]);
++    for (size_t i = 1; i < blocks_.length(); i++) {
++        LBlock *lblock = blocks_[i];
 +        JS_ASSERT(lblock);
 +        MBasicBlock *mblock = lblock->mir();
 +        JS_ASSERT(mblock);
++
++        // TODO: Extract this condition and place it in a separated function
++        // which would be call something like "unlikelyBlockHeurisitic".
 +        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
 +            IonSpew(IonSpew_BranchProfiles, "Move LBlock (%p) to end", lblock);
-+            if (!unusedBlocks.append(lblock))
++            if (!unlikelyBlocks.append(lblock))
 +                return false;
 +        } else {
 +            IonSpew(IonSpew_BranchProfiles, "Keep LBlock (%p) in place", lblock);
-+            if (!usedBlocks.append(lblock))
++            if (!likelyBlocks.append(lblock))
 +                return false;
 +        }
 +    }
 +
-+    while (usedBlocks.length()) {
-+        if (!blocks_.append(usedBlocks.popCopy()))
-+            return false;
-+    }
-+    //if (blocks_.appendAll(usedBlocks))
-+
-+    while (unusedBlocks.length()) {
-+        if (!blocks_.append(unusedBlocks.popCopy()))
-+            return false;
-+    }
++    blocks_.clear();
++    mozilla::DebugOnly<bool> ok;
++    ok = blocks_.appendAll(likelyBlocks);
++    JS_ASSERT(ok);
++    ok = blocks_.appendAll(unlikelyBlocks);
++    JS_ASSERT(ok);
 +
 +#ifdef DEBUG
 +    for (size_t i = 0; i < numBlocks(); i++) {
@@ -134,7 +156,7 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      }
      void removeBlock(size_t i);
 +
-+    bool reorderBlocks();
++    bool moveUnlikelyBlocks();
  };
  
  LAllocation::LAllocation(const AnyRegister &reg)
