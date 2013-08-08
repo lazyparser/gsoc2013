@@ -13,9 +13,9 @@ However the profiling result was not stable, and more accurate assessments are r
 Deliverables:
 -------------
 
-[blockCounterWithoutConditions.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/blockCounterWithoutConditions.patch)
+[blockCounterWithoutConditions.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/obsolete/blockCounterWithoutConditions.patch)
 
-[blockCounterTesting.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/blockCounterTesting.patch)
+[blockCounterTesting.patch](https://github.com/lazyparser/gsoc2013/blob/master/patches/obsolete/blockCounterTesting.patch)
 
 [Block Counter Profiles](https://github.com/lazyparser/gsoc2013/tree/master/block_counter_dump)
 
