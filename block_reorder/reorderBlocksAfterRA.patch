@@ -167,7 +167,7 @@ diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
 diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 --- a/js/src/ion/LIR.cpp
 +++ b/js/src/ion/LIR.cpp
-@@ -45,16 +45,51 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+@@ -45,16 +45,70 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -196,19 +196,38 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 +    JS_ASSERT(num == numBlocks());
 +
 +    renumberMBlocks();
++
++    dumpLastInstructions();
 +}
 +
 +bool
 +LIRGraph::renumberMBlocks()
 +{
-+    IonSpew(IonSpew_BranchProfiles, "LIRGraph::renumberMBlocks()");
++    IonSpew(IonSpew_BranchProfiles, "Entering LIRGraph::renumberMBlocks()");
 +    for (size_t i = 0; i < numBlocks(); i++) {
-+        IonSpew(IonSpew_BranchProfiles, "LBlock.MBlock.id: %d -> %d",
-+                getBlock(i)->mir()->id(), i);
-+        getBlock(i)->mir()->setId(i);
++        MBasicBlock *block = getBlock(i)->mir();
++        JS_ASSERT(block);
++        IonSpew(IonSpew_BranchProfiles, "LBlock.MBlock.id: %d -> %d", block->id(), i);
++        block->setId(i);
 +    }
 +
 +    return true;
++}
++
++void
++LIRGraph::dumpLastInstructions()
++{
++#ifdef DEBUG
++    IonSpew(IonSpew_BranchProfiles, "Entering LIRGraph::dumpLastInstructions()");
++    for (size_t i = 0; i < numBlocks(); i++) {
++        LBlock *block = getBlock(i);
++        JS_ASSERT(block);
++        LInstructionReverseIterator last = block->rbegin();
++        JS_ASSERT(last != block->rend());
++        IonSpew(IonSpew_BranchProfiles, "Last Opcode of LBlock %d: %s",
++                i, (*last)->opName());
++    }
++#endif
 +}
 +
  Label *
@@ -240,7 +259,7 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1420,16 +1421,20 @@ class LIRGraph
+@@ -1420,16 +1421,22 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -253,6 +272,8 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
 +    void replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
 +
 +    bool renumberMBlocks();
++
++    void dumpLastInstructions();
  };
  
  LAllocation::LAllocation(const AnyRegister &reg)
