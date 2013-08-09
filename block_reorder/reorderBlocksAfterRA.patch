@@ -79,7 +79,7 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 --- a/js/src/ion/IonAnalysis.cpp
 +++ b/js/src/ion/IonAnalysis.cpp
-@@ -93,16 +93,53 @@ ion::AttachBranchProfiles(MIRGraph &grap
+@@ -93,16 +93,51 @@ ion::AttachBranchProfiles(MIRGraph &grap
                  block->setBlockUseCount(entry.counter);
                  break;
              }
@@ -96,7 +96,8 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +
 +    // The entry block must remain in the first place.
 +    JS_ASSERT(lir->numBlocks());
-+    JS_ASSERT(likelyBlocks.append(lir->getBlock(0)));
++    if (!likelyBlocks.append(lir->getBlock(0)))
++        return false;
 +
 +    for (size_t i = 1; i < lir->numBlocks(); i++) {
 +        LBlock *lblock = lir->getBlock(i);
@@ -107,20 +108,17 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +        // TODO: Extract this condition and place it in a separated function
 +        // which would be call something like "unlikelyBlockHeurisitic".
 +        //
-+        // Currently use naive heuristic instead.
++        // Currently use this naive heuristic instead.
 +        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
-+            JS_ASSERT(unlikelyBlocks.append(lblock));
++            if (!unlikelyBlocks.append(lblock))
++                return false;
 +        } else {
-+            JS_ASSERT(likelyBlocks.append(lblock));
++            if (!likelyBlocks.append(lblock))
++                return false;
 +        }
 +    }
 +
-+    bool success = lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
-+    JS_ASSERT(success);
-+
-+    // Question: should we call clear() for Vector explicitly?
-+    likelyBlocks.clear();
-+    unlikelyBlocks.clear();
++    lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
 +
 +    return true;
 +}
@@ -159,7 +157,7 @@ diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
 diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 --- a/js/src/ion/LIR.cpp
 +++ b/js/src/ion/LIR.cpp
-@@ -45,16 +45,33 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+@@ -45,16 +45,51 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -168,19 +166,37 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
      blocks_.erase(blocks_.begin() + i);
  }
  
-+bool
++void
 +LIRGraph::replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks)
 +{
 +    // TODO: replace with mozilla::DebugOnly<size_t> num = numBlocks();
-+    size_t num = numBlocks();
++    // size_t num = numBlocks();
++    mozilla::DebugOnly<size_t> num = numBlocks();
 +    JS_ASSERT(num == likelyBlocks.length() + unlikelyBlocks.length());
 +    JS_ASSERT(getBlock(0) == likelyBlocks[0]);
 +
 +    blocks_.clear();
-+    JS_ASSERT(blocks_.appendAll(likelyBlocks));
-+    JS_ASSERT(blocks_.appendAll(unlikelyBlocks));
++
++    mozilla::DebugOnly<bool> success;
++    success = blocks_.appendAll(likelyBlocks);
++    JS_ASSERT(success);
++    success = blocks_.appendAll(unlikelyBlocks);
++    JS_ASSERT(success);
 +
 +    JS_ASSERT(num == numBlocks());
++
++    renumberMBlocks();
++}
++
++bool
++LIRGraph::renumberMBlocks()
++{
++    IonSpew(IonSpew_BranchProfiles, "LIRGraph::renumberMBlocks()");
++    for (size_t i = 0; i < numBlocks(); i++) {
++        IonSpew(IonSpew_BranchProfiles, "LBlock.MBlock.id: %d -> %d",
++                getBlock(i)->mir()->id(), i);
++        getBlock(i)->mir()->setId(i);
++    }
 +
 +    return true;
 +}
@@ -214,7 +230,7 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1420,16 +1421,18 @@ class LIRGraph
+@@ -1420,16 +1421,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -224,7 +240,9 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      }
      void removeBlock(size_t i);
 +
-+    bool replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
++    void replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
++
++    bool renumberMBlocks();
  };
  
  LAllocation::LAllocation(const AnyRegister &reg)
