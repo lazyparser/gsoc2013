@@ -32,7 +32,7 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 --- a/js/src/ion/Ion.h
 +++ b/js/src/ion/Ion.h
-@@ -179,16 +179,21 @@ struct IonOptions
+@@ -179,21 +179,31 @@ struct IonOptions
      // Default: 1
      uint32_t usesBeforeCompilePar;
  
@@ -51,10 +51,20 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
          usesBeforeCompile = 0;
          baselineUsesBeforeCompile = 0;
  
++        // Disable branch profiling and related optimizitions.
++        // This is for testing only.
++        baselineBranchProfiling = false;
++        moveUnlikelyBlocks = false;
++
          parallelCompilation = false;
      }
  
-@@ -214,17 +219,20 @@ struct IonOptions
+     IonOptions()
+       : gvn(true),
+         gvnIsOptimistic(true),
+         licm(true),
+         osr(true),
+@@ -214,17 +224,20 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
