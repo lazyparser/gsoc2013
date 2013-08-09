@@ -5,7 +5,7 @@
 diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 --- a/js/src/ion/Ion.cpp
 +++ b/js/src/ion/Ion.cpp
-@@ -1270,16 +1270,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1270,16 +1270,23 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -14,9 +14,8 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
              return NULL;
          }
      } else {
-+        if (js_IonOptions.baselineBranchProfiling) {
-+            if (!lir->moveUnlikelyBlocks()) {
-+                IonSpew(IonSpew_BranchProfiles, "lir->reorderBlocks() FAIL!!");
++        if (js_IonOptions.baselineBranchProfiling && js_IonOptions.moveUnlikelyBlocks) {
++            if (!MoveUnlikelyBlocks(lir)) {
 +                js_delete(codegen);
 +                return NULL;
 +            }
@@ -33,7 +32,29 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
 diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
 --- a/js/src/ion/Ion.h
 +++ b/js/src/ion/Ion.h
-@@ -214,17 +214,19 @@ struct IonOptions
+@@ -179,16 +179,21 @@ struct IonOptions
+     // Default: 1
+     uint32_t usesBeforeCompilePar;
+ 
+     // Whether baseline scripts are instrumented.
+     //
+     // Default: false
+     bool baselineBranchProfiling;
+ 
++    // Toggles whether LIR Blocks are reordered based on branch profiles.
++    //
++    // Default: true iff baselineBranchProfiling is true.
++    bool moveUnlikelyBlocks;
++
+     void setEagerCompilation() {
+         eagerCompilation = true;
+         usesBeforeCompile = 0;
+         baselineUsesBeforeCompile = 0;
+ 
+         parallelCompilation = false;
+     }
+ 
+@@ -214,17 +219,20 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
@@ -43,9 +64,10 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
          eagerCompilation(false),
          usesBeforeCompilePar(1),
 -        baselineBranchProfiling(false)
-+        // this moditification is for test only.
++        // these modifications are for test only.
 +        // it will not be included in the final patch.
-+        baselineBranchProfiling(true)
++        baselineBranchProfiling(true),
++        moveUnlikelyBlocks(true)
      {
      }
  
@@ -54,29 +76,90 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
      }
  };
  
+diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
+--- a/js/src/ion/IonAnalysis.cpp
++++ b/js/src/ion/IonAnalysis.cpp
+@@ -93,16 +93,53 @@ ion::AttachBranchProfiles(MIRGraph &grap
+                 block->setBlockUseCount(entry.counter);
+                 break;
+             }
+         }
+     }
+     return true;
+ }
+ 
++bool
++ion::MoveUnlikelyBlocks(LIRGraph *lir)
++{
++    LBlockVector likelyBlocks;
++    LBlockVector unlikelyBlocks;
++
++    // The entry block must remain in the first place.
++    JS_ASSERT(lir->numBlocks());
++    JS_ASSERT(likelyBlocks.append(lir->getBlock(0)));
++
++    for (size_t i = 1; i < lir->numBlocks(); i++) {
++        LBlock *lblock = lir->getBlock(i);
++        JS_ASSERT(lblock);
++        MBasicBlock *mblock = lblock->mir();
++        JS_ASSERT(mblock);
++
++        // TODO: Extract this condition and place it in a separated function
++        // which would be call something like "unlikelyBlockHeurisitic".
++        //
++        // Currently use naive heuristic instead.
++        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
++            JS_ASSERT(unlikelyBlocks.append(lblock));
++        } else {
++            JS_ASSERT(likelyBlocks.append(lblock));
++        }
++    }
++
++    bool success = lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
++    JS_ASSERT(success);
++
++    // Question: should we call clear() for Vector explicitly?
++    likelyBlocks.clear();
++    unlikelyBlocks.clear();
++
++    return true;
++}
++
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
+diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
+--- a/js/src/ion/IonAnalysis.h
++++ b/js/src/ion/IonAnalysis.h
+@@ -20,16 +20,19 @@ class MIRGraph;
+ 
+ bool
+ SplitCriticalEdges(MIRGraph &graph);
+ 
+ bool
+ AttachBranchProfiles(MIRGraph &graph);
+ 
+ bool
++MoveUnlikelyBlocks(LIRGraph *lir);
++
++bool
+ isAsmJSCompilation(MIRGraph &graph);
+ 
+ enum Observability {
+     ConservativeObservability,
+     AggressiveObservability
+ };
+ 
+ bool
 diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 --- a/js/src/ion/LIR.cpp
 +++ b/js/src/ion/LIR.cpp
-@@ -8,16 +8,18 @@
- 
- #include "jsprf.h"
- 
- #include "ion/IonSpewer.h"
- #include "ion/MIR.h"
- #include "ion/MIRGraph.h"
- #include "ion/shared/CodeGenerator-shared.h"
- 
-+#include "mozilla/DebugOnly.h"
-+
- using namespace js;
- using namespace js::ion;
- 
- LIRGraph::LIRGraph(MIRGraph *mir)
-   : numVirtualRegisters_(0),
-     numInstructions_(1), // First id is 1.
-     localSlotCount_(0),
-     argumentSlotCount_(0),
-@@ -45,16 +47,66 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+@@ -45,16 +45,33 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -86,55 +169,22 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
  }
  
 +bool
-+LIRGraph::moveUnlikelyBlocks()
++LIRGraph::replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks)
 +{
-+    Vector<LBlock *, 12, SystemAllocPolicy> likelyBlocks;
-+    Vector<LBlock *, 4, SystemAllocPolicy> unlikelyBlocks;
-+
-+#ifdef DEBUG
-+    for (size_t i = 0; i < numBlocks(); i++) {
-+        IonSpew(IonSpew_BranchProfiles, "Dump LBlocks Before Reordering: id(%d) addr(%p)", i, getBlock(i));
-+    }
-+#endif
-+
-+    // The entry block must remain in the first place.
-+    likelyBlocks.append(blocks_[0]);
-+    for (size_t i = 1; i < blocks_.length(); i++) {
-+        LBlock *lblock = blocks_[i];
-+        JS_ASSERT(lblock);
-+        MBasicBlock *mblock = lblock->mir();
-+        JS_ASSERT(mblock);
-+
-+        // TODO: Extract this condition and place it in a separated function
-+        // which would be call something like "unlikelyBlockHeurisitic".
-+        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
-+            IonSpew(IonSpew_BranchProfiles, "Move LBlock (%p) to end", lblock);
-+            if (!unlikelyBlocks.append(lblock))
-+                return false;
-+        } else {
-+            IonSpew(IonSpew_BranchProfiles, "Keep LBlock (%p) in place", lblock);
-+            if (!likelyBlocks.append(lblock))
-+                return false;
-+        }
-+    }
++    // TODO: replace with mozilla::DebugOnly<size_t> num = numBlocks();
++    size_t num = numBlocks();
++    JS_ASSERT(num == likelyBlocks.length() + unlikelyBlocks.length());
++    JS_ASSERT(getBlock(0) == likelyBlocks[0]);
 +
 +    blocks_.clear();
-+    mozilla::DebugOnly<bool> ok;
-+    ok = blocks_.appendAll(likelyBlocks);
-+    JS_ASSERT(ok);
-+    ok = blocks_.appendAll(unlikelyBlocks);
-+    JS_ASSERT(ok);
++    JS_ASSERT(blocks_.appendAll(likelyBlocks));
++    JS_ASSERT(blocks_.appendAll(unlikelyBlocks));
 +
-+#ifdef DEBUG
-+    for (size_t i = 0; i < numBlocks(); i++) {
-+        IonSpew(IonSpew_BranchProfiles,
-+                "Dump LBlocks After Reordering: id(%d) addr(%p) mblock id(%d)",
-+                i, getBlock(i), getBlock(i)->mir()->id());
-+    }
-+#endif
++    JS_ASSERT(num == numBlocks());
 +
 +    return true;
 +}
++
  Label *
  LBlock::label()
  {
@@ -146,7 +196,25 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
 --- a/js/src/ion/LIR.h
 +++ b/js/src/ion/LIR.h
-@@ -1420,16 +1420,18 @@ class LIRGraph
+@@ -722,16 +722,17 @@ class LInstructionVisitor
+   public:
+ #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
+     LIR_OPCODE_LIST(VISIT_INS)
+ #undef VISIT_INS
+ };
+ 
+ typedef InlineList<LInstruction>::iterator LInstructionIterator;
+ typedef InlineList<LInstruction>::reverse_iterator LInstructionReverseIterator;
++typedef Vector<LBlock *, 4, SystemAllocPolicy> LBlockVector;
+ 
+ class LPhi;
+ class LMoveGroup;
+ class LBlock : public TempObject
+ {
+     MBasicBlock *block_;
+     Vector<LPhi *, 4, IonAllocPolicy> phis_;
+     InlineList<LInstruction> instructions_;
+@@ -1420,16 +1421,18 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -156,7 +224,7 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      }
      void removeBlock(size_t i);
 +
-+    bool moveUnlikelyBlocks();
++    bool replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
  };
  
  LAllocation::LAllocation(const AnyRegister &reg)
