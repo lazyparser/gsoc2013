@@ -4,7 +4,7 @@ Weekly Report (2013-8-5 - 2013-8-11)
 What I have done:
 -----------------
 I've implemented a transformation which reorders LBlocks on LIRGraph.
-It moves the blocks which are unlikely to be executed to the end of block list.
+It moves the blocks which are unlikely to be executed to the end of the block list.
 Although the idea and algorithm are simple, We've encountered some SIGSEGV bugs,
 which were hard to debug. I discussed these issue with my mentor and followed
 his advices, but sadly I could not catch the culprit yet.
