@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent aa8de5cbf6efd6ac29409f832b92ff83a981f858
+# Parent 6633b915cf2122868725a3537f42b8bf4765ef22
 # User Wei Wu <lazyparser@gmail.com>
 
-diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
---- a/js/src/ion/Ion.cpp
-+++ b/js/src/ion/Ion.cpp
-@@ -1270,16 +1270,23 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
+--- a/js/src/jit/Ion.cpp
++++ b/js/src/jit/Ion.cpp
+@@ -1278,16 +1278,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -14,11 +14,12 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
              return NULL;
          }
      } else {
-+        if (js_IonOptions.baselineBranchProfiling && js_IonOptions.moveUnlikelyBlocks) {
++        if (js_IonOptions.moveUnlikelyBlocks) {
 +            if (!MoveUnlikelyBlocks(lir)) {
 +                js_delete(codegen);
 +                return NULL;
 +            }
++            IonSpewPass("Move Unlikely Blocks");
 +        }
 +
          if (!codegen->generate()) {
@@ -29,10 +30,10 @@ diff --git a/js/src/ion/Ion.cpp b/js/src/ion/Ion.cpp
  
      return codegen;
  }
-diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
---- a/js/src/ion/Ion.h
-+++ b/js/src/ion/Ion.h
-@@ -179,21 +179,31 @@ struct IonOptions
+diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
+--- a/js/src/jit/Ion.h
++++ b/js/src/jit/Ion.h
+@@ -188,21 +188,31 @@ struct IonOptions
      // Default: 1
      uint32_t usesBeforeCompilePar;
  
@@ -64,7 +65,7 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
          gvnIsOptimistic(true),
          licm(true),
          osr(true),
-@@ -214,17 +224,20 @@ struct IonOptions
+@@ -225,17 +235,20 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
@@ -86,10 +87,10 @@ diff --git a/js/src/ion/Ion.h b/js/src/ion/Ion.h
      }
  };
  
-diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
---- a/js/src/ion/IonAnalysis.cpp
-+++ b/js/src/ion/IonAnalysis.cpp
-@@ -93,16 +93,51 @@ ion::AttachBranchProfiles(MIRGraph &grap
+diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
+--- a/js/src/jit/IonAnalysis.cpp
++++ b/js/src/jit/IonAnalysis.cpp
+@@ -93,16 +93,57 @@ ion::AttachBranchProfiles(MIRGraph &grap
                  block->setBlockUseCount(entry.counter);
                  break;
              }
@@ -109,7 +110,11 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +    if (!likelyBlocks.append(lir->getBlock(0)))
 +        return false;
 +
-+    for (size_t i = 1; i < lir->numBlocks(); i++) {
++    // CodeGenerator::visitReturn(LReturn *lir) doesn't generate a jump
++    // when the LBlock which includes the LReturn instruction is the last LBlock
++    // in LIRGraph's block list. Because we don't want to touch CodeGenerator,
++    // the last LBlock must remain in the last place, as well as the entry block.
++    for (size_t i = 1; i < lir->numBlocks() - 1; i++) {
 +        LBlock *lblock = lir->getBlock(i);
 +        JS_ASSERT(lblock);
 +        MBasicBlock *mblock = lblock->mir();
@@ -127,6 +132,8 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
 +                return false;
 +        }
 +    }
++    if (lir->numBlocks() > 1 && !unlikelyBlocks.append(lir->getBlock(lir->numBlocks() - 1)))
++        return false;
 +
 +    lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
 +
@@ -141,9 +148,9 @@ diff --git a/js/src/ion/IonAnalysis.cpp b/js/src/ion/IonAnalysis.cpp
  //
  // This is intended to ensure that extra resume points within a basic block
  // will not artificially extend the lifetimes of any SSA values. This could
-diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
---- a/js/src/ion/IonAnalysis.h
-+++ b/js/src/ion/IonAnalysis.h
+diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
+--- a/js/src/jit/IonAnalysis.h
++++ b/js/src/jit/IonAnalysis.h
 @@ -20,16 +20,19 @@ class MIRGraph;
  
  bool
@@ -164,10 +171,10 @@ diff --git a/js/src/ion/IonAnalysis.h b/js/src/ion/IonAnalysis.h
  };
  
  bool
-diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
---- a/js/src/ion/LIR.cpp
-+++ b/js/src/ion/LIR.cpp
-@@ -45,16 +45,70 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
+--- a/js/src/jit/LIR.cpp
++++ b/js/src/jit/LIR.cpp
+@@ -45,16 +45,50 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -179,8 +186,6 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 +void
 +LIRGraph::replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks)
 +{
-+    // TODO: replace with mozilla::DebugOnly<size_t> num = numBlocks();
-+    // size_t num = numBlocks();
 +    mozilla::DebugOnly<size_t> num = numBlocks();
 +    JS_ASSERT(num == likelyBlocks.length() + unlikelyBlocks.length());
 +    JS_ASSERT(getBlock(0) == likelyBlocks[0]);
@@ -196,8 +201,6 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 +    JS_ASSERT(num == numBlocks());
 +
 +    renumberMBlocks();
-+
-+    dumpLastInstructions();
 +}
 +
 +bool
@@ -214,22 +217,6 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
 +    return true;
 +}
 +
-+void
-+LIRGraph::dumpLastInstructions()
-+{
-+#ifdef DEBUG
-+    IonSpew(IonSpew_BranchProfiles, "Entering LIRGraph::dumpLastInstructions()");
-+    for (size_t i = 0; i < numBlocks(); i++) {
-+        LBlock *block = getBlock(i);
-+        JS_ASSERT(block);
-+        LInstructionReverseIterator last = block->rbegin();
-+        JS_ASSERT(last != block->rend());
-+        IonSpew(IonSpew_BranchProfiles, "Last Opcode of LBlock %d: %s",
-+                i, (*last)->opName());
-+    }
-+#endif
-+}
-+
  Label *
  LBlock::label()
  {
@@ -238,10 +225,10 @@ diff --git a/js/src/ion/LIR.cpp b/js/src/ion/LIR.cpp
  
  uint32_t
  LBlock::firstId()
-diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
---- a/js/src/ion/LIR.h
-+++ b/js/src/ion/LIR.h
-@@ -722,16 +722,17 @@ class LInstructionVisitor
+diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
+--- a/js/src/jit/LIR.h
++++ b/js/src/jit/LIR.h
+@@ -723,16 +723,17 @@ class LInstructionVisitor
    public:
  #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
      LIR_OPCODE_LIST(VISIT_INS)
@@ -259,7 +246,7 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1420,16 +1421,22 @@ class LIRGraph
+@@ -1421,16 +1422,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -272,8 +259,6 @@ diff --git a/js/src/ion/LIR.h b/js/src/ion/LIR.h
 +    void replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
 +
 +    bool renumberMBlocks();
-+
-+    void dumpLastInstructions();
  };
  
  LAllocation::LAllocation(const AnyRegister &reg)
