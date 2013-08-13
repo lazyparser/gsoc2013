@@ -1,0 +1,39 @@
+m-c/js/src/jit-test/tests/collections/Map-scale.js
+
+(gdb) r
+Assertion failure: !empty(), at ./dist/include/mozilla/Vector.h:1033
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000000000ba95c2 in mozilla::VectorBase<unsigned int, 0ul, js::SystemAllocPolicy, js::Vector<unsigned int, 0ul, js::SystemAllocPolicy> >::popBack (this=0x1bb9428) at ./dist/include/mozilla/Vector.h:1033
+1033	  MOZ_ASSERT(!empty());
+(gdb) bt
+#0  0x0000000000ba95c2 in mozilla::VectorBase<unsigned int, 0ul, js::SystemAllocPolicy, js::Vector<unsigned int, 0ul, js::SystemAllocPolicy> >::popBack (this=0x1bb9428)
+    at ./dist/include/mozilla/Vector.h:1033
+#1  0x0000000000ba79c8 in js::ion::CodeGeneratorShared::dropArguments (this=0x1bb8af0, argc=3) at m-c/js/src/jit/shared/CodeGenerator-shared.cpp:554
+#2  0x00000000008e7ab0 in js::ion::CodeGenerator::visitCallNative (this=0x1bb8af0, call=0x1c7c7b0) at m-c/js/src/jit/CodeGenerator.cpp:1526
+#3  0x00000000009d11f5 in js::ion::LCallNative::accept (this=0x1c7c7b0, visitor=0x1bb8af0) at m-c/js/src/jit/LIR-Common.h:1021
+#4  0x00000000008ebd25 in js::ion::CodeGenerator::generateBody (this=0x1bb8af0) at m-c/js/src/jit/CodeGenerator.cpp:2655
+#5  0x00000000008f7de7 in js::ion::CodeGenerator::generate (this=0x1bb8af0) at m-c/js/src/jit/CodeGenerator.cpp:5443
+#6  0x000000000091d820 in js::ion::GenerateCode (mir=0x1bb9bd0, lir=0x1c79408, maybeMasm=0x0) at m-c/js/src/jit/Ion.cpp:1294
+#7  0x000000000091d89f in js::ion::CompileBackEnd (mir=0x1bb9bd0, maybeMasm=0x0) at m-c/js/src/jit/Ion.cpp:1313
+#8  0x000000000091defb in js::ion::IonCompile (cx=0x1b992f0, script=0x7ffff6255280, baselineFrame=0x7fffffffbf18, osrPc=0x1bae228 "\343\001\232", constructing=false, executionMode=
+    js::ion::SequentialExecution) at m-c/js/src/jit/Ion.cpp:1485
+#9  0x000000000091e72e in js::ion::Compile (cx=0x1b992f0, script=0x7ffff6255280, osrFrame=0x7fffffffbf18, osrPc=0x1bae228 "\343\001\232", constructing=false, executionMode=js::ion::SequentialExecution)
+    at m-c/js/src/jit/Ion.cpp:1643
+#10 0x000000000091e93e in js::ion::CanEnterAtBranch (cx=0x1b992f0, script=0x7ffff6255280, osrFrame=0x7fffffffbf18, pc=0x1bae228 "\343\001\232", isConstructing=false) at m-c/js/src/jit/Ion.cpp:1687
+#11 0x00000000008959f5 in js::ion::EnsureCanEnterIon (cx=0x1b992f0, stub=0x1babda0, frame=0x7fffffffbf18, script=0x7ffff6255280, pc=0x1bae228 "\343\001\232", jitcodePtr=0x7fffffffbe60)
+    at m-c/js/src/jit/BaselineIC.cpp:703
+#12 0x00000000008961a0 in js::ion::DoUseCountFallback (cx=0x1b992f0, stub=0x1babda0, frame=0x7fffffffbf18, infoPtr=0x7fffffffbef0) at m-c/js/src/jit/BaselineIC.cpp:889
+#13 0x00007ffff7ff1f59 in ?? ()
+#14 0x00007ffff7ff277d in ?? ()
+#15 0x00007fffffffbeb8 in ?? ()
+#16 0x0000000000000002 in ?? ()
+#17 0x0000000001b70560 in js::ion::R2 ()
+#18 0x00007ffff633f370 in ?? ()
+#19 0x00007ffff7ff2011 in ?? ()
+#20 0x0000000000000302 in ?? ()
+#21 0x0000000001babda0 in ?? ()
+#22 0x00007fffffffbf18 in ?? ()
+#23 0x00007fffffffbef0 in ?? ()
+#24 0x0000000000000000 in ?? ()
+(gdb) 
