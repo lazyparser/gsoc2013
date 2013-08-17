@@ -121,7 +121,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
  {
      if (!debugMode_)
          return true;
-@@ -623,16 +677,23 @@ BaselineCompiler::emitBody()
+@@ -623,16 +677,22 @@ BaselineCompiler::emitBody()
              emittedOps = 0;
          if (!addPCMappingEntry(addIndexEntry))
              return Method_Error;
@@ -135,7 +135,6 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
 +            if ((info->jumpTarget || pc == script->code) && !emitBlockCounter(pc))
 +                return Method_Error;
 +        }
-+
 +
          switch (op) {
            default:
@@ -595,7 +594,7 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -7,16 +7,17 @@
+@@ -7,16 +7,18 @@
  #include "jit/IonAnalysis.h"
  
  #include "jsanalyze.h"
@@ -605,6 +604,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  #include "jit/LIR.h"
  #include "jit/MIRGraph.h"
 +#include "jit/BaselineJIT.h"
++#include "jit/IonSpewer.h"
  
  using namespace js;
  using namespace js::ion;
@@ -613,7 +613,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  // nor its predecessor's only successor. Critical edges must be split to
  // prevent copy-insertion and code motion from affecting other edges.
  bool
-@@ -38,16 +39,70 @@ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -38,16 +40,91 @@ ion::SplitCriticalEdges(MIRGraph &graph)
  
              block->replaceSuccessor(i, split);
              target->replacePredecessor(*block, split);
@@ -665,12 +665,33 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +        // We can switch to binary search if necessary.
 +        size_t numCounters = blscript->numBlockCounters();
 +        size_t pcOffset = pc - code;
-+        for (size_t i = 0; i < numCounters; i++) {
++        size_t i = 0;
++        for (; i < numCounters; i++) {
 +            BlockCounterEntry entry = blscript->blockCounterEntry(i);
 +            if (entry.pcOffset == pcOffset) {
 +                block->setBlockUseCount(entry.counter);
++                IonSpew(IonSpew_BranchProfiles,
++                        "AttachBranchProfiles match jsscript(%p) offset %d -> block %d",
++                        jsscript, i, block->id());
 +                break;
 +            }
++        }
++        if (i == numCounters) {
++            if (block->numPredecessors() == 1) {
++                MBasicBlock *pred = block->getPredecessor(0);
++                if (pred->numSuccessors() == 1) {
++                    if (pred->isBlockUseCountAvailable()) {
++                        block->setBlockUseCount(pred->getBlockUseCount());
++                        IonSpew(IonSpew_BranchProfiles,
++                                "AttachBranchProfiles copy pred %d -> block %d",
++                                pred->id(), block->id());
++                        continue;
++                    }
++                }
++            }
++            IonSpew(IonSpew_BranchProfiles,
++                    "AttachBranchProfiles mismatch jsscript(%p) -> block %d",
++                    jsscript, block->id());
 +        }
 +    }
 +    return true;
