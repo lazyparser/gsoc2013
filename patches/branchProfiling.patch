@@ -477,14 +477,14 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -984,16 +984,26 @@ OptimizeMIR(MIRGenerator *mir)
-     if (!RenumberBlocks(graph))
-         return false;
-     IonSpewPass("Renumber Blocks");
-     AssertGraphCoherency(graph);
+@@ -988,16 +988,26 @@ OptimizeMIR(MIRGenerator *mir)
  
      if (mir->shouldCancel("Renumber Blocks"))
          return false;
+ 
+     if (!BuildDominatorTree(graph))
+         return false;
+     // No spew: graph not changed.
  
 +    if (js_IonOptions.baselineBranchProfiling && !mir->compilingAsmJS()) {
 +        if (!AttachBranchProfiles(graph))
@@ -496,14 +496,14 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 +            return false;
 +    }
 +
-     if (!BuildDominatorTree(graph))
-         return false;
-     // No spew: graph not changed.
- 
      if (mir->shouldCancel("Dominator Tree"))
          return false;
  
      // Aggressive phi elimination must occur before any code elimination. If the
+     // script contains a try-statement, we only compiled the try block and not
+     // the catch or finally blocks, so in this case it's also invalid to use
+     // aggressive phi elimination.
+     Observability observability = graph.hasTryBlock()
 @@ -1379,16 +1389,21 @@ IonCompile(JSContext *cx, JSScript *scri
  {
  #if JS_TRACE_LOGGING
