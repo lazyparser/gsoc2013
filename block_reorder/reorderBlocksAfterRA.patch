@@ -1,11 +1,98 @@
 # HG changeset patch
-# Parent 6633b915cf2122868725a3537f42b8bf4765ef22
+# Parent 0209498700fd33ef61aeb094932425cfd01c3ef1
 # User Wei Wu <lazyparser@gmail.com>
 
+diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
+--- a/js/src/jit/CodeGenerator.cpp
++++ b/js/src/jit/CodeGenerator.cpp
+@@ -911,17 +911,18 @@ CodeGenerator::visitReturn(LReturn *lir)
+     DebugOnly<LAllocation *> payload = lir->getOperand(PAYLOAD_INDEX);
+     JS_ASSERT(ToRegister(type)    == JSReturnReg_Type);
+     JS_ASSERT(ToRegister(payload) == JSReturnReg_Data);
+ #elif defined(JS_PUNBOX64)
+     DebugOnly<LAllocation *> result = lir->getOperand(0);
+     JS_ASSERT(ToRegister(result) == JSReturnReg);
+ #endif
+     // Don't emit a jump to the return label if this is the last block.
+-    if (current->mir() != *gen->graph().poBegin())
++    // if (current->mir() != *gen->graph().poBegin())
++    if (current != graph.getBlock(graph.numBlocks() - 1))
+         masm.jump(&returnLabel_);
+     return true;
+ }
+ 
+ bool
+ CodeGenerator::visitOsrEntry(LOsrEntry *lir)
+ {
+     // Remember the OSR entry offset into the code buffer.
+@@ -963,28 +964,40 @@ CodeGenerator::visitStackArgT(LStackArgT
+ 
+     if (arg->isFloatReg())
+         masm.storeDouble(ToFloatRegister(arg), dest);
+     else if (arg->isRegister())
+         masm.storeValue(ValueTypeFromMIRType(argType), ToRegister(arg), dest);
+     else
+         masm.storeValue(*(arg->toConstant()), dest);
+ 
+-    return pushedArgumentSlots_.append(StackOffsetToSlot(stack_offset));
++    bool ret = pushedArgumentSlots_.append(StackOffsetToSlot(stack_offset));
++    IonSpew(IonSpew_BranchProfiles,
++            "CodeGenerator::visitStackArgT(LStackArgT *lir), argslot=%zu, stack_offset=%d, pushedArgumentSlots_.length()=%zu",
++            argslot,
++            stack_offset,
++            pushedArgumentSlots_.length());
++    return ret;
+ }
+ 
+ bool
+ CodeGenerator::visitStackArgV(LStackArgV *lir)
+ {
+     ValueOperand val = ToValue(lir, 0);
+     uint32_t argslot = lir->argslot();
+     int32_t stack_offset = StackOffsetOfPassedArg(argslot);
+ 
+     masm.storeValue(val, Address(StackPointer, stack_offset));
+-    return pushedArgumentSlots_.append(StackOffsetToSlot(stack_offset));
++    bool ret = pushedArgumentSlots_.append(StackOffsetToSlot(stack_offset));
++    IonSpew(IonSpew_BranchProfiles,
++            "CodeGenerator::visitStackArgT(LStackArgT *lir), argslot=%zu, stack_offset=%d, pushedArgumentSlots_.length()=%zu",
++            argslot,
++            stack_offset,
++            pushedArgumentSlots_.length());
++    return ret;
+ }
+ 
+ bool
+ CodeGenerator::visitMoveGroup(LMoveGroup *group)
+ {
+     if (!group->numMoves())
+         return true;
+ 
+@@ -1434,16 +1447,20 @@ CodeGenerator::visitCallNative(LCallNati
+ {
+     JSFunction *target = call->getSingleTarget();
+     JS_ASSERT(target);
+     JS_ASSERT(target->isNative());
+ 
+     int callargslot = call->argslot();
+     int unusedStack = StackOffsetOfPassedArg(callargslot);
+ 
++    IonSpew(IonSpew_BranchProfiles,
++            "CodeGenerator::visitCallNative(LCallNative *call), callargslot=%d, unusedStack=%d",
++            callargslot,
++            unusedStack);
+     // Registers used for callWithABI() argument-passing.
+     const Register argContextReg   = ToRegister(call->getArgContextReg());
+     const Register argUintNReg     = ToRegister(call->getArgUintNReg());
+     const Register argVpReg        = ToRegister(call->getArgVpReg());
+ 
+     // Misc. temporary registers.
+     const Register tempReg = ToRegister(call->getTempReg());
+ 
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -1278,16 +1278,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1283,16 +1283,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -90,10 +177,10 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -93,16 +93,57 @@ ion::AttachBranchProfiles(MIRGraph &grap
-                 block->setBlockUseCount(entry.counter);
-                 break;
-             }
+@@ -115,16 +115,71 @@ ion::AttachBranchProfiles(MIRGraph &grap
+             IonSpew(IonSpew_BranchProfiles,
+                     "AttachBranchProfiles mismatch jsscript(%p) -> block %d",
+                     jsscript, block->id());
          }
      }
      return true;
@@ -105,6 +192,8 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +    LBlockVector likelyBlocks;
 +    LBlockVector unlikelyBlocks;
 +
++    lir->mir().unmarkBlocks();
++
 +    // The entry block must remain in the first place.
 +    JS_ASSERT(lir->numBlocks());
 +    if (!likelyBlocks.append(lir->getBlock(0)))
@@ -114,26 +203,38 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +    // when the LBlock which includes the LReturn instruction is the last LBlock
 +    // in LIRGraph's block list. Because we don't want to touch CodeGenerator,
 +    // the last LBlock must remain in the last place, as well as the entry block.
-+    for (size_t i = 1; i < lir->numBlocks() - 1; i++) {
++    for (size_t i = 1; i < lir->numBlocks() /*- 1*/; i++) {
 +        LBlock *lblock = lir->getBlock(i);
 +        JS_ASSERT(lblock);
 +        MBasicBlock *mblock = lblock->mir();
 +        JS_ASSERT(mblock);
 +
++        if (mblock->isMarked())
++            continue;
++        mblock->mark();
++
 +        // TODO: Extract this condition and place it in a separated function
 +        // which would be call something like "unlikelyBlockHeurisitic".
 +        //
 +        // Currently use this naive heuristic instead.
-+        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
++        if (!mblock->isBlockUseCountAvailable() || mblock->getBlockUseCount() == 0) {
 +            if (!unlikelyBlocks.append(lblock))
 +                return false;
++            for (size_t j = 0; j < lblock->mir()->numSuccessors(); j++) {
++                MBasicBlock *succ = lblock->mir()->getSuccessor(j);
++                if (!succ->isMarked() && succ->lir() != lir->getBlock(lir->numBlocks() - 1) && succ->numPredecessors() == 1) {
++                    if (!unlikelyBlocks.append(succ->lir()))
++                        return false;
++                    succ->mark();
++                }
++            }
 +        } else {
 +            if (!likelyBlocks.append(lblock))
 +                return false;
 +        }
 +    }
-+    if (lir->numBlocks() > 1 && !unlikelyBlocks.append(lir->getBlock(lir->numBlocks() - 1)))
-+        return false;
++//    if (lir->numBlocks() > 1 && !unlikelyBlocks.append(lir->getBlock(lir->numBlocks() - 1)))
++//        return false;
 +
 +    lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
 +
@@ -246,7 +347,7 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1421,16 +1422,20 @@ class LIRGraph
+@@ -1424,16 +1425,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -267,3 +368,50 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
          *this = LFloatReg(reg.fpu());
      else
          *this = LGeneralReg(reg.gpr());
+diff --git a/js/src/jit/Lowering.cpp b/js/src/jit/Lowering.cpp
+--- a/js/src/jit/Lowering.cpp
++++ b/js/src/jit/Lowering.cpp
+@@ -309,16 +309,19 @@ LIRGenerator::visitPrepareCall(MPrepareC
+ }
+ 
+ bool
+ LIRGenerator::visitPassArg(MPassArg *arg)
+ {
+     MDefinition *opd = arg->getArgument();
+     uint32_t argslot = getArgumentSlot(arg->getArgnum());
+ 
++    IonSpew(IonSpew_BranchProfiles,
++            "LIRGenerator::visitPassArg(MPassArg *arg), argslot=%zu",
++            argslot);
+     // Pass through the virtual register of the operand.
+     // This causes snapshots to correctly copy the operand on the stack.
+     //
+     // This keeps the backing store around longer than strictly required.
+     // We could do better by informing snapshots about the argument vector.
+     arg->setVirtualRegister(opd->virtualRegister());
+ 
+     // Values take a slow path.
+diff --git a/js/src/jit/shared/CodeGenerator-shared.cpp b/js/src/jit/shared/CodeGenerator-shared.cpp
+--- a/js/src/jit/shared/CodeGenerator-shared.cpp
++++ b/js/src/jit/shared/CodeGenerator-shared.cpp
+@@ -545,16 +545,20 @@ void
+ CodeGeneratorShared::emitPreBarrier(Address address, MIRType type)
+ {
+     masm.patchableCallPreBarrier(address, type);
+ }
+ 
+ void
+ CodeGeneratorShared::dropArguments(unsigned argc)
+ {
++    IonSpew(IonSpew_BranchProfiles,
++            "CodeGeneratorShared::dropArguments(%zu) pushedArgumentSlots_.length() = %zu",
++            argc,
++            pushedArgumentSlots_.length());
+     for (unsigned i = 0; i < argc; i++)
+         pushedArgumentSlots_.popBack();
+ }
+ 
+ bool
+ CodeGeneratorShared::markArgumentSlots(LSafepoint *safepoint)
+ {
+     for (size_t i = 0; i < pushedArgumentSlots_.length(); i++) {
