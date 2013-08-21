@@ -6,7 +6,7 @@ Bug 906418 IonMonkey: Decouple the stack state from graph traversal order of LIR
 diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 --- a/js/src/jit/CodeGenerator.cpp
 +++ b/js/src/jit/CodeGenerator.cpp
-@@ -2632,16 +2632,25 @@ CodeGenerator::generateBody()
+@@ -2632,16 +2632,26 @@ CodeGenerator::generateBody()
              if (!blockCounts.ref().init())
                  return false;
          }
@@ -15,7 +15,8 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
          perfSpewer->startBasicBlock(current->mir(), masm);
  #endif
  
-+        // We need to pop out
++        // QUESTION: Should we pop out these fake slots
++        // when we leave the LBlock?
 +        size_t numArgumentsOrig = pushedArgumentSlots_.length();
 +        IonSpew(IonSpew_BranchProfiles,"codegen pushArguments: %u -> %u",
 +                numArgumentsOrig, current->pushedArguments.length());
@@ -60,7 +61,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -1607,16 +1607,51 @@ ion::UnsplitEdges(LIRGraph *lir)
+@@ -1607,16 +1607,45 @@ ion::UnsplitEdges(LIRGraph *lir)
          lir->mir().removeBlock(mirBlock);
          --i;
      }
@@ -84,16 +85,10 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +                return false;
 +
 +            if (iter->isJSCall())
-+                JS_ASSERT(iter->isCallNative() ||
-+                        iter->isCallDOMNative() ||
-+                        iter->isCallGeneric() ||
-+                        iter->isCallKnown());
-+
-+            if (iter->isJSCall())
-+                numPoped = iter->mirRaw()->toCall()->numStackArgs() /*+ 1*/;
++                numPoped = iter->mirRaw()->toCall()->numStackArgs();
 +
 +            while (numPoped) {
-+                JS_ASSERT(pushedArguments.length() > 0);
++                JS_ASSERT(pushedArguments.length());
 +                pushedArguments.popBack();
 +                --numPoped;
 +            }
