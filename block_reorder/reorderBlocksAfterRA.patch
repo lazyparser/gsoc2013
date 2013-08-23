@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 0209498700fd33ef61aeb094932425cfd01c3ef1
+# Parent 75478f9768e80974c0762d41ea912ca21fe687fc
 # User Wei Wu <lazyparser@gmail.com>
 
 diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
@@ -217,7 +217,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +        // which would be call something like "unlikelyBlockHeurisitic".
 +        //
 +        // Currently use this naive heuristic instead.
-+        if (!mblock->isBlockUseCountAvailable() || mblock->getBlockUseCount() == 0) {
++        if (mblock->isBlockUseCountAvailable() && mblock->getBlockUseCount() == 0) {
 +            if (!unlikelyBlocks.append(lblock))
 +                return false;
 +            for (size_t j = 0; j < lblock->mir()->numSuccessors(); j++) {
@@ -329,7 +329,7 @@ diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
 --- a/js/src/jit/LIR.h
 +++ b/js/src/jit/LIR.h
-@@ -723,16 +723,17 @@ class LInstructionVisitor
+@@ -726,16 +726,17 @@ class LInstructionVisitor
    public:
  #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
      LIR_OPCODE_LIST(VISIT_INS)
@@ -347,7 +347,7 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1424,16 +1425,20 @@ class LIRGraph
+@@ -1427,16 +1428,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
