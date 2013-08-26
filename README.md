@@ -36,3 +36,5 @@ All comments are welcome!
 [Weekly Report: 8th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport08.md)
 
 [Weekly Report: 9th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport09.md)
+
+[Weekly Report: 10th week](https://github.com/lazyparser/gsoc2013/blob/master/weeklyreports/weeklyreport10.md)
