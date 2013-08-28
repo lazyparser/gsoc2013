@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent 75478f9768e80974c0762d41ea912ca21fe687fc
+# Parent 829f98a003949306301fd8027e331fc8620e483c
 # User Wei Wu <lazyparser@gmail.com>
 
 diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 --- a/js/src/jit/CodeGenerator.cpp
 +++ b/js/src/jit/CodeGenerator.cpp
-@@ -911,17 +911,18 @@ CodeGenerator::visitReturn(LReturn *lir)
+@@ -944,17 +944,18 @@ CodeGenerator::visitReturn(LReturn *lir)
      DebugOnly<LAllocation *> payload = lir->getOperand(PAYLOAD_INDEX);
      JS_ASSERT(ToRegister(type)    == JSReturnReg_Type);
      JS_ASSERT(ToRegister(payload) == JSReturnReg_Data);
@@ -25,7 +25,7 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
  CodeGenerator::visitOsrEntry(LOsrEntry *lir)
  {
      // Remember the OSR entry offset into the code buffer.
-@@ -963,28 +964,40 @@ CodeGenerator::visitStackArgT(LStackArgT
+@@ -996,28 +997,40 @@ CodeGenerator::visitStackArgT(LStackArgT
  
      if (arg->isFloatReg())
          masm.storeDouble(ToFloatRegister(arg), dest);
@@ -68,7 +68,7 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
      if (!group->numMoves())
          return true;
  
-@@ -1434,16 +1447,20 @@ CodeGenerator::visitCallNative(LCallNati
+@@ -1467,16 +1480,20 @@ CodeGenerator::visitCallNative(LCallNati
  {
      JSFunction *target = call->getSingleTarget();
      JS_ASSERT(target);
@@ -92,7 +92,7 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -1283,16 +1283,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1509,16 +1509,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -120,7 +120,8 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 --- a/js/src/jit/Ion.h
 +++ b/js/src/jit/Ion.h
-@@ -188,21 +188,31 @@ struct IonOptions
+@@ -194,21 +194,31 @@ struct IonOptions
+     //
      // Default: 1
      uint32_t usesBeforeCompilePar;
  
@@ -128,7 +129,8 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
      //
      // Default: false
      bool baselineBranchProfiling;
- 
+-   
++
 +    // Toggles whether LIR Blocks are reordered based on branch profiles.
 +    //
 +    // Default: true iff baselineBranchProfiling is true.
@@ -138,13 +140,11 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
          eagerCompilation = true;
          usesBeforeCompile = 0;
          baselineUsesBeforeCompile = 0;
- 
++
 +        // Disable branch profiling and related optimizitions.
 +        // This is for testing only.
 +        baselineBranchProfiling = false;
 +        moveUnlikelyBlocks = false;
-+
-         parallelCompilation = false;
      }
  
      IonOptions()
@@ -152,7 +152,8 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
          gvnIsOptimistic(true),
          licm(true),
          osr(true),
-@@ -225,17 +235,20 @@ struct IonOptions
+         limitScriptSize(true),
+@@ -233,17 +243,20 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
@@ -275,7 +276,7 @@ diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 --- a/js/src/jit/LIR.cpp
 +++ b/js/src/jit/LIR.cpp
-@@ -45,16 +45,50 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+@@ -47,16 +47,54 @@ LIRGraph::noteNeedsSafepoint(LInstructio
  }
  
  void
@@ -290,6 +291,10 @@ diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 +    mozilla::DebugOnly<size_t> num = numBlocks();
 +    JS_ASSERT(num == likelyBlocks.length() + unlikelyBlocks.length());
 +    JS_ASSERT(getBlock(0) == likelyBlocks[0]);
++
++    // Just return if there are no blocks should be moved.
++    if (!unlikelyBlocks.length())
++        return;
 +
 +    blocks_.clear();
 +
@@ -329,7 +334,7 @@ diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
 --- a/js/src/jit/LIR.h
 +++ b/js/src/jit/LIR.h
-@@ -726,16 +726,17 @@ class LInstructionVisitor
+@@ -724,16 +724,17 @@ class LInstructionVisitor
    public:
  #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
      LIR_OPCODE_LIST(VISIT_INS)
@@ -347,7 +352,7 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1427,16 +1428,20 @@ class LIRGraph
+@@ -1439,16 +1440,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
@@ -371,7 +376,7 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
 diff --git a/js/src/jit/Lowering.cpp b/js/src/jit/Lowering.cpp
 --- a/js/src/jit/Lowering.cpp
 +++ b/js/src/jit/Lowering.cpp
-@@ -309,16 +309,19 @@ LIRGenerator::visitPrepareCall(MPrepareC
+@@ -293,16 +293,19 @@ LIRGenerator::visitPrepareCall(MPrepareC
  }
  
  bool
@@ -394,7 +399,7 @@ diff --git a/js/src/jit/Lowering.cpp b/js/src/jit/Lowering.cpp
 diff --git a/js/src/jit/shared/CodeGenerator-shared.cpp b/js/src/jit/shared/CodeGenerator-shared.cpp
 --- a/js/src/jit/shared/CodeGenerator-shared.cpp
 +++ b/js/src/jit/shared/CodeGenerator-shared.cpp
-@@ -545,16 +545,20 @@ void
+@@ -705,16 +705,20 @@ void
  CodeGeneratorShared::emitPreBarrier(Address address, MIRType type)
  {
      masm.patchableCallPreBarrier(address, type);
