@@ -1,12 +1,12 @@
 # HG changeset patch
-# Parent 3d20597e0a07b9913d62948f5568052045111352
+# Parent 01576441bdc683d3256696b618e5f02bcfe1de9a
 # User Wei Wu <lazyparser@gmail.com>
 Bug 877878 - Instrument Baseline generated code to collect branch profiles. r=nbp
 
 diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
 --- a/js/src/jit/BaselineCompiler.cpp
 +++ b/js/src/jit/BaselineCompiler.cpp
-@@ -145,17 +145,18 @@ BaselineCompiler::compile()
+@@ -148,17 +148,18 @@ BaselineCompiler::compile()
  
      prologueOffset_.fixup(&masm);
      spsPushToggleOffset_.fixup(&masm);
@@ -26,7 +26,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
      script->setBaselineScript(baselineScript);
  
      IonSpew(IonSpew_BaselineScripts, "Created BaselineScript %p (raw %p) for %s:%d",
-@@ -181,24 +182,47 @@ BaselineCompiler::compile()
+@@ -184,27 +185,50 @@ BaselineCompiler::compile()
          label.fixup(&masm);
          size_t icEntry = icLoadLabels_[i].icEntry;
          ICEntry *entryAddr = &(baselineScript->icEntry(icEntry));
@@ -55,6 +55,9 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
 +        bcEntryAddr->toggleOffset.fixup(&masm);
 +    }
 +
+     if (modifiesArguments_)
+         baselineScript->setModifiesArguments();
+ 
      // All barriers are emitted off-by-default, toggle them on if needed.
      if (cx->zone()->needsBarrier())
          baselineScript->toggleBarriers(true);
@@ -74,7 +77,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
  {
      masm.push(BaselineFrameReg);
      masm.mov(BaselineStackReg, BaselineFrameReg);
-@@ -322,16 +346,46 @@ BaselineCompiler::emitIC(ICStub *stub, b
+@@ -328,16 +352,46 @@ BaselineCompiler::emitIC(ICStub *stub, b
      EmitCallIC(&patchOffset, masm);
      entry->setReturnOffset(masm.currentOffset());
      if (!addICLoadLabel(patchOffset))
@@ -121,7 +124,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
  {
      if (!debugMode_)
          return true;
-@@ -623,16 +677,22 @@ BaselineCompiler::emitBody()
+@@ -629,16 +683,22 @@ BaselineCompiler::emitBody()
              emittedOps = 0;
          if (!addPCMappingEntry(addIndexEntry))
              return Method_Error;
@@ -147,7 +150,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
 diff --git a/js/src/jit/BaselineCompiler.h b/js/src/jit/BaselineCompiler.h
 --- a/js/src/jit/BaselineCompiler.h
 +++ b/js/src/jit/BaselineCompiler.h
-@@ -211,16 +211,18 @@ class BaselineCompiler : public Baseline
+@@ -209,16 +209,18 @@ class BaselineCompiler : public Baseline
      bool emitIC(ICStub *stub, bool isForOp);
      bool emitOpIC(ICStub *stub) {
          return emitIC(stub, true);
@@ -169,7 +172,7 @@ diff --git a/js/src/jit/BaselineCompiler.h b/js/src/jit/BaselineCompiler.h
 diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
 --- a/js/src/jit/BaselineJIT.cpp
 +++ b/js/src/jit/BaselineJIT.cpp
-@@ -37,17 +37,18 @@ PCMappingSlotInfo::ToSlotLocation(const 
+@@ -41,17 +41,18 @@ PCMappingSlotInfo::ToSlotLocation(const 
  BaselineScript::BaselineScript(uint32_t prologueOffset, uint32_t spsPushToggleOffset)
    : method_(NULL),
      fallbackStubSpace_(),
@@ -189,7 +192,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
  static bool
  CheckFrame(StackFrame *fp)
  {
-@@ -336,31 +337,35 @@ ion::CanEnterBaselineMethod(JSContext *c
+@@ -340,31 +341,35 @@ ion::CanEnterBaselineMethod(JSContext *c
  };
  
  // Be safe, align IC entry list to 8 in all cases.
@@ -227,7 +230,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
      BaselineScript *script = reinterpret_cast<BaselineScript *>(buffer);
      new (script) BaselineScript(prologueOffset, spsPushToggleOffset);
  
-@@ -373,16 +378,20 @@ BaselineScript::New(JSContext *cx, uint3
+@@ -377,16 +382,20 @@ BaselineScript::New(JSContext *cx, uint3
      script->pcMappingIndexOffset_ = offsetCursor;
      script->pcMappingIndexEntries_ = pcMappingIndexEntries;
      offsetCursor += paddedPCMappingIndexEntriesSize;
@@ -248,7 +251,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
  {
      MarkIonCode(trc, &method_, "baseline-method");
  
-@@ -398,16 +407,32 @@ BaselineScript::trace(JSTracer *trc)
+@@ -412,16 +421,32 @@ BaselineScript::writeBarrierPre(Zone *zo
  
  void
  BaselineScript::Trace(JSTracer *trc, BaselineScript *script)
@@ -281,7 +284,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
  ICEntry &
  BaselineScript::icEntry(size_t index)
  {
-@@ -417,16 +442,23 @@ BaselineScript::icEntry(size_t index)
+@@ -431,16 +456,23 @@ BaselineScript::icEntry(size_t index)
  
  PCMappingIndexEntry &
  BaselineScript::pcMappingIndexEntry(size_t index)
@@ -305,7 +308,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
      uint8_t *dataStart = pcMappingData() + entry.bufferOffset;
      uint8_t *dataEnd = (indexEntry == numPCMappingIndexEntries() - 1)
          ? pcMappingData() + pcMappingSize_
-@@ -573,16 +605,25 @@ BaselineScript::copyICEntries(HandleScri
+@@ -587,16 +619,25 @@ BaselineScript::copyICEntries(HandleScri
          if (realEntry.firstStub()->isTableSwitch()) {
              ICTableSwitch *stub = realEntry.firstStub()->toTableSwitch();
              stub->fixupJumpTable(script, this);
@@ -331,7 +334,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
  void
  BaselineScript::copyPCMappingEntries(const CompactBufferWriter &entries)
  {
-@@ -757,16 +798,29 @@ BaselineScript::toggleSPS(bool enable)
+@@ -771,16 +812,29 @@ BaselineScript::toggleSPS(bool enable)
          Assembler::ToggleToCmp(pushToggleLocation);
      else
          Assembler::ToggleToJmp(pushToggleLocation);
@@ -414,7 +417,7 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
  
          // Flag set when discarding JIT code, to indicate this script is
          // on the stack and should not be discarded.
-@@ -137,24 +153,29 @@ struct BaselineScript
+@@ -141,24 +157,29 @@ struct BaselineScript
      uint32_t icEntries_;
  
      uint32_t pcMappingIndexOffset_;
@@ -445,7 +448,7 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
          return offsetof(BaselineScript, method_);
      }
  
-@@ -196,16 +217,20 @@ struct BaselineScript
+@@ -207,16 +228,20 @@ struct BaselineScript
      }
      uint8_t *pcMappingData() {
          return reinterpret_cast<uint8_t *>(this) + pcMappingOffset_;
@@ -466,7 +469,7 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
          method_ = code;
      }
  
-@@ -227,20 +252,27 @@ struct BaselineScript
+@@ -238,20 +263,27 @@ struct BaselineScript
      }
  
      void copyICEntries(HandleScript script, const ICEntry *entries, MacroAssembler &masm);
@@ -494,15 +497,15 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
      jsbytecode *pcForReturnAddress(JSScript *script, uint8_t *nativeAddress);
  
      // Toggle debug traps (used for breakpoints and step mode) in the script.
-@@ -250,16 +282,34 @@ struct BaselineScript
- 
-     void toggleSPS(bool enable);
+@@ -263,16 +295,34 @@ struct BaselineScript
  
      void noteAccessedGetter(uint32_t pcOffset);
  
      static size_t offsetOfFlags() {
          return offsetof(BaselineScript, flags_);
      }
+ 
+     static void writeBarrierPre(Zone *zone, BaselineScript *script);
 +
 +    void toggleBlockCounters(bool enable);
 +
@@ -532,7 +535,7 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -988,16 +988,26 @@ OptimizeMIR(MIRGenerator *mir)
+@@ -1214,16 +1214,26 @@ OptimizeMIR(MIRGenerator *mir)
  
      if (mir->shouldCancel("Renumber Blocks"))
          return false;
@@ -559,7 +562,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
      // the catch or finally blocks, so in this case it's also invalid to use
      // aggressive phi elimination.
      Observability observability = graph.hasTryBlock()
-@@ -1379,16 +1389,21 @@ IonCompile(JSContext *cx, JSScript *scri
+@@ -1605,16 +1615,21 @@ IonCompile(JSContext *cx, JSScript *scri
  {
  #if JS_TRACE_LOGGING
      AutoTraceLog logger(TraceLogging::defaultLogger(),
@@ -577,11 +580,11 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
          return AbortReason_Alloc;
  
      // Try-finally is not yet supported.
-     if (script->analysis()->hasTryFinally())
+     if (script->analysis()->hasTryFinally()) {
+         IonSpew(IonSpew_Abort, "Has try-finally.");
          return AbortReason_Disable;
- 
-     LifoAlloc *alloc = cx->new_<LifoAlloc>(BUILDER_LIFO_ALLOC_PRIMARY_CHUNK_SIZE);
-@@ -2318,16 +2333,22 @@ ion::ForbidCompilation(JSContext *cx, JS
+     }
+@@ -2543,16 +2558,22 @@ ion::ForbidCompilation(JSContext *cx, JS
              // running, because IonFrameIterator needs to tell what ionScript to
              // use (either the one on the JSScript, or the one hidden in the
              // breadcrumbs Invalidation() leaves). Therefore, if invalidation
@@ -607,7 +610,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 --- a/js/src/jit/Ion.h
 +++ b/js/src/jit/Ion.h
-@@ -183,16 +183,21 @@ struct IonOptions
+@@ -190,16 +190,21 @@ struct IonOptions
      // Default: false
      bool eagerCompilation;
  
@@ -620,16 +623,16 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 +    //
 +    // Default: false
 +    bool baselineBranchProfiling;
-+
++   
      void setEagerCompilation() {
          eagerCompilation = true;
          usesBeforeCompile = 0;
          baselineUsesBeforeCompile = 0;
- 
-         parallelCompilation = false;
      }
  
-@@ -219,17 +224,18 @@ struct IonOptions
+     IonOptions()
+       : gvn(true),
+@@ -227,17 +232,18 @@ struct IonOptions
          maxStackArgs(4096),
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
@@ -652,25 +655,27 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -7,16 +7,18 @@
+@@ -3,18 +3,20 @@
+  * This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
  #include "jit/IonAnalysis.h"
  
  #include "jsanalyze.h"
  
++#include "jit/BaselineJIT.h"
  #include "jit/Ion.h"
  #include "jit/IonBuilder.h"
++#include "jit/IonSpewer.h"
  #include "jit/LIR.h"
  #include "jit/MIRGraph.h"
-+#include "jit/BaselineJIT.h"
-+#include "jit/IonSpewer.h"
  
  using namespace js;
  using namespace js::ion;
  
  // A critical edge is an edge which is neither its successor's only predecessor
  // nor its predecessor's only successor. Critical edges must be split to
- // prevent copy-insertion and code motion from affecting other edges.
- bool
 @@ -38,16 +40,91 @@ ion::SplitCriticalEdges(MIRGraph &graph)
  
              block->replaceSuccessor(i, split);
@@ -792,7 +797,7 @@ diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 diff --git a/js/src/jit/IonSpewer.cpp b/js/src/jit/IonSpewer.cpp
 --- a/js/src/jit/IonSpewer.cpp
 +++ b/js/src/jit/IonSpewer.cpp
-@@ -254,16 +254,18 @@ ion::CheckLogging()
+@@ -256,16 +256,18 @@ ion::CheckLogging()
              "  bailouts   Bailouts\n"
              "  caches     Inline caches\n"
              "  osi        Invalidation\n"
@@ -811,7 +816,7 @@ diff --git a/js/src/jit/IonSpewer.cpp b/js/src/jit/IonSpewer.cpp
              "  bl-ic      Baseline inline-cache messages\n"
              "  bl-ic-fb   Baseline IC fallback stub messages\n"
              "  bl-osr     Baseline IC OSR messages\n"
-@@ -307,16 +309,18 @@ ion::CheckLogging()
+@@ -309,16 +311,18 @@ ion::CheckLogging()
      if (ContainsFlag(env, "pools"))
          EnableChannel(IonSpew_Pools);
      if (ContainsFlag(env, "cacheflush"))
@@ -852,6 +857,78 @@ diff --git a/js/src/jit/IonSpewer.h b/js/src/jit/IonSpewer.h
      /* Script Compilation. */               \
      _(BaselineScripts)                      \
      /* Detailed op-specific spew. */        \
+diff --git a/js/src/jit/JSONSpewer.cpp b/js/src/jit/JSONSpewer.cpp
+--- a/js/src/jit/JSONSpewer.cpp
++++ b/js/src/jit/JSONSpewer.cpp
+@@ -292,16 +292,19 @@ JSONSpewer::spewMIR(MIRGraph *mir)
+     beginObjectProperty("mir");
+     beginListProperty("blocks");
+ 
+     for (MBasicBlockIterator block(mir->begin()); block != mir->end(); block++) {
+         beginObject();
+ 
+         integerProperty("number", block->id());
+ 
++        if(block->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", block->getBlockUseCount());
++
+         beginListProperty("attributes");
+         if (block->isLoopBackedge())
+             stringValue("backedge");
+         if (block->isLoopHeader())
+             stringValue("loopheader");
+         if (block->isSplitEdge())
+             stringValue("splitedge");
+         endList();
+@@ -367,16 +370,19 @@ JSONSpewer::spewLIR(MIRGraph *mir)
+     for (MBasicBlockIterator i(mir->begin()); i != mir->end(); i++) {
+         LBlock *block = i->lir();
+         if (!block)
+             continue;
+ 
+         beginObject();
+         integerProperty("number", i->id());
+ 
++        if (i->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", i->getBlockUseCount());
++
+         beginListProperty("instructions");
+         for (size_t p = 0; p < block->numPhis(); p++)
+             spewLIns(block->getPhi(p));
+         for (LInstructionIterator ins(block->begin()); ins != block->end(); ins++)
+             spewLIns(*ins);
+         endList();
+ 
+         endObject();
+@@ -393,19 +399,27 @@ JSONSpewer::spewIntervals(LinearScanAllo
+         return;
+ 
+     beginObjectProperty("intervals");
+     beginListProperty("blocks");
+ 
+     for (size_t bno = 0; bno < regalloc->graph.numBlocks(); bno++) {
+         beginObject();
+         integerProperty("number", bno);
++
++        LBlock *lir = regalloc->graph.getBlock(bno);
++
++        // Currently we don't propagate blockUseCounts to LBlock,
++        // so we use the counter of the corresponding MBasicBlock instead.
++        MBasicBlock *mir = lir->mir();
++        if (mir && mir->isBlockUseCountAvailable())
++            integerProperty("blockUseCount", mir->getBlockUseCount());
++
+         beginListProperty("vregs");
+ 
+-        LBlock *lir = regalloc->graph.getBlock(bno);
+         for (LInstructionIterator ins = lir->begin(); ins != lir->end(); ins++) {
+             for (size_t k = 0; k < ins->numDefs(); k++) {
+                 VirtualRegister *vreg = &regalloc->vregs[ins->getDef(k)->virtualRegister()];
+ 
+                 beginObject();
+                 integerProperty("vreg", vreg->id());
+                 beginListProperty("intervals");
+ 
 diff --git a/js/src/jit/MIRGraph.cpp b/js/src/jit/MIRGraph.cpp
 --- a/js/src/jit/MIRGraph.cpp
 +++ b/js/src/jit/MIRGraph.cpp
@@ -932,7 +1009,7 @@ diff --git a/js/src/jit/MIRGraph.h b/js/src/jit/MIRGraph.h
 diff --git a/js/src/jit/shared/BaselineCompiler-shared.h b/js/src/jit/shared/BaselineCompiler-shared.h
 --- a/js/src/jit/shared/BaselineCompiler-shared.h
 +++ b/js/src/jit/shared/BaselineCompiler-shared.h
-@@ -29,16 +29,17 @@ class BaselineCompilerShared
+@@ -27,16 +27,17 @@ class BaselineCompilerShared
      bool ionOSRCompileable_;
      bool debugMode_;
  
@@ -950,7 +1027,7 @@ diff --git a/js/src/jit/shared/BaselineCompiler-shared.h b/js/src/jit/shared/Bas
          uint32_t nativeOffset;
          PCMappingSlotInfo slotInfo;
  
-@@ -61,16 +62,22 @@ class BaselineCompilerShared
+@@ -59,16 +60,22 @@ class BaselineCompilerShared
      // to be patched with the actual icEntry offsets after the BaselineScript
      // has been allocated.
      struct ICLoadLabel {
@@ -973,7 +1050,7 @@ diff --git a/js/src/jit/shared/BaselineCompiler-shared.h b/js/src/jit/shared/Bas
      BaselineCompilerShared(JSContext *cx, HandleScript script);
  
      ICEntry *allocateICEntry(ICStub *stub, bool isForOp) {
-@@ -92,16 +99,30 @@ class BaselineCompilerShared
+@@ -90,16 +97,30 @@ class BaselineCompilerShared
      bool addICLoadLabel(CodeOffsetLabel label) {
          JS_ASSERT(!icEntries_.empty());
          ICLoadLabel loadLabel;
@@ -1007,7 +1084,7 @@ diff --git a/js/src/jit/shared/BaselineCompiler-shared.h b/js/src/jit/shared/Bas
 diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
 --- a/js/src/shell/js.cpp
 +++ b/js/src/shell/js.cpp
-@@ -5121,16 +5121,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
+@@ -5129,16 +5129,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
  
      useCount = op->getIntOption("baseline-uses-before-compile");
      if (useCount >= 0)
@@ -1033,7 +1110,7 @@ diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
          else if (strcmp(str, "stupid") == 0)
              ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Stupid;
          else
-@@ -5382,16 +5391,18 @@ main(int argc, char **argv, char **envp)
+@@ -5396,16 +5405,18 @@ main(int argc, char **argv, char **envp)
          || !op.addIntOption('\0', "ion-uses-before-compile", "COUNT",
                              "Wait for COUNT calls or iterations before compiling "
                              "(default: 1000)", -1)
