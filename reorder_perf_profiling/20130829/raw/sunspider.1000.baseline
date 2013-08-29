@@ -1,0 +1,47 @@
+============================================
+RESULTS (means and 95% confidence intervals)
+--------------------------------------------
+Total:                 159.7ms +/- 0.1%
+--------------------------------------------
+
+  3d:                   26.3ms +/- 0.2%
+    cube:               10.9ms +/- 0.4%
+    morph:               4.4ms +/- 0.7%
+    raytrace:           11.0ms +/- 0.3%
+
+  access:               12.7ms +/- 0.6%
+    binary-trees:        2.2ms +/- 1.2%
+    fannkuch:            5.3ms +/- 0.6%
+    nbody:               2.8ms +/- 0.9%
+    nsieve:              2.4ms +/- 1.3%
+
+  bitops:                7.9ms +/- 0.6%
+    3bit-bits-in-byte:   1.0ms +/- 1.4%
+    bits-in-byte:        2.1ms +/- 0.8%
+    bitwise-and:         1.7ms +/- 1.6%
+    nsieve-bits:         3.1ms +/- 0.6%
+
+  controlflow:           2.0ms +/- 0.7%
+    recursive:           2.0ms +/- 0.7%
+
+  crypto:               13.6ms +/- 0.3%
+    aes:                 6.7ms +/- 0.5%
+    md5:                 3.9ms +/- 0.6%
+    sha1:                3.0ms +/- 0.6%
+
+  date:                 20.9ms +/- 0.3%
+    format-tofte:       10.5ms +/- 0.3%
+    format-xparb:       10.4ms +/- 0.4%
+
+  math:                 13.5ms +/- 0.2%
+    cordic:              2.5ms +/- 1.2%
+    partial-sums:        9.0ms +/- 0.2%
+    spectral-norm:       2.0ms +/- 0.7%
+
+  regexp:               13.6ms +/- 0.2%
+    dna:                13.6ms +/- 0.2%
+
+  string:               49.2ms +/- 0.1%
+    base64:              4.9ms +/- 0.4%
+    fasta:               5.7ms +/- 0.5%
+    tagcloud:           14.2ms +/- 0.2%
