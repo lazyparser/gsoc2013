@@ -1,5 +1,5 @@
 # HG changeset patch
-# Parent 01576441bdc683d3256696b618e5f02bcfe1de9a
+# Parent b6c29e43451900744de9db867fc175f120d5a6bb
 # User Wei Wu <lazyparser@gmail.com>
 Bug 877878 - Instrument Baseline generated code to collect branch profiles. r=nbp
 
@@ -117,7 +117,7 @@ diff --git a/js/src/jit/BaselineCompiler.cpp b/js/src/jit/BaselineCompiler.cpp
 +}
 +
  typedef bool (*DebugPrologueFn)(JSContext *, BaselineFrame *, bool *);
- static const VMFunction DebugPrologueInfo = FunctionInfo<DebugPrologueFn>(ion::DebugPrologue);
+ static const VMFunction DebugPrologueInfo = FunctionInfo<DebugPrologueFn>(jit::DebugPrologue);
  
  bool
  BaselineCompiler::emitDebugPrologue()
@@ -192,7 +192,7 @@ diff --git a/js/src/jit/BaselineJIT.cpp b/js/src/jit/BaselineJIT.cpp
  static bool
  CheckFrame(StackFrame *fp)
  {
-@@ -340,31 +341,35 @@ ion::CanEnterBaselineMethod(JSContext *c
+@@ -340,31 +341,35 @@ jit::CanEnterBaselineMethod(JSContext *c
  };
  
  // Be safe, align IC entry list to 8 in all cases.
@@ -535,7 +535,7 @@ diff --git a/js/src/jit/BaselineJIT.h b/js/src/jit/BaselineJIT.h
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -1214,16 +1214,26 @@ OptimizeMIR(MIRGenerator *mir)
+@@ -1197,16 +1197,26 @@ OptimizeMIR(MIRGenerator *mir)
  
      if (mir->shouldCancel("Renumber Blocks"))
          return false;
@@ -562,7 +562,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
      // the catch or finally blocks, so in this case it's also invalid to use
      // aggressive phi elimination.
      Observability observability = graph.hasTryBlock()
-@@ -1605,16 +1615,21 @@ IonCompile(JSContext *cx, JSScript *scri
+@@ -1588,16 +1598,21 @@ IonCompile(JSContext *cx, JSScript *scri
  {
  #if JS_TRACE_LOGGING
      AutoTraceLog logger(TraceLogging::defaultLogger(),
@@ -584,7 +584,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
          IonSpew(IonSpew_Abort, "Has try-finally.");
          return AbortReason_Disable;
      }
-@@ -2543,16 +2558,22 @@ ion::ForbidCompilation(JSContext *cx, JS
+@@ -2526,16 +2541,22 @@ jit::ForbidCompilation(JSContext *cx, JS
              // running, because IonFrameIterator needs to tell what ionScript to
              // use (either the one on the JSScript, or the one hidden in the
              // breadcrumbs Invalidation() leaves). Therefore, if invalidation
@@ -610,7 +610,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 --- a/js/src/jit/Ion.h
 +++ b/js/src/jit/Ion.h
-@@ -190,16 +190,21 @@ struct IonOptions
+@@ -192,16 +192,21 @@ struct IonOptions
      // Default: false
      bool eagerCompilation;
  
@@ -632,7 +632,7 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
  
      IonOptions()
        : gvn(true),
-@@ -227,17 +232,18 @@ struct IonOptions
+@@ -229,17 +234,18 @@ struct IonOptions
          maxStackArgs(4096),
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
@@ -672,11 +672,11 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  #include "jit/MIRGraph.h"
  
  using namespace js;
- using namespace js::ion;
+ using namespace js::jit;
  
  // A critical edge is an edge which is neither its successor's only predecessor
  // nor its predecessor's only successor. Critical edges must be split to
-@@ -38,16 +40,91 @@ ion::SplitCriticalEdges(MIRGraph &graph)
+@@ -38,16 +40,92 @@ jit::SplitCriticalEdges(MIRGraph &graph)
  
              block->replaceSuccessor(i, split);
              target->replacePredecessor(*block, split);
@@ -685,18 +685,19 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
      return true;
  }
  
-+inline bool
-+ion::isAsmJSCompilation(MIRGraph &graph)
-+{
-+    return graph.numScripts() == 0;
-+}
++// NOTE: MIRGraph::numScripts() is no longer available.
++//inline bool
++//jit::isAsmJSCompilation(MIRGraph &graph)
++//{
++//    return graph.numScripts() == 0;
++//}
 +
 +bool
-+ion::AttachBranchProfiles(MIRGraph &graph)
++jit::AttachBranchProfiles(MIRGraph &graph)
 +{
 +    // Forbid AsmJS optimization as OdinMonkey is an ahead of time compiler
 +    // and we do not have any profiled information.
-+    JS_ASSERT(!isAsmJSCompilation(graph));
++//    JS_ASSERT(!isAsmJSCompilation(graph));
 +
 +    for (MBasicBlockIterator block(graph.begin()); block != graph.end(); block++) {
 +        CompileInfo &info = block->info();
@@ -771,8 +772,8 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 --- a/js/src/jit/IonAnalysis.h
 +++ b/js/src/jit/IonAnalysis.h
-@@ -16,16 +16,22 @@ namespace js {
- namespace ion {
+@@ -16,16 +16,24 @@ namespace js {
+ namespace jit {
  
  class MIRGenerator;
  class MIRGraph;
@@ -783,8 +784,10 @@ diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 +bool
 +AttachBranchProfiles(MIRGraph &graph);
 +
-+bool
-+isAsmJSCompilation(MIRGraph &graph);
++// NOTE: MIRGraph::numScripts() is no longer available.
++// Use MIRGenerator::compilingAsmJS() instead.
++//bool
++//isAsmJSCompilation(MIRGraph &graph);
 +
  enum Observability {
      ConservativeObservability,
@@ -797,15 +800,15 @@ diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 diff --git a/js/src/jit/IonSpewer.cpp b/js/src/jit/IonSpewer.cpp
 --- a/js/src/jit/IonSpewer.cpp
 +++ b/js/src/jit/IonSpewer.cpp
-@@ -256,16 +256,18 @@ ion::CheckLogging()
-             "  bailouts   Bailouts\n"
+@@ -257,16 +257,18 @@ jit::CheckLogging()
              "  caches     Inline caches\n"
              "  osi        Invalidation\n"
              "  safepoints Safepoints\n"
              "  pools      Literal Pools (ARM only for now)\n"
              "  cacheflush Instruction Cache flushes (ARM only for now)\n"
+             "  range      Range Analysis\n"
              "  logs       C1 and JSON visualization logging\n"
-             "  trace      Generate calls to js::ion::Trace() for effectful instructions\n"
+             "  trace      Generate calls to js::jit::Trace() for effectful instructions\n"
 +            "  branchprofiles\n"
 +            "             Dump branch profiling data\n"
              "  all        Everything\n"
@@ -816,7 +819,7 @@ diff --git a/js/src/jit/IonSpewer.cpp b/js/src/jit/IonSpewer.cpp
              "  bl-ic      Baseline inline-cache messages\n"
              "  bl-ic-fb   Baseline IC fallback stub messages\n"
              "  bl-osr     Baseline IC OSR messages\n"
-@@ -309,16 +311,18 @@ ion::CheckLogging()
+@@ -310,16 +312,18 @@ jit::CheckLogging()
      if (ContainsFlag(env, "pools"))
          EnableChannel(IonSpew_Pools);
      if (ContainsFlag(env, "cacheflush"))
@@ -838,12 +841,12 @@ diff --git a/js/src/jit/IonSpewer.cpp b/js/src/jit/IonSpewer.cpp
 diff --git a/js/src/jit/IonSpewer.h b/js/src/jit/IonSpewer.h
 --- a/js/src/jit/IonSpewer.h
 +++ b/js/src/jit/IonSpewer.h
-@@ -52,16 +52,18 @@ namespace ion {
+@@ -52,16 +52,18 @@ namespace jit {
      /* Debug info about safepoints */       \
      _(Safepoints)                           \
      /* Debug info about Pools*/             \
      _(Pools)                                \
-     /* Calls to js::ion::Trace() */         \
+     /* Calls to js::jit::Trace() */         \
      _(Trace)                                \
      /* Debug info about the I$ */           \
      _(CacheFlush)                           \
@@ -1084,33 +1087,33 @@ diff --git a/js/src/jit/shared/BaselineCompiler-shared.h b/js/src/jit/shared/Bas
 diff --git a/js/src/shell/js.cpp b/js/src/shell/js.cpp
 --- a/js/src/shell/js.cpp
 +++ b/js/src/shell/js.cpp
-@@ -5129,16 +5129,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
+@@ -5177,16 +5177,25 @@ ProcessArgs(JSContext *cx, JSObject *obj
  
      useCount = op->getIntOption("baseline-uses-before-compile");
      if (useCount >= 0)
-         ion::js_IonOptions.baselineUsesBeforeCompile = useCount;
+         jit::js_IonOptions.baselineUsesBeforeCompile = useCount;
  
      if (op->getBoolOption("baseline-eager"))
-         ion::js_IonOptions.baselineUsesBeforeCompile = 0;
+         jit::js_IonOptions.baselineUsesBeforeCompile = 0;
  
 +    if (const char *str = op->getStringOption("branch-profiling")) {
 +        if (strcmp(str, "off") == 0)
-+            ion::js_IonOptions.baselineBranchProfiling = false;
++            jit::js_IonOptions.baselineBranchProfiling = false;
 +        else if (strcmp(str, "on") == 0)
-+            ion::js_IonOptions.baselineBranchProfiling = true;
++            jit::js_IonOptions.baselineBranchProfiling = true;
 +        else
 +            return OptionFailure("branch-profiling", str);
 +    }
 +
      if (const char *str = op->getStringOption("ion-regalloc")) {
          if (strcmp(str, "lsra") == 0)
-             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_LSRA;
+             jit::js_IonOptions.registerAllocator = jit::RegisterAllocator_LSRA;
          else if (strcmp(str, "backtracking") == 0)
-             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Backtracking;
+             jit::js_IonOptions.registerAllocator = jit::RegisterAllocator_Backtracking;
          else if (strcmp(str, "stupid") == 0)
-             ion::js_IonOptions.registerAllocator = ion::RegisterAllocator_Stupid;
+             jit::js_IonOptions.registerAllocator = jit::RegisterAllocator_Stupid;
          else
-@@ -5396,16 +5405,18 @@ main(int argc, char **argv, char **envp)
+@@ -5444,16 +5453,18 @@ main(int argc, char **argv, char **envp)
          || !op.addIntOption('\0', "ion-uses-before-compile", "COUNT",
                              "Wait for COUNT calls or iterations before compiling "
                              "(default: 1000)", -1)
