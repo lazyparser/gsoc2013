@@ -13,6 +13,8 @@ All comments are welcome!
 
 [Bug 901221 - IonMonkey: Reorder LIR blocks based on branch profiling data](https://bugzilla.mozilla.org/show_bug.cgi?id=901221)
 
+[Bug 906418 - IonMonkey: Decouple the stack state from graph traversal order of LIR blocks](https://bugzilla.mozilla.org/show_bug.cgi?id=906418)
+
 ### Reports
 
 [Benefit Analysis](https://github.com/lazyparser/gsoc2013/blob/master/benefit_analysis.md)
