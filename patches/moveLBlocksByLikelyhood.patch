@@ -5,7 +5,7 @@
 diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 --- a/js/src/jit/CodeGenerator.cpp
 +++ b/js/src/jit/CodeGenerator.cpp
-@@ -944,17 +944,18 @@ CodeGenerator::visitReturn(LReturn *lir)
+@@ -944,17 +944,17 @@ CodeGenerator::visitReturn(LReturn *lir)
      DebugOnly<LAllocation *> payload = lir->getOperand(PAYLOAD_INDEX);
      JS_ASSERT(ToRegister(type)    == JSReturnReg_Type);
      JS_ASSERT(ToRegister(payload) == JSReturnReg_Data);
@@ -15,7 +15,6 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
  #endif
      // Don't emit a jump to the return label if this is the last block.
 -    if (current->mir() != *gen->graph().poBegin())
-+    // if (current->mir() != *gen->graph().poBegin())
 +    if (current != graph.getBlock(graph.numBlocks() - 1))
          masm.jump(&returnLabel_);
      return true;
@@ -25,25 +24,6 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
  CodeGenerator::visitOsrEntry(LOsrEntry *lir)
  {
      // Remember the OSR entry offset into the code buffer.
-@@ -2672,18 +2673,16 @@ CodeGenerator::generateBody()
- 
- #if defined(JS_ION_PERF)
-         perfSpewer->startBasicBlock(current->mir(), masm);
- #endif
- 
-         // QUESTION: Should we pop out these fake slots
-         // when we leave the LBlock?
-         size_t numArgumentsOrig = pushedArgumentSlots_.length();
--        IonSpew(IonSpew_BranchProfiles,"codegen pushArguments: %u -> %u",
--                numArgumentsOrig, current->pushedArguments.length());
-         for (size_t i = numArgumentsOrig; i < current->pushedArguments.length(); i++) {
-             if (pushedArgumentSlots_.append(current->pushedArguments[i]))
-                 return false;
-         }
- 
-         for (; iter != current->end(); iter++) {
-             IonSpew(IonSpew_Codegen, "instruction %s", iter->opName());
- 
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
