@@ -1,0 +1,357 @@
+# HG changeset patch
+# Parent 5819548685255de0ab0d444403f54784a6439e29
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
+--- a/js/src/jit/CodeGenerator.cpp
++++ b/js/src/jit/CodeGenerator.cpp
+@@ -944,17 +944,18 @@ CodeGenerator::visitReturn(LReturn *lir)
+     DebugOnly<LAllocation *> payload = lir->getOperand(PAYLOAD_INDEX);
+     JS_ASSERT(ToRegister(type)    == JSReturnReg_Type);
+     JS_ASSERT(ToRegister(payload) == JSReturnReg_Data);
+ #elif defined(JS_PUNBOX64)
+     DebugOnly<LAllocation *> result = lir->getOperand(0);
+     JS_ASSERT(ToRegister(result) == JSReturnReg);
+ #endif
+     // Don't emit a jump to the return label if this is the last block.
+-    if (current->mir() != *gen->graph().poBegin())
++    // if (current->mir() != *gen->graph().poBegin())
++    if (current != graph.getBlock(graph.numBlocks() - 1))
+         masm.jump(&returnLabel_);
+     return true;
+ }
+ 
+ bool
+ CodeGenerator::visitOsrEntry(LOsrEntry *lir)
+ {
+     // Remember the OSR entry offset into the code buffer.
+@@ -2672,18 +2673,16 @@ CodeGenerator::generateBody()
+ 
+ #if defined(JS_ION_PERF)
+         perfSpewer->startBasicBlock(current->mir(), masm);
+ #endif
+ 
+         // QUESTION: Should we pop out these fake slots
+         // when we leave the LBlock?
+         size_t numArgumentsOrig = pushedArgumentSlots_.length();
+-        IonSpew(IonSpew_BranchProfiles,"codegen pushArguments: %u -> %u",
+-                numArgumentsOrig, current->pushedArguments.length());
+         for (size_t i = numArgumentsOrig; i < current->pushedArguments.length(); i++) {
+             if (pushedArgumentSlots_.append(current->pushedArguments[i]))
+                 return false;
+         }
+ 
+         for (; iter != current->end(); iter++) {
+             IonSpew(IonSpew_Codegen, "instruction %s", iter->opName());
+ 
+diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
+--- a/js/src/jit/Ion.cpp
++++ b/js/src/jit/Ion.cpp
+@@ -1492,16 +1492,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+         return NULL;
+ 
+     if (mir->compilingAsmJS()) {
+         if (!codegen->generateAsmJS()) {
+             js_delete(codegen);
+             return NULL;
+         }
+     } else {
++        if (js_IonOptions.moveUnlikelyBlocks) {
++            if (!MoveUnlikelyBlocks(mir, lir)) {
++                js_delete(codegen);
++                return NULL;
++            }
++            IonSpewPass("Move Unlikely Blocks");
++        }
++
+         if (!codegen->generate()) {
+             js_delete(codegen);
+             return NULL;
+         }
+     }
+ 
+     return codegen;
+ }
+diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
+--- a/js/src/jit/Ion.h
++++ b/js/src/jit/Ion.h
+@@ -196,21 +196,31 @@ struct IonOptions
+     //
+     // Default: 1
+     uint32_t usesBeforeCompilePar;
+ 
+     // Whether baseline scripts are instrumented.
+     //
+     // Default: false
+     bool baselineBranchProfiling;
+-   
++
++    // Toggles whether LIR Blocks are reordered based on branch profiles.
++    //
++    // Default: true iff baselineBranchProfiling is true.
++    bool moveUnlikelyBlocks;
++
+     void setEagerCompilation() {
+         eagerCompilation = true;
+         usesBeforeCompile = 0;
+         baselineUsesBeforeCompile = 0;
++
++        // Disable branch profiling and related optimizitions.
++        // This is for testing only.
++        baselineBranchProfiling = false;
++        moveUnlikelyBlocks = false;
+     }
+ 
+     IonOptions()
+       : gvn(true),
+         gvnIsOptimistic(true),
+         licm(true),
+         osr(true),
+         limitScriptSize(true),
+@@ -235,17 +245,20 @@ struct IonOptions
+         maxInlineDepth(3),
+         smallFunctionMaxInlineDepth(10),
+         smallFunctionMaxBytecodeLength(100),
+         polyInlineMax(4),
+         inlineMaxTotalBytecodeLength(1000),
+         inlineUseCountRatio(128),
+         eagerCompilation(false),
+         usesBeforeCompilePar(1),
+-        baselineBranchProfiling(false)
++        // these modifications are for test only.
++        // it will not be included in the final patch.
++        baselineBranchProfiling(true),
++        moveUnlikelyBlocks(true)
+     {
+     }
+ 
+     uint32_t usesBeforeInlining() {
+         return usesBeforeCompile * usesBeforeInliningFactor;
+     }
+ };
+ 
+diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
+--- a/js/src/jit/IonAnalysis.cpp
++++ b/js/src/jit/IonAnalysis.cpp
+@@ -133,16 +133,98 @@ jit::AttachBranchProfiles(MIRGenerator *
+         // It happens when there are inlined functions in successors.
+         if (sum <= pred->getBlockUseCount())
+             block->setBlockUseCount(pred->getBlockUseCount() - sum);
+         else
+             block->setBlockUseCount(pred->getBlockUseCount() / 2);
+     }
+     return true;
+ }
++bool
++jit::MoveUnlikelyBlocks(MIRGenerator *mir, LIRGraph *lir)
++{
++    MIRGraph &mgraph = lir->mir();
++    mgraph.unmarkBlocks();
++    Vector<MBasicBlock *, 8, SystemAllocPolicy> worklist;
++    MBasicBlock *entryBlock = mgraph.entryBlock();
++    entryBlock->mark();
++    worklist.append(entryBlock);
++
++    while (worklist.length()) {
++        MBasicBlock *block = worklist.popCopy();
++
++        if (!block->isMarked()) {
++            if (block->isLoopHeader() || block->isLoopBackedge()) {
++                block->mark();
++                worklist.append(block);
++            } else if (!block->isBlockUseCountAvailable() && block->immediateDominator()->isMarked()) {
++                block->mark();
++                worklist.append(block);
++            } else {
++                for (size_t i = 0; i < block->numPredecessors(); i++) {
++                    if (block->loopDepth() < block->getPredecessor(i)->loopDepth()) {
++                        if (block->loopHeader() && block->loopHeader()->loopPredecessor()) {
++                            if (block->loopHeader()->loopPredecessor()->isMarked()) {
++                                block->mark();
++                                worklist.append(block);
++                                break;
++                            }
++                        }
++                    }
++                }
++            }
++        }
++
++        if (block->isMarked()) {
++            if (block->numSuccessors() == 1) {
++                MBasicBlock *succ = block->getSuccessor(0);
++                if (!succ->isMarked()) {
++                    succ->mark();
++                    worklist.append(succ);
++                }
++            } else if (block->numSuccessors() > 1) {
++                uint32_t sum = 0;
++                for (size_t i = 0; i < block->numSuccessors(); i++) {
++                    MBasicBlock *succ = block->getSuccessor(i);
++                    if (succ->isBlockUseCountAvailable())
++                        sum += succ->getBlockUseCount();
++                }
++                for (size_t i = 0; i < block->numSuccessors(); i++) {
++                    MBasicBlock *succ = block->getSuccessor(i);
++                    if (!succ->isMarked())
++                        worklist.append(succ);
++                    if (succ->isBlockUseCountAvailable() && succ->getBlockUseCount() > 0.05 * sum / block->numSuccessors())
++                        succ->mark();
++                }
++            }
++        }
++        IonSpew(IonSpew_BranchProfiles,
++                "MoveUnlikelyBlocks worklist.length = %u",
++                worklist.length());
++    }
++
++    LBlockVector likelyBlocks;
++    LBlockVector unlikelyBlocks;
++
++    for (MBasicBlockIterator iter(mgraph.begin()); iter != mgraph.end(); iter++) {
++        if (iter->isMarked())
++            likelyBlocks.append(iter->lir());
++        else
++            unlikelyBlocks.append(iter->lir());
++    }
++    IonSpew(IonSpew_BranchProfiles,
++            "MoveUnlikelyBlocks likely = %u, unlikely = %u @ %s:%d",
++            likelyBlocks.length(), unlikelyBlocks.length(),
++            mir->info().script()->filename(), mir->info().lineno());
++
++
++    lir->replaceBlocksByLikelyhood(likelyBlocks, unlikelyBlocks);
++
++    return true;
++}
+ 
+ // Operands to a resume point which are dead at the point of the resume can be
+ // replaced with undefined values. This analysis supports limited detection of
+ // dead operands, pruning those which are defined in the resume point's basic
+ // block and have no uses outside the block or at points later than the resume
+ // point.
+ //
+ // This is intended to ensure that extra resume points within a basic block
+diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
+--- a/js/src/jit/IonAnalysis.h
++++ b/js/src/jit/IonAnalysis.h
+@@ -68,16 +68,19 @@ bool
+ EliminateRedundantChecks(MIRGraph &graph);
+ 
+ bool
+ UnsplitEdges(LIRGraph *lir);
+ 
+ bool
+ PropagatePushedArguments(LIRGraph *lir);
+ 
++bool
++MoveUnlikelyBlocks(MIRGenerator *mir, LIRGraph *lir);
++
+ class MDefinition;
+ 
+ // Simple linear sum of the form 'n' or 'x + n'.
+ struct SimpleLinearSum
+ {
+     MDefinition *term;
+     int32_t constant;
+ 
+diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
+--- a/js/src/jit/LIR.cpp
++++ b/js/src/jit/LIR.cpp
+@@ -47,16 +47,54 @@ LIRGraph::noteNeedsSafepoint(LInstructio
+ }
+ 
+ void
+ LIRGraph::removeBlock(size_t i)
+ {
+     blocks_.erase(blocks_.begin() + i);
+ }
+ 
++void
++LIRGraph::replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks)
++{
++    mozilla::DebugOnly<size_t> num = numBlocks();
++    JS_ASSERT(num == likelyBlocks.length() + unlikelyBlocks.length());
++    JS_ASSERT(getBlock(0) == likelyBlocks[0]);
++
++    // Just return if there are no blocks should be moved.
++    if (!unlikelyBlocks.length())
++        return;
++
++    blocks_.clear();
++
++    mozilla::DebugOnly<bool> success;
++    success = blocks_.appendAll(likelyBlocks);
++    JS_ASSERT(success);
++    success = blocks_.appendAll(unlikelyBlocks);
++    JS_ASSERT(success);
++
++    JS_ASSERT(num == numBlocks());
++
++    renumberMBlocks();
++}
++
++bool
++LIRGraph::renumberMBlocks()
++{
++    IonSpew(IonSpew_BranchProfiles, "Entering LIRGraph::renumberMBlocks()");
++    for (size_t i = 0; i < numBlocks(); i++) {
++        MBasicBlock *block = getBlock(i)->mir();
++        JS_ASSERT(block);
++        IonSpew(IonSpew_BranchProfiles, "LBlock.MBlock.id: %d -> %d", block->id(), i);
++        block->setId(i);
++    }
++
++    return true;
++}
++
+ Label *
+ LBlock::label()
+ {
+     return begin()->toLabel()->label();
+ }
+ 
+ uint32_t
+ LBlock::firstId()
+diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
+--- a/js/src/jit/LIR.h
++++ b/js/src/jit/LIR.h
+@@ -724,16 +724,17 @@ class LInstructionVisitor
+   public:
+ #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
+     LIR_OPCODE_LIST(VISIT_INS)
+ #undef VISIT_INS
+ };
+ 
+ typedef InlineList<LInstruction>::iterator LInstructionIterator;
+ typedef InlineList<LInstruction>::reverse_iterator LInstructionReverseIterator;
++typedef Vector<LBlock *, 4, SystemAllocPolicy> LBlockVector;
+ 
+ class LPhi;
+ class LMoveGroup;
+ class LBlock : public TempObject
+ {
+     MBasicBlock *block_;
+     Vector<LPhi *, 4, IonAllocPolicy> phis_;
+     InlineList<LInstruction> instructions_;
+@@ -1439,16 +1440,20 @@ class LIRGraph
+     }
+     size_t numSafepoints() const {
+         return safepoints_.length();
+     }
+     LInstruction *getSafepoint(size_t i) const {
+         return safepoints_[i];
+     }
+     void removeBlock(size_t i);
++
++    void replaceBlocksByLikelyhood(LBlockVector &likelyBlocks, LBlockVector &unlikelyBlocks);
++
++    bool renumberMBlocks();
+ };
+ 
+ LAllocation::LAllocation(const AnyRegister &reg)
+ {
+     if (reg.isFloat())
+         *this = LFloatReg(reg.fpu());
+     else
+         *this = LGeneralReg(reg.gpr());
