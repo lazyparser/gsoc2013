@@ -113,7 +113,7 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -133,16 +133,98 @@ jit::AttachBranchProfiles(MIRGenerator *
+@@ -133,16 +133,106 @@ jit::AttachBranchProfiles(MIRGenerator *
          // It happens when there are inlined functions in successors.
          if (sum <= pred->getBlockUseCount())
              block->setBlockUseCount(pred->getBlockUseCount() - sum);
@@ -125,64 +125,72 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +bool
 +jit::MoveUnlikelyBlocks(MIRGenerator *mir, LIRGraph *lir)
 +{
++    JS_ASSERT(!mir->compilingAsmJS());
 +    MIRGraph &mgraph = lir->mir();
 +    mgraph.unmarkBlocks();
 +    Vector<MBasicBlock *, 8, SystemAllocPolicy> worklist;
++
 +    MBasicBlock *entryBlock = mgraph.entryBlock();
++    JS_ASSERT(entryBlock);
 +    entryBlock->mark();
 +    worklist.append(entryBlock);
 +
++    MBasicBlock *osrBlock = mgraph.osrBlock();
++    if (osrBlock)
++        worklist.append(osrBlock);
++
 +    while (worklist.length()) {
 +        MBasicBlock *block = worklist.popCopy();
++        if (!block->numSuccessors())
++            continue;
 +
-+        if (!block->isMarked()) {
-+            if (block->isLoopHeader() || block->isLoopBackedge()) {
-+                block->mark();
-+                worklist.append(block);
-+            } else if (!block->isBlockUseCountAvailable() && block->immediateDominator()->isMarked()) {
-+                block->mark();
-+                worklist.append(block);
-+            } else {
-+                for (size_t i = 0; i < block->numPredecessors(); i++) {
-+                    if (block->loopDepth() < block->getPredecessor(i)->loopDepth()) {
-+                        if (block->loopHeader() && block->loopHeader()->loopPredecessor()) {
-+                            if (block->loopHeader()->loopPredecessor()->isMarked()) {
-+                                block->mark();
-+                                worklist.append(block);
-+                                break;
-+                            }
-+                        }
-+                    }
-+                }
++        if (block->numSuccessors() == 1) {
++            MBasicBlock *succ = block->getSuccessor(0);
++            if (!succ->isMarked()) {
++                succ->mark();
++                worklist.append(succ);
 +            }
++            continue;
 +        }
-+
-+        if (block->isMarked()) {
-+            if (block->numSuccessors() == 1) {
-+                MBasicBlock *succ = block->getSuccessor(0);
++        uint32_t sum = 0;
++        for (size_t i = 0; i < block->numSuccessors(); i++) {
++            MBasicBlock *succ = block->getSuccessor(i);
++            if (succ->isBlockUseCountAvailable())
++                sum += succ->getBlockUseCount();
++        }
++        // Branches should not be moved, if the total execution
++        //
++        if (sum < 300 && block->isMarked()) {
++            for (size_t i = 0; i < block->numSuccessors(); i++) {
++                MBasicBlock *succ = block->getSuccessor(i);
 +                if (!succ->isMarked()) {
 +                    succ->mark();
 +                    worklist.append(succ);
 +                }
-+            } else if (block->numSuccessors() > 1) {
-+                uint32_t sum = 0;
-+                for (size_t i = 0; i < block->numSuccessors(); i++) {
-+                    MBasicBlock *succ = block->getSuccessor(i);
-+                    if (succ->isBlockUseCountAvailable())
-+                        sum += succ->getBlockUseCount();
-+                }
-+                for (size_t i = 0; i < block->numSuccessors(); i++) {
-+                    MBasicBlock *succ = block->getSuccessor(i);
-+                    if (!succ->isMarked())
-+                        worklist.append(succ);
-+                    if (succ->isBlockUseCountAvailable() && succ->getBlockUseCount() > 0.05 * sum / block->numSuccessors())
++            }
++            continue;
++        }
++        for (size_t i = 0; i < block->numSuccessors(); i++) {
++            MBasicBlock *succ = block->getSuccessor(i);
++            if (succ->isMarked())
++                continue;
++            if (block->info().script() != succ->info().script() ||
++                    !succ->isBlockUseCountAvailable() ||
++                    succ->getBlockUseCount() > 0.01 * sum / block->numSuccessors() ||
++                    succ->isLoopHeader() ||
++                    succ->isLoopBackedge()) {
++                succ->mark();
++                worklist.append(succ);
++            } else {
++                for (size_t i = 0; i < block->numPredecessors(); i++) {
++                    if (block->loopDepth() < block->getPredecessor(i)->loopDepth() &&
++                            block->immediateDominator()->isMarked()) {
 +                        succ->mark();
++                        worklist.append(succ);
++                    }
 +                }
 +            }
 +        }
-+        IonSpew(IonSpew_BranchProfiles,
-+                "MoveUnlikelyBlocks worklist.length = %u",
-+                worklist.length());
 +    }
 +
 +    LBlockVector likelyBlocks;
