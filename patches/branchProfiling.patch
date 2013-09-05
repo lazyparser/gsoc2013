@@ -545,7 +545,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
      // No spew: graph not changed.
  
 +    if (js_IonOptions.baselineBranchProfiling && !mir->compilingAsmJS()) {
-+        if (!AttachBranchProfiles(graph))
++        if (!AttachBranchProfiles(mir, graph))
 +            return false;
 +        IonSpewPass("Attach Branch Profiles");
 +        AssertGraphCoherency(graph);
@@ -676,7 +676,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  
  // A critical edge is an edge which is neither its successor's only predecessor
  // nor its predecessor's only successor. Critical edges must be split to
-@@ -38,16 +40,92 @@ jit::SplitCriticalEdges(MIRGraph &graph)
+@@ -38,16 +40,110 @@ jit::SplitCriticalEdges(MIRGraph &graph)
  
              block->replaceSuccessor(i, split);
              target->replacePredecessor(*block, split);
@@ -685,20 +685,16 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
      return true;
  }
  
-+// NOTE: MIRGraph::numScripts() is no longer available.
-+//inline bool
-+//jit::isAsmJSCompilation(MIRGraph &graph)
-+//{
-+//    return graph.numScripts() == 0;
-+//}
-+
 +bool
-+jit::AttachBranchProfiles(MIRGraph &graph)
++jit::AttachBranchProfiles(MIRGenerator *mir, MIRGraph &graph)
 +{
 +    // Forbid AsmJS optimization as OdinMonkey is an ahead of time compiler
 +    // and we do not have any profiled information.
-+//    JS_ASSERT(!isAsmJSCompilation(graph));
++    JS_ASSERT(!mir->compilingAsmJS());
 +
++    JSScript *originalScript = mir->info().script();
++    JS_ASSERT(originalScript);
++    Vector<MBasicBlock *, 0, SystemAllocPolicy> splitEdges;
 +    for (MBasicBlockIterator block(graph.begin()); block != graph.end(); block++) {
 +        CompileInfo &info = block->info();
 +        jsbytecode *code = info.startPC();
@@ -724,39 +720,61 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +            JS_ASSERT(JSOp(*pc) == JSOP_LOOPHEAD);
 +        }
 +
++        // a split edge shares the pc with its unique predecessor
++        if (block->isSplitEdge()) {
++            splitEdges.append(*block);
++            continue;
++        }
++
 +        // Since the value of numCounters is usually less than 10,
 +        // the linear search algorithm is fast enough.
 +        // We can switch to binary search if necessary.
 +        size_t numCounters = blscript->numBlockCounters();
 +        size_t pcOffset = pc - code;
-+        size_t i = 0;
-+        for (; i < numCounters; i++) {
++        for (size_t i = 0; i < numCounters; i++) {
 +            BlockCounterEntry entry = blscript->blockCounterEntry(i);
 +            if (entry.pcOffset == pcOffset) {
-+                block->setBlockUseCount(entry.counter);
++                double factor = 1.0;
++                if (jsscript->getUseCount())
++                    factor = originalScript->getUseCount() / jsscript->getUseCount();
++                block->setBlockUseCount(entry.counter * factor);
 +                IonSpew(IonSpew_BranchProfiles,
 +                        "AttachBranchProfiles match jsscript(%p) offset %d -> block %d",
 +                        jsscript, i, block->id());
 +                break;
 +            }
 +        }
-+        if (i == numCounters) {
-+            if (block->numPredecessors() == 1) {
-+                MBasicBlock *pred = block->getPredecessor(0);
-+                if (pred->numSuccessors() == 1) {
-+                    if (pred->isBlockUseCountAvailable()) {
-+                        block->setBlockUseCount(pred->getBlockUseCount());
-+                        IonSpew(IonSpew_BranchProfiles,
-+                                "AttachBranchProfiles copy pred %d -> block %d",
-+                                pred->id(), block->id());
-+                        continue;
-+                    }
-+                }
++        if (!block->isBlockUseCountAvailable()) {
++            MBasicBlock *dom = block->immediateDominator();
++            JS_ASSERT(dom);
++            if (dom->isBlockUseCountAvailable()) {
++                block->setBlockUseCount(dom->getBlockUseCount());
++                IonSpew(IonSpew_BranchProfiles,
++                        "AttachBranchProfiles copy pred %d -> block %d",
++                        dom->id(), block->id());
 +            }
++        }
++        if (!block->isBlockUseCountAvailable())
 +            IonSpew(IonSpew_BranchProfiles,
 +                    "AttachBranchProfiles mismatch jsscript(%p) -> block %d",
 +                    jsscript, block->id());
++    }
++
++    while (splitEdges.length()) {
++        MBasicBlock *block = splitEdges.popCopy();
++        JS_ASSERT(block->numPredecessors() == 1);
++        MBasicBlock *pred = block->getPredecessor(0);
++        uint32_t sum = 0;
++        for (size_t i = 0; i < pred->numSuccessors(); i++) {
++            MBasicBlock *succ = pred->getSuccessor(i);
++            if (succ != block && succ->isBlockUseCountAvailable())
++                sum += succ->getBlockUseCount();
 +        }
++        // It happens when there are inlined functions in successors.
++        if (sum <= pred->getBlockUseCount())
++            block->setBlockUseCount(pred->getBlockUseCount() - sum);
++        else
++            block->setBlockUseCount(pred->getBlockUseCount() / 2);
 +    }
 +    return true;
 +}
@@ -782,7 +800,7 @@ diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
  SplitCriticalEdges(MIRGraph &graph);
  
 +bool
-+AttachBranchProfiles(MIRGraph &graph);
++AttachBranchProfiles(MIRGenerator *mir, MIRGraph &graph);
 +
 +// NOTE: MIRGraph::numScripts() is no longer available.
 +// Use MIRGenerator::compilingAsmJS() instead.
