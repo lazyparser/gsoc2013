@@ -113,7 +113,7 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -133,16 +133,106 @@ jit::AttachBranchProfiles(MIRGenerator *
+@@ -133,16 +133,104 @@ jit::AttachBranchProfiles(MIRGenerator *
          // It happens when there are inlined functions in successors.
          if (sum <= pred->getBlockUseCount())
              block->setBlockUseCount(pred->getBlockUseCount() - sum);
@@ -158,8 +158,6 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +            if (succ->isBlockUseCountAvailable())
 +                sum += succ->getBlockUseCount();
 +        }
-+        // Branches should not be moved, if the total execution
-+        //
 +        if (sum < 300 && block->isMarked()) {
 +            for (size_t i = 0; i < block->numSuccessors(); i++) {
 +                MBasicBlock *succ = block->getSuccessor(i);
