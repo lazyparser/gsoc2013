@@ -61,7 +61,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -1607,16 +1607,45 @@ ion::UnsplitEdges(LIRGraph *lir)
+@@ -1607,16 +1607,45 @@ jit::UnsplitEdges(LIRGraph *lir)
          lir->mir().removeBlock(mirBlock);
          --i;
      }
@@ -70,7 +70,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  }
  
  bool
-+ion::PropagatePushedArguments(LIRGraph *lir)
++jit::PropagatePushedArguments(LIRGraph *lir)
 +{
 +    js::Vector<uint32_t, 0, SystemAllocPolicy> pushedArguments;
 +    for (size_t i = 0; i < lir->numBlocks(); i++) {
