@@ -1,11 +1,11 @@
 # HG changeset patch
-# Parent 5819548685255de0ab0d444403f54784a6439e29
+# Parent fcec9ae54be3fe229b6cd478d8a5b3e963c8126c
 # User Wei Wu <lazyparser@gmail.com>
 
 diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 --- a/js/src/jit/CodeGenerator.cpp
 +++ b/js/src/jit/CodeGenerator.cpp
-@@ -944,17 +944,17 @@ CodeGenerator::visitReturn(LReturn *lir)
+@@ -983,17 +983,17 @@ CodeGenerator::visitReturn(LReturn *lir)
      DebugOnly<LAllocation *> payload = lir->getOperand(PAYLOAD_INDEX);
      JS_ASSERT(ToRegister(type)    == JSReturnReg_Type);
      JS_ASSERT(ToRegister(payload) == JSReturnReg_Data);
@@ -27,7 +27,7 @@ diff --git a/js/src/jit/CodeGenerator.cpp b/js/src/jit/CodeGenerator.cpp
 diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 --- a/js/src/jit/Ion.cpp
 +++ b/js/src/jit/Ion.cpp
-@@ -1492,16 +1492,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
+@@ -1479,16 +1479,24 @@ GenerateCode(MIRGenerator *mir, LIRGraph
          return NULL;
  
      if (mir->compilingAsmJS()) {
@@ -55,7 +55,7 @@ diff --git a/js/src/jit/Ion.cpp b/js/src/jit/Ion.cpp
 diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 --- a/js/src/jit/Ion.h
 +++ b/js/src/jit/Ion.h
-@@ -196,21 +196,31 @@ struct IonOptions
+@@ -196,21 +196,41 @@ struct IonOptions
      //
      // Default: 1
      uint32_t usesBeforeCompilePar;
@@ -68,15 +68,25 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 +
 +    // Toggles whether LIR Blocks are reordered based on branch profiles.
 +    //
-+    // Default: true iff baselineBranchProfiling is true.
++    // Default: true if baselineBranchProfiling is true.
 +    bool moveUnlikelyBlocks;
++
++    // How many iterations should be profiled before we move LBlocks.
++    //
++    // Default: 300
++    uint32_t unlikelyBlockUseCountThreshold;
++
++    // A branch is marked 'unlikely' if its execution probability is lower than this ratio.
++    //
++    // Default: 0.05
++    double unlikelyBlockUseCountRatio;
 +
      void setEagerCompilation() {
          eagerCompilation = true;
          usesBeforeCompile = 0;
          baselineUsesBeforeCompile = 0;
 +
-+        // Disable branch profiling and related optimizitions.
++        // Disable branch profiling and related optimizations.
 +        // This is for testing only.
 +        baselineBranchProfiling = false;
 +        moveUnlikelyBlocks = false;
@@ -88,7 +98,7 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
          licm(true),
          osr(true),
          limitScriptSize(true),
-@@ -235,17 +245,20 @@ struct IonOptions
+@@ -235,17 +255,21 @@ struct IonOptions
          maxInlineDepth(3),
          smallFunctionMaxInlineDepth(10),
          smallFunctionMaxBytecodeLength(100),
@@ -97,11 +107,12 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
          inlineUseCountRatio(128),
          eagerCompilation(false),
          usesBeforeCompilePar(1),
--        baselineBranchProfiling(false)
-+        // these modifications are for test only.
-+        // it will not be included in the final patch.
+-        baselineBranchProfiling(true)
++        // Enabled by default for testing purpose.
 +        baselineBranchProfiling(true),
-+        moveUnlikelyBlocks(true)
++        moveUnlikelyBlocks(true),
++        unlikelyBlockUseCountThreshold(300),
++        unlikelyBlockUseCountRatio(0.05)
      {
      }
  
@@ -113,19 +124,22 @@ diff --git a/js/src/jit/Ion.h b/js/src/jit/Ion.h
 diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 --- a/js/src/jit/IonAnalysis.cpp
 +++ b/js/src/jit/IonAnalysis.cpp
-@@ -133,16 +133,104 @@ jit::AttachBranchProfiles(MIRGenerator *
-         // It happens when there are inlined functions in successors.
-         if (sum <= pred->getBlockUseCount())
-             block->setBlockUseCount(pred->getBlockUseCount() - sum);
-         else
-             block->setBlockUseCount(pred->getBlockUseCount() / 2);
+@@ -279,16 +279,138 @@ jit::AttachBranchProfiles(MIRGenerator *
+                     "AttachBranchProfiles mismatch jsscript(%p) -> block %d",
+                     block->info().script(), block->id(), block->pc() - block->info().startPC());
+         }
      }
+ #endif
      return true;
  }
+ 
 +bool
 +jit::MoveUnlikelyBlocks(MIRGenerator *mir, LIRGraph *lir)
 +{
++    // Forbid AsmJS optimization as OdinMonkey is an ahead of time compiler
++    // and we do not have any profiled information.
 +    JS_ASSERT(!mir->compilingAsmJS());
++
 +    MIRGraph &mgraph = lir->mir();
 +    mgraph.unmarkBlocks();
 +    Vector<MBasicBlock *, 8, SystemAllocPolicy> worklist;
@@ -133,72 +147,102 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +    MBasicBlock *entryBlock = mgraph.entryBlock();
 +    JS_ASSERT(entryBlock);
 +    entryBlock->mark();
-+    worklist.append(entryBlock);
++    if (!worklist.append(entryBlock))
++        return false;
 +
 +    MBasicBlock *osrBlock = mgraph.osrBlock();
 +    if (osrBlock)
-+        worklist.append(osrBlock);
++        if (!worklist.append(osrBlock))
++            return false;
++
++    const uint32_t useCountThreshold = js_IonOptions.unlikelyBlockUseCountThreshold;
 +
 +    while (worklist.length()) {
 +        MBasicBlock *block = worklist.popCopy();
-+        if (!block->numSuccessors())
++        JS_ASSERT(block);
++        size_t numSucc = block->numSuccessors();
++        JSScript *jsscript = block->info().script();
++
++        if (numSucc == 0)
 +            continue;
 +
-+        if (block->numSuccessors() == 1) {
++        // If the block has only one successor, then the successor will definitely be executed.
++        if (numSucc == 1) {
 +            MBasicBlock *succ = block->getSuccessor(0);
 +            if (!succ->isMarked()) {
 +                succ->mark();
-+                worklist.append(succ);
++                if (!worklist.append(succ))
++                    return false;
 +            }
 +            continue;
 +        }
 +        uint32_t sum = 0;
-+        for (size_t i = 0; i < block->numSuccessors(); i++) {
++        for (size_t i = 0; i < numSucc; i++) {
 +            MBasicBlock *succ = block->getSuccessor(i);
 +            if (succ->isBlockUseCountAvailable())
 +                sum += succ->getBlockUseCount();
 +        }
-+        if (sum < 300 && block->isMarked()) {
-+            for (size_t i = 0; i < block->numSuccessors(); i++) {
++
++        // If the iterations we have seen is less than the default threshold, e.g.
++        // less than 300 iterations, we do not have enough samples to make any wise choice.
++        // In this case we just assume that all successors are likely.
++        //
++        // Currently the successors of the basic block which has 'TableSwitch' or
++        // 'CondSwitch' as its last instruction do not have correct profiles,
++        // so we assume that all successors are likely.
++        if (sum < useCountThreshold || block->lastIns()->isTableSwitch()) {
++            for (size_t i = 0; i < numSucc; i++) {
 +                MBasicBlock *succ = block->getSuccessor(i);
 +                if (!succ->isMarked()) {
 +                    succ->mark();
-+                    worklist.append(succ);
++                    if (!worklist.append(succ))
++                        return false;
 +                }
 +            }
 +            continue;
 +        }
-+        for (size_t i = 0; i < block->numSuccessors(); i++) {
++
++        const double branchLikelyRatio = js_IonOptions.unlikelyBlockUseCountRatio * sum / numSucc;
++        for (size_t i = 0; i < numSucc; i++) {
 +            MBasicBlock *succ = block->getSuccessor(i);
 +            if (succ->isMarked())
 +                continue;
-+            if (block->info().script() != succ->info().script() ||
-+                    !succ->isBlockUseCountAvailable() ||
-+                    succ->getBlockUseCount() > 0.01 * sum / block->numSuccessors() ||
-+                    succ->isLoopHeader() ||
-+                    succ->isLoopBackedge()) {
++
++            if (!succ->isBlockUseCountAvailable() ||
++                    block->loopDepth() > succ->loopDepth() ||
++                    block->isLoopHeader() ||
++                    succ->getBlockUseCount() > branchLikelyRatio) {
 +                succ->mark();
-+                worklist.append(succ);
-+            } else {
-+                for (size_t i = 0; i < block->numPredecessors(); i++) {
-+                    if (block->loopDepth() < block->getPredecessor(i)->loopDepth() &&
-+                            block->immediateDominator()->isMarked()) {
-+                        succ->mark();
-+                        worklist.append(succ);
-+                    }
-+                }
++                if (!worklist.append(succ))
++                    return false;
++                continue;
 +            }
++
++            JS_ASSERT_IF(succ->isMarked() && succ->immediateDominator(), succ->immediateDominator()->isMarked());
 +        }
++
++#ifdef DEBUG
++        // If the block is marked, then at least on successor should be marked.
++        size_t numMarked = 0;
++        for (size_t j = 0; j < numSucc; j++) {
++            if (block->getSuccessor(j)->isMarked())
++                numMarked++;
++        }
++        JS_ASSERT(numMarked);
++#endif
 +    }
 +
 +    LBlockVector likelyBlocks;
 +    LBlockVector unlikelyBlocks;
 +
 +    for (MBasicBlockIterator iter(mgraph.begin()); iter != mgraph.end(); iter++) {
-+        if (iter->isMarked())
-+            likelyBlocks.append(iter->lir());
-+        else
-+            unlikelyBlocks.append(iter->lir());
++        if (iter->isMarked()) {
++            if (!likelyBlocks.append(iter->lir()))
++                return false;
++        } else {
++            if (!unlikelyBlocks.append(iter->lir()))
++                return false;
++        }
 +    }
 +    IonSpew(IonSpew_BranchProfiles,
 +            "MoveUnlikelyBlocks likely = %u, unlikely = %u @ %s:%d",
@@ -210,7 +254,7 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
 +
 +    return true;
 +}
- 
++
  // Operands to a resume point which are dead at the point of the resume can be
  // replaced with undefined values. This analysis supports limited detection of
  // dead operands, pruning those which are defined in the resume point's basic
@@ -218,10 +262,11 @@ diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
  // point.
  //
  // This is intended to ensure that extra resume points within a basic block
+ // will not artificially extend the lifetimes of any SSA values. This could
 diff --git a/js/src/jit/IonAnalysis.h b/js/src/jit/IonAnalysis.h
 --- a/js/src/jit/IonAnalysis.h
 +++ b/js/src/jit/IonAnalysis.h
-@@ -68,16 +68,19 @@ bool
+@@ -63,16 +63,19 @@ bool
  EliminateRedundantChecks(MIRGraph &graph);
  
  bool
@@ -284,7 +329,7 @@ diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 +    for (size_t i = 0; i < numBlocks(); i++) {
 +        MBasicBlock *block = getBlock(i)->mir();
 +        JS_ASSERT(block);
-+        IonSpew(IonSpew_BranchProfiles, "LBlock.MBlock.id: %d -> %d", block->id(), i);
++        IonSpew(IonSpew_BranchProfiles, "LBlock->MBlock->id: %d -> %d", block->id(), i);
 +        block->setId(i);
 +    }
 +
@@ -302,7 +347,7 @@ diff --git a/js/src/jit/LIR.cpp b/js/src/jit/LIR.cpp
 diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
 --- a/js/src/jit/LIR.h
 +++ b/js/src/jit/LIR.h
-@@ -724,16 +724,17 @@ class LInstructionVisitor
+@@ -725,16 +725,17 @@ class LInstructionVisitor
    public:
  #define VISIT_INS(op) virtual bool visit##op(L##op *) { MOZ_ASSUME_UNREACHABLE("NYI: " #op); }
      LIR_OPCODE_LIST(VISIT_INS)
@@ -320,7 +365,7 @@ diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
      MBasicBlock *block_;
      Vector<LPhi *, 4, IonAllocPolicy> phis_;
      InlineList<LInstruction> instructions_;
-@@ -1439,16 +1440,20 @@ class LIRGraph
+@@ -1440,16 +1441,20 @@ class LIRGraph
      }
      size_t numSafepoints() const {
          return safepoints_.length();
