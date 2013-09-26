@@ -1,5 +1,5 @@
 [GSoC] Implement Branch Prediction in IonMonkey
-========
+===============================================
 
 See [proposal.md](https://github.com/lazyparser/gsoc2013/blob/master/proposal.md) to get more details.
 All comments are welcome!
@@ -14,6 +14,8 @@ All comments are welcome!
 [Bug 901221 - IonMonkey: Reorder LIR blocks based on branch profiling data](https://bugzilla.mozilla.org/show_bug.cgi?id=901221)
 
 [Bug 906418 - IonMonkey: Decouple the stack state from graph traversal order of LIR blocks](https://bugzilla.mozilla.org/show_bug.cgi?id=906418)
+
+[Bug 896783 - Make IonSpewer and IonGraph output the branch profiling data for each MBasicBlock](https://bugzilla.mozilla.org/show_bug.cgi?id=896783)
 
 ### Reports
 
