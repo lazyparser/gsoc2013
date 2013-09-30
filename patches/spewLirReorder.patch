@@ -1,0 +1,96 @@
+# HG changeset patch
+# Parent 4c31d6f3b8011b75a898c983e610ae72d8ad6430
+# User Wei Wu <lazyparser@gmail.com>
+
+diff --git a/js/src/jit/IonAnalysis.cpp b/js/src/jit/IonAnalysis.cpp
+--- a/js/src/jit/IonAnalysis.cpp
++++ b/js/src/jit/IonAnalysis.cpp
+@@ -386,16 +386,17 @@ jit::MoveUnlikelyBlocks(MIRGenerator *mi
+     LBlockVector likelyBlocks;
+     LBlockVector unlikelyBlocks;
+ 
+     for (MBasicBlockIterator iter(mgraph.begin()); iter != mgraph.end(); iter++) {
+         if (iter->isMarked()) {
+             if (!likelyBlocks.append(iter->lir()))
+                 return false;
+         } else {
++            iter->lir()->hasMoved = true;
+             if (!unlikelyBlocks.append(iter->lir()))
+                 return false;
+         }
+     }
+     IonSpew(IonSpew_BranchProfiles,
+             "MoveUnlikelyBlocks likely = %u, unlikely = %u @ %s:%d",
+             likelyBlocks.length(), unlikelyBlocks.length(),
+             mir->info().script()->filename(), mir->info().lineno());
+diff --git a/js/src/jit/JSONSpewer.cpp b/js/src/jit/JSONSpewer.cpp
+--- a/js/src/jit/JSONSpewer.cpp
++++ b/js/src/jit/JSONSpewer.cpp
+@@ -373,16 +373,19 @@ JSONSpewer::spewLIR(MIRGraph *mir)
+             continue;
+ 
+         beginObject();
+         integerProperty("number", i->id());
+ 
+         if (i->isBlockUseCountAvailable())
+             integerProperty("blockUseCount", i->getBlockUseCount());
+ 
++        if (i->lir()->hasMoved)
++            integerProperty("hasMoved", 1);
++
+         beginListProperty("instructions");
+         for (size_t p = 0; p < block->numPhis(); p++)
+             spewLIns(block->getPhi(p));
+         for (LInstructionIterator ins(block->begin()); ins != block->end(); ins++)
+             spewLIns(*ins);
+         endList();
+ 
+         endObject();
+@@ -408,16 +411,19 @@ JSONSpewer::spewIntervals(LinearScanAllo
+         LBlock *lir = regalloc->graph.getBlock(bno);
+ 
+         // Currently we don't propagate blockUseCounts to LBlock,
+         // so we use the counter of the corresponding MBasicBlock instead.
+         MBasicBlock *mir = lir->mir();
+         if (mir && mir->isBlockUseCountAvailable())
+             integerProperty("blockUseCount", mir->getBlockUseCount());
+ 
++        if (lir->hasMoved)
++            integerProperty("hasMoved", 1);
++
+         beginListProperty("vregs");
+ 
+         for (LInstructionIterator ins = lir->begin(); ins != lir->end(); ins++) {
+             for (size_t k = 0; k < ins->numDefs(); k++) {
+                 VirtualRegister *vreg = &regalloc->vregs[ins->getDef(k)->virtualRegister()];
+ 
+                 beginObject();
+                 integerProperty("vreg", vreg->id());
+diff --git a/js/src/jit/LIR.h b/js/src/jit/LIR.h
+--- a/js/src/jit/LIR.h
++++ b/js/src/jit/LIR.h
+@@ -740,21 +740,23 @@ class LBlock : public TempObject
+     Vector<LPhi *, 4, IonAllocPolicy> phis_;
+     InlineList<LInstruction> instructions_;
+     LMoveGroup *entryMoveGroup_;
+     LMoveGroup *exitMoveGroup_;
+ 
+     LBlock(MBasicBlock *block)
+       : block_(block),
+         entryMoveGroup_(NULL),
+-        exitMoveGroup_(NULL)
++        exitMoveGroup_(NULL),
++        hasMoved(false)
+     { }
+ 
+   public:
+     js::Vector<uint32_t, 0, SystemAllocPolicy> pushedArguments;
++    bool hasMoved;
+ 
+   public:
+     static LBlock *New(MBasicBlock *from) {
+         return new LBlock(from);
+     }
+     void add(LInstruction *ins) {
+         instructions_.pushBack(ins);
+     }
